@@ -34,11 +34,11 @@
 **W1™ NEXUS** is a local-first, provider-neutral autonomous intelligence discovery, benchmarking, evaluation, and certification platform.
 
 Modern AI architectures suffer from three fundamental limitations:
-1. **Model–Credential Conflation**: Frameworks naively assume `1 Model = 1 API Key`. In real enterprise environments, a single credential often entitles access to 80+ diverse models across distinct rate limits, while multiple credentials grant varying access to the same model.
-2. **Ungoverned Multi-Agent Hallucinations**: Standard multi-agent frameworks engage in unconstrained chat loops where errors cascade and consensus is merely ungrounded groupthink.
-3. **Infrastructure Failure Misattribution**: Timeout spikes or upstream gateway errors are routinely misclassified as model capability failures rather than infrastructure faults.
+1. **Model–Credential Conflation**: Frameworks naively assume `1 Model = 1 API Key`. In enterprise and multi-tenant environments, a single credential frequently entitles access to 80+ diverse models across distinct rate limits, while multiple credentials grant varying quotas to the same model family.
+2. **Ungoverned Multi-Agent Hallucinations**: Standard multi-agent frameworks engage in unconstrained chat loops where errors cascade and consensus is merely ungrounded groupthink without evidence.
+3. **Infrastructure Failure Misattribution**: Upstream network timeouts or gateway 5xx spikes are routinely misclassified as model capability failures rather than infrastructure faults.
 
-**NEXUS solves all three.** It decouples credentials from models, implements the formal **W1-CIP (Collaborative Intelligence Protocol)** governance state machine, and isolates upstream provider errors with a rigorous **12-Class Failure Taxonomy**.
+**NEXUS solves all three.** It decouples credentials from models via dynamic matrix discovery, implements the formal **W1-CIP (Collaborative Intelligence Protocol)** governance state machine, and isolates upstream provider faults with a rigorous **12-Class Failure Taxonomy**.
 
 ---
 
@@ -48,42 +48,77 @@ Modern AI architectures suffer from three fundamental limitations:
   <img src="assets/w1_cip_architecture.svg" alt="W1-CIP Architecture &amp; Lifecycle Protocol" width="100%"/>
 </p>
 
-W1™ NEXUS operates across four tightly-integrated layers:
+W1™ NEXUS operates across four tightly-integrated architectural layers:
 
-### Layer 1: Identity, Credential & Dynamic Discovery
-- **`Credential != Model` Paradigm**: Dynamic binding between credentials, provider endpoints, and model profiles.
-- **Automated Matrix Discovery**: Tests catalog visibility, non-streaming completion, streaming token flow, and structured tool invocation per credential.
-- **Zero-Leak Security Guard**: Cryptographically scrubs raw tokens, headers, and keys from all memory traces, logs, and telemetry payloads.
+### Layer 1: Identity, Credential & Dynamic Discovery Fabric
+- **The $\mathbf{Credential 
+eq Model}$ Paradigm**: Establishes complete architectural separation between authentication secrets, transport endpoints, and model capabilities.
+- **Dynamic Matrix Discovery**: Probes credentials against catalog visibility, live non-streaming inference, streaming token delivery, and structured tool calling.
+- **Zero-Leak Secret Scrubber**: Cryptographically sanitizes raw credentials, tokens, and headers across memory buffers, telemetry streams, and persistent JSONL ledgers.
 
-### Layer 2: W1-CIP Collaborative Intelligence Protocol
-The core protocol enforces a strict, deterministic, and auditable lifecycle:
+### Layer 2: W1-CIP Collaborative Intelligence Protocol Engine
+The W1-CIP protocol governs all interactions through a deterministic, auditable state machine:
 $$\mathbf{GoalContract} \longrightarrow \mathbf{TeamPlan} \longrightarrow \mathbf{Task} \longrightarrow \mathbf{Evidence} \longrightarrow \mathbf{Challenge} \longrightarrow \mathbf{FinalResult}$$
 
-1. **`GoalContract`**: Formulates explicit objectives, measurable criteria, domain constraints, and immutable hashes.
-2. **`TeamPlan`**: Assembles specialized model roles (`Lead Planner`, `Specialist Solver`, `Independent Auditor`).
-3. **`Task & Contribution`**: Distributes granular execution units with typed inputs and context boundaries.
-4. **`Evidence & Challenge`**: Models cannot simply agree; they must submit verifiable evidence or raise structured challenges with counter-proofs.
-5. **`Verification & FinalResult`**: Results are synthesized, validated against deterministic tests, and cryptographically sealed.
+```
++-----------------------------------------------------------------------------------------+
+|                                    W1-CIP LIFECYCLE                                     |
++-----------------------------------------------------------------------------------------+
+|  1. GoalContract   :: Formal intent, measurable criteria, constraints & immutable hash  |
+|  2. TeamPlan       :: Role allocation (Lead Planner, Specialist, Independent Auditor)   |
+|  3. Task           :: Granular work units bounded by typed inputs & context isolation   |
+|  4. Contribution   :: Candidate solution proposals submitted by assigned model agents   |
+|  5. Evidence       :: Grounded execution traces, test outputs & cryptographic proofs    |
+|  6. Challenge      :: Structured adversarial critique and counter-evidence submission   |
+|  7. Review         :: Multi-agent synthesis, formal assessment & resolution             |
+|  8. Verification   :: Deterministic validation against predefined ground-truth checks   |
+|  9. FinalResult    :: Attested final deliverable cryptographically sealed to the ledger |
++-----------------------------------------------------------------------------------------+
+```
 
-### Layer 3: Execution & Governance Engine
-- **Sandboxed Action Runtime**: Isolated process boundaries with memory and execution timeout ceilings.
-- **Scientific Reproducibility Loop**: Tracks hypothesis formulation, empirical test execution, and variance metrics.
-- **Immutable JSONL Ledgers**: Every evaluation step is committed to an append-only cryptographic ledger with content hashes.
+### Layer 3: Sandboxed Execution & Governance Engine
+- **Sandboxed Action Runtime**: Isolated process boundaries with strict memory caps and execution timeouts.
+- **Scientific Reproducibility Loop**: Formal hypothesis formulation, empirical test execution, and variance metrics.
+- **Immutable Audit Ledgers**: Every evaluation step is committed to an append-only JSONL ledger with content hashes.
 
 ### Layer 4: Observation, Benchmarking & Interfaces
-- **Unified CLI (`nexus` / `w1-nexus`)**: Full control from command-line.
-- **Node.js & TypeScript SDK**: Full npm distribution with schema types and validation utilities.
+- **Cross-Platform CLI (`nexus` / `w1-nexus`)**: Full command-line control for discovery, testing, and consensus.
+- **Node.js & TypeScript SDK**: Full npm distribution with typed schemas and validation utilities.
 - **Desktop & Web Workspace Console**: Live visual observation of multi-agent debate, evidence inspection, and model telemetry.
 
 ---
 
-## 📊 Empirical Benchmark Evaluation Matrix
+## 🔍 12-Class Failure Taxonomy Architecture
 
 <p align="center">
-  <img src="assets/benchmark_matrix_chart.svg" alt="NEXUS Empirical Benchmark Evaluation Matrix" width="100%"/>
+  <img src="assets/benchmark_matrix_chart.svg" alt="W1™ NEXUS 12-Class Failure Taxonomy" width="100%"/>
 </p>
 
-NEXUS includes out-of-the-box harnesses for **9 international benchmark suites**:
+To ensure fair and rigorous evaluations, NEXUS strictly partitions execution failures into **12 mutually-exclusive failure classes** across two primary domains:
+
+### Partition I: Extrinsic Infrastructure Faults (Not Penalized)
+When an evaluation fails due to provider infrastructure, the target model's capability score is **not penalized**. Instead, NEXUS initiates automatic credential fallback and jittered backoff:
+1. **`PROVIDER_TIMEOUT`**: Upstream API gateway, NIM socket, or provider inference queue deadline exceeded.
+2. **`RATE_LIMIT`**: HTTP 429 quota exhaustion, RPM/TPM ceiling, or provider concurrency throttle.
+3. **`PROVIDER_ERROR`**: Upstream HTTP 500, 502, 503, or 504 Bad Gateway or service outage.
+4. **`CONTEXT_LIMIT`**: Input tokens exceed the maximum supported context window of the target model profile.
+5. **`AUTH_ERROR`**: HTTP 401/403 invalid API key, expired token, or unauthorized model entitlement.
+6. **`ENVIRONMENT_ERROR`**: Sandbox container failure, missing system tool dependency, or pre-flight host crash.
+
+### Partition II: Intrinsic Cognitive & Execution Defects (Evaluated)
+When a failure occurs within the model's output or execution path, NEXUS captures the failure type and triggers W1-CIP adversarial challenge loops:
+7. **`WRONG_REASONING`**: Logical fallacy, incorrect deduction, or assertion failure against ground truth.
+8. **`MODEL_ERROR`**: Contract violation, missing required JSON fields, or output schema non-conformance.
+9. **`TOOL_ERROR`**: Model invokes tool with invalid arguments or triggers runtime process failure.
+10. **`PARSER_ERROR`**: Malformed JSON syntax, unescaped markdown blocks, or corrupted token streams.
+11. **`TIMEOUT`**: Local task loop ceiling reached within the execution sandbox without terminal convergence.
+12. **`UNKNOWN`**: Unclassified anomaly routed to the human-in-the-loop review queue for audit.
+
+---
+
+## 🧪 9 Standardized Benchmark Evaluation Harnesses
+
+NEXUS includes modular test harnesses designed to evaluate frontier AI models under strictly identical prompts, tools, constraints, and stopping conditions across **9 international evaluation suites**:
 
 | Benchmark Suite | Domain / Target Capability | Evaluation Standard |
 |---|---|---|
@@ -97,10 +132,10 @@ NEXUS includes out-of-the-box harnesses for **9 international benchmark suites**
 | **MRCR v2** | Multi-hop reasoning & long-context retrieval | Needle-in-haystack accuracy |
 | **AA Intelligence Index** | Composite cognitive capability & reliability | Multi-modal benchmark score |
 
-### Key Benchmark Findings:
-- **Mode A (Raw Baseline)**: Direct unguided models achieved baseline scores, but suffered from unmitigated hallucinations and catastrophic failure under edge constraints.
-- **Mode B (Governed NEXUS Agent)**: Adding structured step verification and grounding raised task completion by **+22.4%**.
-- **Mode C (Multi-Model Collaborative Ensemble)**: The 3-stage consensus pipeline (`Lead Planner` $	o$ `Specialist` $	o$ `Auditor`) achieved **100.0% ground-truth reasoning accuracy** on verified benchmarks with an empirical **+37.8% collaboration uplift** and **0.0% unhandled reasoning errors**.
+### Evaluation Modes Supported:
+- **Mode A (Raw Baseline)**: Direct unguided zero-shot / few-shot model completions.
+- **Mode B (Governed NEXUS Agent)**: Single-model execution with structured planning, intermediate verification, and sandboxed tool calling.
+- **Mode C (Multi-Model Collaborative Ensemble)**: Multi-model collaborative team coordinated under W1-CIP with assigned roles (`Lead Planner`, `Specialist Solver`, `Independent Auditor`).
 
 ---
 
@@ -145,7 +180,7 @@ npm install -g w1-nexus
 # Or run instantly via npx without installation
 npx w1-nexus status
 
-# List all official W1-CIP protocol schemas
+# List all registered W1-CIP protocol schemas
 npx w1-nexus schemas
 
 # Launch the NEXUS Workspace Console Web UI (default: http://localhost:8080)
@@ -185,7 +220,7 @@ W1-NEXUS/
 │   ├── nexus_hero_banner.svg        # Cyberpunk hero banner
 │   ├── nexus_demo.gif               # Animated terminal recording
 │   ├── w1_cip_architecture.svg      # Full 4-layer protocol state machine
-│   └── benchmark_matrix_chart.svg   # 9-suite empirical benchmark matrix
+│   └── benchmark_matrix_chart.svg   # 12-Class Failure Taxonomy Architecture Matrix
 ├── bin/                             # Node.js CLI executable
 │   └── w1-nexus.js                  # Cross-platform CLI runner
 ├── benchmarks/                      # 9 Standardized benchmark harnesses

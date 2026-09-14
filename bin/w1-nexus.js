@@ -84,8 +84,8 @@ function launchConsole(port = 8080) {
   <p><span class="badge">W1-CIP v1.1 Active</span> Autonomous Intelligence Discovery &amp; Verification Protocol</p>
   <div class="card">
     <h3>Connected Models &amp; Ensembles</h3>
-    <p>Operational: <b>moonshotai/kimi-k3</b> | <b>deepseek-ai/deepseek-v4-pro</b> | <b>meta/muse-glimmer-30b</b></p>
-    <p>Empirical Collaboration Uplift: <b style="color: #34D399;">+37.8%</b></p>
+    <p>Operational Models: <b>moonshotai/kimi-k3</b> | <b>deepseek-ai/deepseek-v4-pro</b> | <b>meta/muse-glimmer-30b</b></p>
+    <p>Governance Protocol: <b style="color: #38BDF8;">W1-CIP Deterministic State Machine</b></p>
   </div>
 </body>
 </html>`);

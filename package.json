@@ -5,8 +5,8 @@
   "main": "index.js",
   "types": "index.d.ts",
   "bin": {
-    "w1-nexus": "./bin/w1-nexus.js",
-    "nexus": "./bin/w1-nexus.js"
+    "w1-nexus": "bin/w1-nexus.js",
+    "nexus": "bin/w1-nexus.js"
   },
   "files": [
     "bin",
@@ -35,7 +35,7 @@
     "llm",
     "discovery"
   ],
-  "author": "W1\u2122 MOHAMMED OUASSIM BENTEBBA <mohammedouassim.bentebba@etu.univ-batna2.dz>",
+  "author": "W1™ MOHAMMED OUASSIM BENTEBBA <mohammedouassim.bentebba@etu.univ-batna2.dz>",
   "license": "MPL-2.0",
   "bugs": {
     "url": "https://github.com/mohammedouassimbentebba-collab/W1-NEXUS/issues"

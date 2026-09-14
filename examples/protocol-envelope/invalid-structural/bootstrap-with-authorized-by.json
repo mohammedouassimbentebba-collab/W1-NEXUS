@@ -1,0 +1,71 @@
+{
+  "protocol": "w1-cip",
+  "protocol_version": "0.1",
+  "message_id": "evt-session-bootstrap-001",
+  "session_id": "session-demo-001",
+  "kind": "event",
+  "event_class": "protocol_event",
+  "type": "session.bootstrap.completed",
+  "actor": {
+    "principal_type": "runtime",
+    "principal_id": "orchestrator-runtime-01"
+  },
+  "bootstrap": {
+    "mode": "local_runtime",
+    "bootstrap_id": "bootstrap-session-demo-001",
+    "scope": "create_initial_role_assignment"
+  },
+  "recorded_by": {
+    "principal_type": "runtime",
+    "principal_id": "orchestrator-runtime-01"
+  },
+  "received_at": "2026-08-04T15:00:00Z",
+  "recorded_at": "2026-08-04T15:00:00Z",
+  "sequence": 1,
+  "correlation_id": "session-bootstrap-demo-001",
+  "related_events": [],
+  "entity": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-owner-001",
+    "entity_version": 1
+  },
+  "precondition": {
+    "mode": "create",
+    "expected_absent": true,
+    "target_identity": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-owner-001"
+    }
+  },
+  "payload_schema": "urn:w1-cip:schema:0.1:versioned-entity",
+  "payload": {
+    "entity": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-owner-001",
+      "entity_version": 1
+    },
+    "created_by_event_id": "evt-session-bootstrap-001",
+    "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:role-assignment",
+    "legal_payload": {
+      "subject": {
+        "principal_type": "human",
+        "principal_id": "human-owner-001"
+      },
+      "role": "human_owner",
+      "authority_scope": {
+        "operations": [
+          "role_assignment.create",
+          "role_assignment.next_version"
+        ]
+      },
+      "status": "active",
+      "valid_from": "2026-08-04T15:00:00Z",
+      "assignment_reason": "establish the initial human owner for this session"
+    }
+  },
+  "authorized_by": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-existing-001",
+    "entity_version": 1
+  }
+}

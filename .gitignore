@@ -1,0 +1,59 @@
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+*.env
+*.pem
+*.key
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+.venv_benchmark/
+env/
+venv/
+ENV/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Temporary scratch & debug scripts
+scratch/
+scratch_*.py
+test_deepseek_*.py
+test_adapter_live_deepseek.py
+diagnose_*.py
+investigate_*.py
+run_matched_smoke.py
+run_stability_gate.py
+*.log
+.agents/
+%SystemDrive%/
+
+# Benchmark raw artifacts & runtime databases
+data/raw/*.jsonl
+data/artifacts/*
+data/availability/live_credential_matrix.json

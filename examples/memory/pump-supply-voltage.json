@@ -1,0 +1,18 @@
+{
+  "memory_id": "mem-pump-supply-voltage",
+  "kind": "fact",
+  "subject": "pump prototype",
+  "predicate": "supply-voltage",
+  "value": 12,
+  "text": "The pump prototype available supply voltage is 12 V.",
+  "summary": "Available supply voltage: 12 V.",
+  "confidence": 0.98,
+  "sensitivity": "internal",
+  "visibility": "team",
+  "team_id": "workspace-team",
+  "tags": ["pump", "electronics"],
+  "source": {
+    "source_type": "user_statement",
+    "source_ref": "conversation://pump-design"
+  }
+}

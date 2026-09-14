@@ -1,0 +1,61 @@
+{
+  "title": "Produce a bounded source review",
+  "objective": "Review the supplied sources and produce one traceable report.",
+  "scope": {
+    "in_scope": [
+      "Use only the supplied sources."
+    ],
+    "out_of_scope": []
+  },
+  "deliverables": [
+    {
+      "deliverable_id": "review-report",
+      "description": "A source-grounded review.",
+      "kind": "report",
+      "required": true
+    }
+  ],
+  "constraints": [
+    {
+      "constraint_id": "source-boundary",
+      "statement": "All factual claims must be supported by supplied sources.",
+      "criticality": "required",
+      "verifiability": "source_based"
+    }
+  ],
+  "success_criteria": [
+    {
+      "criterion_id": "source-grounded",
+      "statement": "Every factual conclusion is linked to a supplied source.",
+      "applies_to": [
+        "review-report"
+      ],
+      "verifiability": "source_based",
+      "acceptance_effect": "required_for_completion",
+      "verifies_constraints": [
+        "source-boundary"
+      ]
+    }
+  ],
+  "prohibitions": [],
+  "risk_policy": {
+    "risk_level": "low",
+    "error_cost": "minor",
+    "autonomy_mode": "bounded_autonomy",
+    "risk_acceptance": {
+      "allowed": true,
+      "max_unresolved_challenge_severity": "minor"
+    }
+  },
+  "decision_policy": [
+    {
+      "decision_subject": "review_acceptance",
+      "authority": {
+        "mode": "team_plan",
+        "required_role": "decision_authority"
+      },
+      "human_approval_required": false
+    }
+  ],
+  "status": "active"
+}

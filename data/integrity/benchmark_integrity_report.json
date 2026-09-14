@@ -1,0 +1,110 @@
+[
+  {
+    "benchmark": "AutomationBench",
+    "official_version": "v1.2-public",
+    "official_task_count": 24,
+    "local_task_count": 7,
+    "official_evaluator": false,
+    "official_environment": true,
+    "official_task_ids": true,
+    "private_set": false,
+    "integrity_status": "DEMO_ONLY",
+    "notes": "Curated public subset across 6 business domains (Sales, Marketing, Ops, Support, Finance, HR); not official held-out split."
+  },
+  {
+    "benchmark": "OSWorld 2.0",
+    "official_version": "osworld-v2-2026.08.08",
+    "official_task_count": 369,
+    "local_task_count": 4,
+    "official_evaluator": false,
+    "official_environment": false,
+    "official_task_ids": true,
+    "private_set": false,
+    "integrity_status": "DEMO_ONLY",
+    "notes": "Pinned to official release osworld-v2-2026.08.08; runs local representative GUI/web tasks without live VM cluster."
+  },
+  {
+    "benchmark": "Terminal-Bench 4.0",
+    "official_version": "tb4-2026.01",
+    "official_task_count": 89,
+    "local_task_count": 4,
+    "official_evaluator": false,
+    "official_environment": true,
+    "official_task_ids": true,
+    "private_set": false,
+    "integrity_status": "DEMO_ONLY",
+    "notes": "Curated representative bash/process tasks; not the full official Docker execution harness."
+  },
+  {
+    "benchmark": "Terminal-Bench Science",
+    "official_version": "tb-science-0.1",
+    "official_task_count": 70,
+    "local_task_count": 5,
+    "official_evaluator": false,
+    "official_environment": true,
+    "official_task_ids": true,
+    "private_set": false,
+    "integrity_status": "DEMO_ONLY",
+    "notes": "Curated representative tasks across 5 science domains (Life, Physical, Earth, Math, Engineering)."
+  },
+  {
+    "benchmark": "FrontierMath Tier 4",
+    "official_version": "tier4-v2-eval",
+    "official_task_count": 30,
+    "local_task_count": 3,
+    "official_evaluator": false,
+    "official_environment": true,
+    "official_task_ids": true,
+    "private_set": true,
+    "integrity_status": "DEMO_ONLY",
+    "notes": "Official Tier 4 questions are private/held-out research assets. Uses mock verification tasks to prevent leakage."
+  },
+  {
+    "benchmark": "ExploitBench",
+    "official_version": "eb-v1-sandbox",
+    "official_task_count": 45,
+    "local_task_count": 3,
+    "official_evaluator": false,
+    "official_environment": true,
+    "official_task_ids": true,
+    "private_set": false,
+    "integrity_status": "DEMO_ONLY",
+    "notes": "Isolated synthetic memory safety and privilege escalation challenges; zero execution against real external targets."
+  },
+  {
+    "benchmark": "SRE-Bench",
+    "official_version": "sre-2026-strict",
+    "official_task_count": 50,
+    "local_task_count": 3,
+    "official_evaluator": false,
+    "official_environment": true,
+    "official_task_ids": true,
+    "private_set": false,
+    "integrity_status": "DEMO_ONLY",
+    "notes": "Enforces strict attempts=1 protocol. Evaluates incident remediation on representative scenarios."
+  },
+  {
+    "benchmark": "MRCR v2",
+    "official_version": "mrcr-v2-longcontext",
+    "official_task_count": 100,
+    "local_task_count": 4,
+    "official_evaluator": true,
+    "official_environment": true,
+    "official_task_ids": true,
+    "private_set": false,
+    "integrity_status": "DEMO_ONLY",
+    "notes": "Tests multi-needle retrieval scaling across 512K, 768K, and 1M synthetic contexts."
+  },
+  {
+    "benchmark": "AA Intelligence Index",
+    "official_version": "v4.1.1",
+    "official_task_count": 4,
+    "local_task_count": 4,
+    "official_evaluator": true,
+    "official_environment": true,
+    "official_task_ids": true,
+    "private_set": false,
+    "integrity_status": "DEMO_ONLY",
+    "notes": "Computes composite index using official weighting formula across 4 representative capability pillars."
+  }
+]

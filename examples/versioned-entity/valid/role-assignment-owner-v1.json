@@ -1,0 +1,25 @@
+{
+  "entity": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-owner-001",
+    "entity_version": 1
+  },
+  "created_by_event_id": "evt-session-bootstrap-001",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:role-assignment",
+  "legal_payload": {
+    "subject": {
+      "principal_type": "human",
+      "principal_id": "human-owner-001"
+    },
+    "role": "human_owner",
+    "authority_scope": {
+      "operations": [
+        "role_assignment.create",
+        "role_assignment.next_version"
+      ]
+    },
+    "status": "active",
+    "valid_from": "2026-08-04T15:00:00Z",
+    "assignment_reason": "establish the initial human owner for this session"
+  }
+}

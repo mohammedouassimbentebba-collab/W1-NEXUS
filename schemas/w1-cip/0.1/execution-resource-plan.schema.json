@@ -1,0 +1,657 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:entity-payload:0.1:execution-resource-plan",
+  "title": "W1-CIP ExecutionResourcePlan legal payload v0.1",
+  "description": "Session-scoped routing and quota-control plan for heterogeneous model resources. The plan records task-specific fitness, provider quota observations, protected reserve, deterministic fallback order, and anti-silent-downgrade rules. Identity and version are supplied by VersionedEntity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "goal",
+    "team_plan",
+    "resources",
+    "routing_rules",
+    "reserve_policy",
+    "heterogeneity_policy",
+    "fallback_policy",
+    "status"
+  ],
+  "properties": {
+    "goal": {
+      "$ref": "#/$defs/goalRef"
+    },
+    "team_plan": {
+      "$ref": "#/$defs/teamPlanRef"
+    },
+    "resources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/resource"
+      }
+    },
+    "routing_rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/routingRule"
+      }
+    },
+    "reserve_policy": {
+      "$ref": "#/$defs/reservePolicy"
+    },
+    "heterogeneity_policy": {
+      "$ref": "#/$defs/heterogeneityPolicy"
+    },
+    "fallback_policy": {
+      "$ref": "#/$defs/fallbackPolicy"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "suspended",
+        "completed",
+        "cancelled"
+      ]
+    },
+    "status_reason": {
+      "$ref": "#/$defs/nonEmptyText"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "active"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "status_reason"
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "status_reason"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "nonEmptyText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "roleName": {
+      "enum": [
+        "orchestrator",
+        "executor",
+        "reviewer",
+        "verifier",
+        "decision_authority",
+        "synthesizer"
+      ]
+    },
+    "taskPhase": {
+      "enum": [
+        "planning",
+        "execution",
+        "review",
+        "verification",
+        "revision",
+        "approval",
+        "synthesis"
+      ]
+    },
+    "goalRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "goal_contract"
+            }
+          }
+        }
+      ]
+    },
+    "teamPlanRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "team_plan"
+            }
+          }
+        }
+      ]
+    },
+    "roleAssignmentRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "role_assignment"
+            }
+          }
+        }
+      ]
+    },
+    "agentCardRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "agent_card"
+            }
+          }
+        }
+      ]
+    },
+    "quota": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accounting_scope",
+        "meter",
+        "window",
+        "status",
+        "observed_at",
+        "source",
+        "reserved_units"
+      ],
+      "properties": {
+        "accounting_scope": {
+          "enum": [
+            "user_account",
+            "workspace",
+            "api_project",
+            "session"
+          ]
+        },
+        "meter": {
+          "enum": [
+            "requests",
+            "input_tokens",
+            "output_tokens",
+            "total_tokens",
+            "credits",
+            "compute_seconds",
+            "provider_defined"
+          ]
+        },
+        "window": {
+          "enum": [
+            "session",
+            "hour",
+            "day",
+            "week",
+            "month",
+            "rolling",
+            "provider_defined"
+          ]
+        },
+        "status": {
+          "enum": [
+            "available",
+            "low",
+            "exhausted",
+            "unknown"
+          ]
+        },
+        "limit_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "remaining_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reserved_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reset_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "provider_api",
+            "local_meter",
+            "user_report",
+            "unknown"
+          ]
+        },
+        "status_reason": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "low",
+                  "exhausted",
+                  "unknown"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "status_reason"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "exhausted"
+              },
+              "source": {
+                "not": {
+                  "const": "unknown"
+                }
+              }
+            },
+            "required": [
+              "status",
+              "source"
+            ]
+          },
+          "then": {
+            "required": [
+              "remaining_units"
+            ],
+            "properties": {
+              "remaining_units": {
+                "const": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resource_id",
+        "role_assignment",
+        "agent_card",
+        "quota"
+      ],
+      "properties": {
+        "resource_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "role_assignment": {
+          "$ref": "#/$defs/roleAssignmentRef"
+        },
+        "agent_card": {
+          "$ref": "#/$defs/agentCardRef"
+        },
+        "quota": {
+          "$ref": "#/$defs/quota"
+        }
+      }
+    },
+    "selector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "roles",
+        "phases"
+      ],
+      "properties": {
+        "roles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/roleName"
+          }
+        },
+        "phases": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/taskPhase"
+          }
+        },
+        "risk_levels": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          }
+        },
+        "task_complexities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "bounded",
+              "multi_step",
+              "open_ended"
+            ]
+          }
+        },
+        "domains": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resource_id",
+        "mode",
+        "priority",
+        "fitness_score",
+        "assessment_source",
+        "assessment_confidence",
+        "assessment_basis",
+        "minimum_remaining_units"
+      ],
+      "properties": {
+        "resource_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "mode": {
+          "enum": [
+            "primary",
+            "fallback"
+          ]
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "fitness_score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "assessment_source": {
+          "enum": [
+            "benchmark",
+            "historical_session",
+            "provider_metadata",
+            "human_assessment",
+            "unknown"
+          ]
+        },
+        "assessment_confidence": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "assessment_basis": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "minimum_remaining_units": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "routingRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "applies_to",
+        "routing_status",
+        "selection_objective",
+        "minimum_fitness_score",
+        "activation_reason",
+        "candidates",
+        "on_primary_unavailable",
+        "below_floor_policy",
+        "additional_review_required"
+      ],
+      "properties": {
+        "rule_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "applies_to": {
+          "$ref": "#/$defs/selector"
+        },
+        "selection_objective": {
+          "enum": [
+            "capability_first",
+            "balanced",
+            "cost_first",
+            "latency_first"
+          ]
+        },
+        "minimum_fitness_score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "active_resource_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "candidates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/candidate"
+          }
+        },
+        "on_primary_unavailable": {
+          "enum": [
+            "activate_fallback",
+            "await_reset",
+            "await_user",
+            "block"
+          ]
+        },
+        "below_floor_policy": {
+          "enum": [
+            "prohibited",
+            "allow_with_extra_review",
+            "allow_for_non_final_work"
+          ]
+        },
+        "additional_review_required": {
+          "type": "boolean"
+        },
+        "activation_reason": {
+          "enum": [
+            "initial_selection",
+            "quota_low",
+            "quota_exhausted",
+            "provider_unavailable",
+            "reserve_protection",
+            "manual_override"
+          ]
+        },
+        "fallback_from_resource_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "routing_status": {
+          "enum": [
+            "active",
+            "awaiting_reset",
+            "awaiting_user",
+            "blocked"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "routing_status": {
+                "const": "active"
+              }
+            },
+            "required": [
+              "routing_status"
+            ]
+          },
+          "then": {
+            "required": [
+              "active_resource_id"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "active_resource_id"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "activation_reason": {
+                "enum": [
+                  "quota_low",
+                  "quota_exhausted",
+                  "provider_unavailable",
+                  "reserve_protection"
+                ]
+              }
+            },
+            "required": [
+              "activation_reason"
+            ]
+          },
+          "then": {}
+        }
+      ]
+    },
+    "reservePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protected_phases",
+        "release_condition"
+      ],
+      "properties": {
+        "protected_phases": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/taskPhase"
+          }
+        },
+        "release_condition": {
+          "enum": [
+            "protected_work_complete",
+            "explicit_orchestrator_or_owner"
+          ]
+        }
+      }
+    },
+    "heterogeneityPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_count_voting",
+        "decision_basis",
+        "fitness_scope",
+        "silent_downgrade"
+      ],
+      "properties": {
+        "model_count_voting": {
+          "const": "prohibited"
+        },
+        "decision_basis": {
+          "const": "authority_evidence_verification"
+        },
+        "fitness_scope": {
+          "const": "task_specific"
+        },
+        "silent_downgrade": {
+          "const": "prohibited"
+        }
+      }
+    },
+    "fallbackPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "all_candidates_unavailable",
+        "cross_provider_allowed",
+        "disclosure_required",
+        "preserve_artifacts"
+      ],
+      "properties": {
+        "all_candidates_unavailable": {
+          "enum": [
+            "await_reset",
+            "await_user",
+            "blocked",
+            "cancelled"
+          ]
+        },
+        "cross_provider_allowed": {
+          "type": "boolean"
+        },
+        "disclosure_required": {
+          "const": true
+        },
+        "preserve_artifacts": {
+          "const": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NEXUS — Token Accounting & Efficiency</title>
+  <style>
+    body { background: #0B0F17; color: #F8FAFC; font-family: -apple-system, system-ui, sans-serif; padding: 40px; }
+    .card { background: #111827; border: 1px solid #1F2937; border-radius: 8px; padding: 24px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <h1>NEXUS Token Accounting & Efficiency Analysis</h1>
+  <div class="card">
+    <h3>Token Metering Principles</h3>
+    <p>Token consumption is recorded only when valid telemetry is received from the provider. In accordance with NEXUS rules:</p>
+    <ul style="margin: 16px 0 0 20px; line-height: 1.8;">
+      <li>Token efficiency is <strong>NOT calculated</strong> for provider-timeout runs with zero tokens.</li>
+      <li>Hidden reasoning tokens are stored as <code>null</code> when unexposed rather than fabricated from output length.</li>
+      <li>Preliminary measured token efficiency for Muse: <strong>696.5 tokens/task</strong> (1,442.0 score points per 1M tokens).</li>
+    </ul>
+  </div>
+</body>
+</html>

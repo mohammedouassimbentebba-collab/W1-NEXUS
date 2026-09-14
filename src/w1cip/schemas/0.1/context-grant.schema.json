@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:entity-payload:0.1:context-grant",
+  "title": "W1-CIP ContextGrant legal payload v0.1",
+  "description": "Purpose-bound, field-minimized authorization for one team role assignment to access task-relevant context. Values are not stored in the grant.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "recipient_role_assignment",
+    "team_plan",
+    "task",
+    "fields",
+    "purpose",
+    "classification",
+    "processing_mode",
+    "onward_sharing",
+    "valid_from",
+    "expires_at",
+    "revocable",
+    "usage_logging",
+    "reliance_policy",
+    "status"
+  ],
+  "properties": {
+    "recipient_role_assignment": {
+      "$ref": "#/$defs/roleAssignmentRef"
+    },
+    "team_plan": {
+      "$ref": "#/$defs/teamPlanRef"
+    },
+    "task": {
+      "$ref": "#/$defs/taskRef"
+    },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/fieldName"
+      }
+    },
+    "purpose": {
+      "$ref": "#/$defs/purpose"
+    },
+    "classification": {
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    },
+    "processing_mode": {
+      "enum": [
+        "local_only",
+        "external_allowed"
+      ]
+    },
+    "onward_sharing": {
+      "enum": [
+        "prohibited",
+        "separate_grant_required"
+      ]
+    },
+    "valid_from": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "revocable": {
+      "const": true
+    },
+    "usage_logging": {
+      "const": "required"
+    },
+    "reliance_policy": {
+      "enum": [
+        "historical_reliance_allowed",
+        "continuous_validity_required"
+      ]
+    },
+    "status": {
+      "enum": [
+        "active",
+        "suspended",
+        "revoked"
+      ]
+    },
+    "status_reason": {
+      "$ref": "#/$defs/nonEmptyText"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "active"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "status_reason"
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "status_reason"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "fieldName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "nonEmptyText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "purpose": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "description"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/identifier"
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      }
+    },
+    "roleAssignmentRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "role_assignment"
+            }
+          }
+        }
+      ]
+    },
+    "teamPlanRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "team_plan"
+            }
+          }
+        }
+      ]
+    },
+    "taskRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "task"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

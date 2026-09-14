@@ -1,0 +1,33 @@
+{
+  "providers": [
+    {
+      "type": "openai_responses",
+      "resource_id": "openai-primary",
+      "model": "replace-with-pinned-openai-model-id",
+      "api_key_reference": "OPENAI_API_KEY",
+      "accounting_meter": "tokens"
+    },
+    {
+      "type": "anthropic_messages",
+      "resource_id": "anthropic-reviewer",
+      "model": "replace-with-pinned-claude-model-id",
+      "api_key_reference": "ANTHROPIC_API_KEY",
+      "accounting_meter": "tokens"
+    },
+    {
+      "type": "gemini_interactions",
+      "resource_id": "gemini-executor",
+      "model": "replace-with-pinned-gemini-model-id",
+      "api_key_reference": "GEMINI_API_KEY",
+      "accounting_meter": "tokens"
+    },
+    {
+      "type": "openai_compatible",
+      "resource_id": "ollama-local",
+      "model": "qwen3:8b",
+      "endpoint": "http://127.0.0.1:11434/v1/chat/completions",
+      "allow_insecure_loopback": true,
+      "accounting_meter": "requests"
+    }
+  ]
+}

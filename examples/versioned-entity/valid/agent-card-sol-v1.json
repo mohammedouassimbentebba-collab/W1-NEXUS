@@ -1,0 +1,70 @@
+{
+  "entity": {
+    "entity_type": "agent_card",
+    "entity_id": "agent-sol-01",
+    "entity_version": 1
+  },
+  "created_by_event_id": "evt-agent-card-sol-001",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:agent-card",
+  "legal_payload": {
+    "display_name": "Sol scenario executor",
+    "provider": {
+      "name": "scenario-openai",
+      "model": "sol-5.6"
+    },
+    "capabilities": {
+      "domains": [
+        "electronics",
+        "general_reasoning"
+      ],
+      "operations": [
+        "reasoning",
+        "structured_output"
+      ]
+    },
+    "tools": [
+      "calculator"
+    ],
+    "eligible_roles": [
+      "executor"
+    ],
+    "prohibited_uses": [
+      "final_decision_authority"
+    ],
+    "permissions": {
+      "data_read": [
+        "task_input",
+        "granted_context"
+      ],
+      "data_write": [
+        "contribution"
+      ],
+      "actions": []
+    },
+    "data_policy": {
+      "accepted_classifications": [
+        "public",
+        "internal"
+      ],
+      "external_processing": true,
+      "onward_sharing": false
+    },
+    "autonomy": {
+      "level": "propose_only",
+      "human_approval_required_for": [
+        "external_action"
+      ]
+    },
+    "cost": {
+      "class": "high",
+      "unit": "model_call"
+    },
+    "latency": {
+      "class": "normal"
+    },
+    "limitations": [
+      "scenario_assessment_not_universal_benchmark"
+    ],
+    "status": "active"
+  }
+}

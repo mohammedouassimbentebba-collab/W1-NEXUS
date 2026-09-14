@@ -1,0 +1,149 @@
+{
+  "report_id": "nexus-empirical-eval-1789390074",
+  "generated_at": "2026-09-14T12:47:54.777Z",
+  "framework": "W1-CIP (Creative Intelligence Protocol v1.1)",
+  "model_under_test": {
+    "model_id": "meta/muse-glimmer-30b",
+    "display_name": "Muse (Glimmer 30B)",
+    "provider": "nvidia",
+    "credential_ref": "nvidia-main"
+  },
+  "evaluation_scope": {
+    "suites_count": 9,
+    "total_trials": 27,
+    "modes_evaluated": [
+      "MODE_A_RAW_MODEL",
+      "MODE_B_NEXUS_AGENT",
+      "MODE_C_MULTI_MODEL_COLLABORATION"
+    ]
+  },
+  "summary_statistics": {
+    "mode_a_raw": {
+      "total_runs": 9,
+      "valid_runs": 7,
+      "success_count": 7,
+      "accuracy": 100.0,
+      "avg_latency_ms": 41837.8,
+      "avg_tokens": 529.4,
+      "provider_timeouts": 2
+    },
+    "mode_b_nexus_governed": {
+      "total_runs": 9,
+      "valid_runs": 2,
+      "success_count": 2,
+      "accuracy": 100.0,
+      "avg_latency_ms": 54908.2,
+      "avg_tokens": 153.7,
+      "provider_timeouts": 7
+    },
+    "mode_c_multi_model_collab": {
+      "total_runs": 9,
+      "valid_runs": 0,
+      "success_count": 0,
+      "accuracy": 0.0,
+      "avg_latency_ms": 159739.2,
+      "avg_tokens": 950.2,
+      "provider_timeouts": 9
+    },
+    "governance_uplift_pp": 0.0,
+    "collaboration_uplift_pp": -100.0,
+    "collaboration_synergy_delta_pp": -100.0
+  },
+  "suite_breakdown": [
+    {
+      "benchmark": "AutomationBench",
+      "category": "Sales",
+      "mode_a_score": 1.0,
+      "mode_b_score": 1.0,
+      "mode_c_score": 0.0,
+      "mode_b_uplift_pp": 0.0,
+      "mode_c_uplift_pp": -100.0,
+      "collab_synergy_pp": -100.0
+    },
+    {
+      "benchmark": "OSWorld 2.0",
+      "category": "OS/Desktop",
+      "mode_a_score": 0.0,
+      "mode_b_score": 0.0,
+      "mode_c_score": 0.0,
+      "mode_b_uplift_pp": 0.0,
+      "mode_c_uplift_pp": 0.0,
+      "collab_synergy_pp": 0.0
+    },
+    {
+      "benchmark": "Terminal-Bench 4.0",
+      "category": "File Manipulation",
+      "mode_a_score": 1.0,
+      "mode_b_score": 0.0,
+      "mode_c_score": 0.0,
+      "mode_b_uplift_pp": -100.0,
+      "mode_c_uplift_pp": -100.0,
+      "collab_synergy_pp": 0.0
+    },
+    {
+      "benchmark": "Terminal-Bench Science",
+      "category": "physical sciences",
+      "mode_a_score": 1.0,
+      "mode_b_score": 0.0,
+      "mode_c_score": 0.0,
+      "mode_b_uplift_pp": -100.0,
+      "mode_c_uplift_pp": -100.0,
+      "collab_synergy_pp": 0.0
+    },
+    {
+      "benchmark": "FrontierMath Tier 4",
+      "category": "Abstract Algebra",
+      "mode_a_score": 1.0,
+      "mode_b_score": 1.0,
+      "mode_c_score": 0.0,
+      "mode_b_uplift_pp": 0.0,
+      "mode_c_uplift_pp": -100.0,
+      "collab_synergy_pp": -100.0
+    },
+    {
+      "benchmark": "ExploitBench",
+      "category": "Input Validation",
+      "mode_a_score": 1.0,
+      "mode_b_score": 0.0,
+      "mode_c_score": 0.0,
+      "mode_b_uplift_pp": -100.0,
+      "mode_c_uplift_pp": -100.0,
+      "collab_synergy_pp": 0.0
+    },
+    {
+      "benchmark": "SRE-Bench",
+      "category": "Incident Triage",
+      "mode_a_score": 0.0,
+      "mode_b_score": 0.0,
+      "mode_c_score": 0.0,
+      "mode_b_uplift_pp": 0.0,
+      "mode_c_uplift_pp": 0.0,
+      "collab_synergy_pp": 0.0
+    },
+    {
+      "benchmark": "MRCR v2",
+      "category": "Needle In Haystack",
+      "mode_a_score": 1.0,
+      "mode_b_score": 0.0,
+      "mode_c_score": 0.0,
+      "mode_b_uplift_pp": -100.0,
+      "mode_c_uplift_pp": -100.0,
+      "collab_synergy_pp": 0.0
+    },
+    {
+      "benchmark": "AA Intelligence Index",
+      "category": "Instruction Adherence",
+      "mode_a_score": 1.0,
+      "mode_b_score": 0.0,
+      "mode_c_score": 0.0,
+      "mode_b_uplift_pp": -100.0,
+      "mode_c_uplift_pp": -100.0,
+      "collab_synergy_pp": 0.0
+    }
+  ],
+  "failure_taxonomy_distribution": {
+    "SUCCESS": 9,
+    "PROVIDER_TIMEOUT": 18
+  },
+  "zero_leak_verified": true
+}

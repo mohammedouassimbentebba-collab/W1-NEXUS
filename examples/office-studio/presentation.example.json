@@ -1,0 +1,58 @@
+{
+  "schema_version": "w1-artifact-0.1",
+  "artifact_id": "reference-presentation",
+  "kind": "presentation",
+  "title": "W1 Nexus Artifact Engine",
+  "locale": "en",
+  "metadata": {
+    "purpose": "reference-demo"
+  },
+  "content": {
+    "slides": [
+      {
+        "title": "One model, many exports",
+        "elements": [
+          {
+            "type": "text",
+            "text": "DOCX • XLSX • PPTX • PDF\nLocal-first and governed",
+            "x": 0.9,
+            "y": 1.5,
+            "w": 11.3,
+            "h": 3.2,
+            "font_size": 27
+          }
+        ]
+      },
+      {
+        "title": "Verification",
+        "elements": [
+          {
+            "type": "table",
+            "rows": [
+              [
+                "Stage",
+                "Result"
+              ],
+              [
+                "Schema",
+                "Passed"
+              ],
+              [
+                "Review",
+                "Passed"
+              ],
+              [
+                "Export",
+                "Passed"
+              ]
+            ],
+            "x": 1.1,
+            "y": 1.5,
+            "w": 10.8,
+            "h": 3.8
+          }
+        ]
+      }
+    ]
+  }
+}

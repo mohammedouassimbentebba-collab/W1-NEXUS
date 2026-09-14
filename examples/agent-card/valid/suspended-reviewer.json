@@ -1,0 +1,54 @@
+{
+  "display_name": "Independent Reviewer",
+  "provider": {
+    "name": "example-provider",
+    "model": "review-model"
+  },
+  "capabilities": {
+    "domains": [
+      "general_review"
+    ],
+    "operations": [
+      "reasoning",
+      "structured_output"
+    ]
+  },
+  "tools": [],
+  "eligible_roles": [
+    "reviewer"
+  ],
+  "prohibited_uses": [],
+  "permissions": {
+    "data_read": [
+      "task_input",
+      "granted_context"
+    ],
+    "data_write": [
+      "review",
+      "challenge"
+    ],
+    "actions": []
+  },
+  "data_policy": {
+    "accepted_classifications": [
+      "public",
+      "internal"
+    ],
+    "external_processing": true,
+    "onward_sharing": false
+  },
+  "autonomy": {
+    "level": "propose_only",
+    "human_approval_required_for": []
+  },
+  "cost": {
+    "class": "medium",
+    "unit": "model_call"
+  },
+  "latency": {
+    "class": "normal"
+  },
+  "limitations": [],
+  "status": "suspended",
+  "status_reason": "provider integrity review in progress"
+}

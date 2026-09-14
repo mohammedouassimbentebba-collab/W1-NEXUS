@@ -1,0 +1,27 @@
+{
+  "duplicate-slot.json": [
+    "duplicate_team_slot_id",
+    "duplicate_team_role_assignment"
+  ],
+  "medium-risk-without-reviewer.json": [
+    "team_plan_reviewer_required"
+  ],
+  "material-cost-without-verifier.json": [
+    "team_plan_verifier_required"
+  ],
+  "self-separation-rule.json": [
+    "independence_rule_same_role"
+  ],
+  "unfilled-required-role.json": [
+    "required_role_count_unmet"
+  ],
+  "missing-reviewer-independence.json": [
+    "team_plan_reviewer_independence_required"
+  ],
+  "missing-verifier-author-independence.json": [
+    "team_plan_verifier_author_independence_required"
+  ],
+  "verifier-separation-wrong-subtype.json": [
+    "team_plan_verifier_author_independence_required"
+  ]
+}

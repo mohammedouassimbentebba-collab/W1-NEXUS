@@ -1,0 +1,64 @@
+{
+  "study_id": "pump-current-study",
+  "namespace_id": "w1-local",
+  "project_id": "pump-project",
+  "title": "Pump controller current comparison",
+  "research_question": "Does candidate B draw less startup current than candidate A?",
+  "hypotheses": [
+    {
+      "hypothesis_id": "h-lower-current",
+      "statement": "Candidate B draws less startup current than candidate A.",
+      "null_statement": "Candidate B does not draw less startup current than candidate A.",
+      "predictions": [
+        {
+          "prediction_id": "p-current-gap",
+          "metric": "peak-current",
+          "direction": "negative"
+        }
+      ]
+    }
+  ],
+  "experiment": {
+    "design": "controlled-benchmark",
+    "independent_variables": ["candidate"],
+    "dependent_variables": ["peak-current"],
+    "controls": ["supply-voltage"],
+    "sample_size_min": 6,
+    "randomization": "blocked",
+    "blinding": "none",
+    "observation_schema": {
+      "observation_id": "string",
+      "candidate": "string",
+      "peak-current": "number"
+    },
+    "command": ["python", "-c", "print('run instrument adapter here')"],
+    "sandbox_profile": "trusted-local",
+    "artifact_globs": []
+  },
+  "analysis_plan": [
+    {
+      "analysis_id": "current-difference",
+      "method": "difference_in_means",
+      "value_field": "peak-current",
+      "group_field": "candidate",
+      "group_a": "candidate-a",
+      "group_b": "candidate-b",
+      "alpha": 0.05
+    }
+  ],
+  "falsification_criteria": [
+    {
+      "criterion_id": "f-current-direction",
+      "hypothesis_id": "h-lower-current",
+      "analysis_id": "current-difference",
+      "rule": "effect_direction_and_significance",
+      "expected_direction": "positive",
+      "alpha": 0.05
+    }
+  ],
+  "replication_policy": {
+    "minimum_replications": 0,
+    "independent_required": true
+  },
+  "classification": "internal"
+}

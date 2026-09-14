@@ -1,0 +1,72 @@
+{
+  "goal": {
+    "entity_type": "goal_contract",
+    "entity_id": "goal-pump-driver-001",
+    "entity_version": 1
+  },
+  "team_plan": {
+    "entity_type": "team_plan",
+    "entity_id": "team-plan-pump-001",
+    "entity_version": 1
+  },
+  "task": {
+    "entity_type": "task",
+    "entity_id": "task-approve-revision-001",
+    "entity_version": 4
+  },
+  "approval_kind": "operation_authorization",
+  "decision": "approved",
+  "approved_by_role_assignment": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-decision-001",
+    "entity_version": 1
+  },
+  "decided_at": "2026-08-04T15:26:00Z",
+  "effective_from": "2026-08-04T15:26:00Z",
+  "expires_at": "2026-08-04T15:36:00Z",
+  "targets": [
+    {
+      "entity_type": "contribution",
+      "entity_id": "proposal-driver-selection-001",
+      "entity_version": 1
+    }
+  ],
+  "granted_to_role_assignment": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-executor-001",
+    "entity_version": 1
+  },
+  "authorization": {
+    "operation": "approval.create",
+    "target_condition": {
+      "mode": "next_version",
+      "target": {
+        "entity_type": "contribution",
+        "entity_id": "proposal-driver-selection-001",
+        "entity_version": 1
+      }
+    },
+    "usage_mode": "one_time"
+  },
+  "basis_refs": [
+    {
+      "entity_type": "review",
+      "entity_id": "review-startup-current-001",
+      "entity_version": 1
+    },
+    {
+      "entity_type": "challenge",
+      "entity_id": "challenge-startup-current-001",
+      "entity_version": 1
+    }
+  ],
+  "conditions": [
+    "The revision must replace candidate-a and preserve the recorded evidence trail."
+  ],
+  "classification": "internal",
+  "status": "active",
+  "limitations": [
+    "synthetic fixture only"
+  ],
+  "fulfills_output_id": "proposal-revision-approval"
+}

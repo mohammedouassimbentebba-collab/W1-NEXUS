@@ -1,0 +1,515 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:entity-payload:0.1:goal-contract",
+  "title": "W1-CIP GoalContract legal payload v0.1",
+  "description": "Complete legal payload for one version of a session goal contract. Identity and version are supplied by VersionedEntity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "objective",
+    "scope",
+    "deliverables",
+    "constraints",
+    "success_criteria",
+    "prohibitions",
+    "risk_policy",
+    "decision_policy",
+    "status"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8000
+    },
+    "scope": {
+      "$ref": "#/$defs/scope"
+    },
+    "deliverables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/deliverable"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/constraint"
+      }
+    },
+    "success_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/successCriterion"
+      }
+    },
+    "prohibitions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/prohibition"
+      }
+    },
+    "risk_policy": {
+      "$ref": "#/$defs/riskPolicy"
+    },
+    "decision_policy": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/decisionClass"
+      }
+    },
+    "status": {
+      "enum": [
+        "active",
+        "suspended",
+        "fulfilled",
+        "cancelled"
+      ]
+    },
+    "status_reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "active"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "status_reason"
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "status_reason"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "nonEmptyText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "in_scope"
+      ],
+      "properties": {
+        "in_scope": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/nonEmptyText"
+          }
+        },
+        "out_of_scope": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/nonEmptyText"
+          }
+        }
+      }
+    },
+    "deliverable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deliverable_id",
+        "description",
+        "kind",
+        "required"
+      ],
+      "properties": {
+        "deliverable_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "kind": {
+          "enum": [
+            "decision",
+            "report",
+            "artifact",
+            "dataset",
+            "code",
+            "other"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "decision_subject": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "decision"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "decision_subject"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "not": {
+                  "const": "decision"
+                }
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "not": {
+              "required": [
+                "decision_subject"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "verifiability": {
+      "enum": [
+        "deterministic",
+        "empirical",
+        "source_based",
+        "human_judgment"
+      ]
+    },
+    "constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "constraint_id",
+        "statement",
+        "criticality",
+        "verifiability"
+      ],
+      "properties": {
+        "constraint_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "statement": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "criticality": {
+          "enum": [
+            "required",
+            "critical"
+          ]
+        },
+        "verifiability": {
+          "$ref": "#/$defs/verifiability"
+        }
+      }
+    },
+    "successCriterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "criterion_id",
+        "statement",
+        "applies_to",
+        "verifiability",
+        "acceptance_effect"
+      ],
+      "properties": {
+        "criterion_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "statement": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "applies_to": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "verifiability": {
+          "$ref": "#/$defs/verifiability"
+        },
+        "acceptance_effect": {
+          "enum": [
+            "required_for_completion",
+            "informational"
+          ]
+        },
+        "method_hint": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 3000
+        },
+        "verifies_constraints": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        }
+      }
+    },
+    "prohibition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prohibition_id",
+        "statement"
+      ],
+      "properties": {
+        "prohibition_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "statement": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      }
+    },
+    "riskAcceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed",
+        "max_unresolved_challenge_severity"
+      ],
+      "properties": {
+        "allowed": {
+          "type": "boolean"
+        },
+        "max_unresolved_challenge_severity": {
+          "enum": [
+            "none",
+            "informational",
+            "minor",
+            "major",
+            "critical"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "allowed": {
+                "const": false
+              }
+            },
+            "required": [
+              "allowed"
+            ]
+          },
+          "then": {
+            "properties": {
+              "max_unresolved_challenge_severity": {
+                "const": "none"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "allowed": {
+                "const": true
+              }
+            },
+            "required": [
+              "allowed"
+            ]
+          },
+          "then": {
+            "properties": {
+              "max_unresolved_challenge_severity": {
+                "not": {
+                  "const": "none"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "riskPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "risk_level",
+        "error_cost",
+        "autonomy_mode",
+        "risk_acceptance"
+      ],
+      "properties": {
+        "risk_level": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "error_cost": {
+          "enum": [
+            "negligible",
+            "minor",
+            "material",
+            "severe"
+          ]
+        },
+        "autonomy_mode": {
+          "enum": [
+            "bounded_autonomy",
+            "human_approval_required",
+            "advisory_only"
+          ]
+        },
+        "risk_acceptance": {
+          "$ref": "#/$defs/riskAcceptance"
+        }
+      }
+    },
+    "pinnedRoleAssignment": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "role_assignment"
+            }
+          }
+        }
+      ]
+    },
+    "authorityResolution": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "required_role",
+            "role_assignment"
+          ],
+          "properties": {
+            "mode": {
+              "const": "pinned_assignment"
+            },
+            "required_role": {
+              "const": "decision_authority"
+            },
+            "role_assignment": {
+              "$ref": "#/$defs/pinnedRoleAssignment"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mode",
+            "required_role"
+          ],
+          "properties": {
+            "mode": {
+              "const": "team_plan"
+            },
+            "required_role": {
+              "const": "decision_authority"
+            }
+          }
+        }
+      ]
+    },
+    "roleName": {
+      "enum": [
+        "orchestrator",
+        "executor",
+        "reviewer",
+        "verifier",
+        "decision_authority",
+        "synthesizer",
+        "human_owner"
+      ]
+    },
+    "decisionClass": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_subject",
+        "authority",
+        "human_approval_required"
+      ],
+      "properties": {
+        "decision_subject": {
+          "$ref": "#/$defs/identifier"
+        },
+        "authority": {
+          "$ref": "#/$defs/authorityResolution"
+        },
+        "human_approval_required": {
+          "type": "boolean"
+        },
+        "independent_from_roles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/roleName"
+          }
+        }
+      }
+    }
+  }
+}

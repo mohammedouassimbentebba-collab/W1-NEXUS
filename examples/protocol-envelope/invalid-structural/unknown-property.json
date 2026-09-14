@@ -1,0 +1,33 @@
+{
+  "protocol": "w1-cip",
+  "protocol_version": "0.1",
+  "message_id": "msg-claim-create-001",
+  "session_id": "session-demo-001",
+  "kind": "command",
+  "type": "claim.create",
+  "actor": {
+    "principal_type": "agent",
+    "principal_id": "agent-electronics-01"
+  },
+  "authorized_by": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-17",
+    "entity_version": 2
+  },
+  "occurred_at": "2026-08-02T18:19:57Z",
+  "correlation_id": "run-demo-001",
+  "related_events": [],
+  "precondition": {
+    "mode": "create",
+    "expected_absent": true,
+    "target_identity": {
+      "entity_type": "claim",
+      "entity_id": "claim-21"
+    }
+  },
+  "payload_schema": "urn:w1-cip:payload:0.1:claim-create",
+  "payload": {
+    "statement": "candidate-a supports the required startup current"
+  },
+  "unexpected_field": "not-allowed"
+}

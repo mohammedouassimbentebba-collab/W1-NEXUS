@@ -1,0 +1,70 @@
+{
+  "entity": {
+    "entity_type": "task",
+    "entity_id": "task-review-startup-001",
+    "entity_version": 4
+  },
+  "created_by_event_id": "evt-task-review-startup-004",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:task",
+  "legal_payload": {
+    "goal": {
+      "entity_type": "goal_contract",
+      "entity_id": "goal-pump-driver-001",
+      "entity_version": 1
+    },
+    "team_plan": {
+      "entity_type": "team_plan",
+      "entity_id": "team-plan-pump-001",
+      "entity_version": 1
+    },
+    "title": "Review the candidate-a startup-current claim",
+    "description": "Review the claim and supplied evidence, and raise a structured challenge when the critical constraint is violated.",
+    "phase": "review",
+    "assigned_role_assignment": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-reviewer-001",
+      "entity_version": 1
+    },
+    "dependencies": [
+      {
+        "task": {
+          "entity_type": "task",
+          "entity_id": "task-startup-evidence-001",
+          "entity_version": 5
+        },
+        "required_status": "completed"
+      }
+    ],
+    "required_outputs": [
+      {
+        "output_id": "startup-current-challenge",
+        "entity_type": "challenge",
+        "description": "A structured challenge against the incompatible startup-current claim.",
+        "required": true
+      },
+      {
+        "output_id": "startup-current-review",
+        "entity_type": "review",
+        "description": "A holistic review of the proposal, evidence, verification, and critical challenge.",
+        "required": true
+      }
+    ],
+    "budget_allocation": {
+      "max_model_calls": 1,
+      "max_tool_calls": 0,
+      "max_review_cycles": 1,
+      "max_elapsed_seconds": 300
+    },
+    "required_context_fields": [],
+    "status": "in_progress"
+  },
+  "previous_version": {
+    "entity_type": "task",
+    "entity_id": "task-review-startup-001",
+    "entity_version": 3
+  },
+  "change_metadata": {
+    "change_reason": "semantic",
+    "substantive_effect": "may_affect_dependents"
+  }
+}

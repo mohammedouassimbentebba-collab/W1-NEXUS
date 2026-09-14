@@ -1,0 +1,69 @@
+{
+  "entity": {
+    "entity_type": "agent_card",
+    "entity_id": "agent-synthesizer-01",
+    "entity_version": 1
+  },
+  "created_by_event_id": "evt-agent-card-synthesizer-001",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:agent-card",
+  "legal_payload": {
+    "display_name": "Final Result Synthesizer",
+    "provider": {
+      "name": "example-provider",
+      "model": "example-provider/Synthesizer:01"
+    },
+    "capabilities": {
+      "domains": [
+        "general_synthesis"
+      ],
+      "operations": [
+        "reasoning",
+        "structured_output",
+        "summarization"
+      ]
+    },
+    "tools": [],
+    "eligible_roles": [
+      "synthesizer"
+    ],
+    "prohibited_uses": [
+      "altering_accepted_decisions",
+      "concealing_unresolved_uncertainty"
+    ],
+    "permissions": {
+      "data_read": [
+        "task_input",
+        "granted_context"
+      ],
+      "data_write": [
+        "final_result"
+      ],
+      "actions": []
+    },
+    "data_policy": {
+      "accepted_classifications": [
+        "public",
+        "internal"
+      ],
+      "external_processing": true,
+      "onward_sharing": false
+    },
+    "autonomy": {
+      "level": "bounded_autonomous",
+      "human_approval_required_for": [
+        "external_action"
+      ]
+    },
+    "cost": {
+      "class": "medium",
+      "unit": "model_call"
+    },
+    "latency": {
+      "class": "normal"
+    },
+    "limitations": [
+      "cannot_alter_accepted_records"
+    ],
+    "status": "active"
+  }
+}

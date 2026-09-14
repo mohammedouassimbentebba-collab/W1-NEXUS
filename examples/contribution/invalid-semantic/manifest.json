@@ -1,0 +1,8 @@
+{
+  "duplicate-basis-identity.json": [
+    "duplicate_contribution_basis_identity"
+  ],
+  "duplicate-context-grant-identity.json": [
+    "duplicate_contribution_context_grant_identity"
+  ]
+}

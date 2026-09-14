@@ -1,0 +1,5 @@
+{
+  "wrong-follow-up.json": "protocol_event_follow_up_operation_mismatch",
+  "duplicate-trigger-identity.json": "protocol_event_duplicate_trigger_identity",
+  "compensation-subject-mismatch.json": "protocol_event_compensation_subject_mismatch"
+}

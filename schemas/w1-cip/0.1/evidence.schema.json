@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:entity-payload:0.1:evidence",
+  "title": "W1-CIP Evidence legal payload v0.1",
+  "description": "A task-bound evidence record that relates one pinned source to one or more pinned claim Contributions without asserting that the claims are verified.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "goal",
+    "team_plan",
+    "task",
+    "registered_by_role_assignment",
+    "evidence_type",
+    "relation",
+    "targets",
+    "summary",
+    "source",
+    "collected_at",
+    "integrity",
+    "classification",
+    "status",
+    "limitations"
+  ],
+  "properties": {
+    "goal": {"$ref": "#/$defs/goalRef"},
+    "team_plan": {"$ref": "#/$defs/teamPlanRef"},
+    "task": {"$ref": "#/$defs/taskRef"},
+    "registered_by_role_assignment": {"$ref": "#/$defs/roleAssignmentRef"},
+    "evidence_type": {
+      "enum": [
+        "user_provided",
+        "document_source",
+        "tool_observation",
+        "measured_result",
+        "computed_result",
+        "model_inference",
+        "external_reference",
+        "human_confirmation"
+      ]
+    },
+    "relation": {"enum": ["supports", "refutes", "contextualizes"]},
+    "targets": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/contributionRef"}
+    },
+    "summary": {"$ref": "#/$defs/nonEmptyText"},
+    "source": {"$ref": "#/$defs/source"},
+    "collected_at": {"type": "string", "format": "date-time"},
+    "integrity": {"$ref": "#/$defs/integrity"},
+    "basis": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "urn:w1-cip:schema:0.1:entity-ref"}
+    },
+    "classification": {
+      "enum": ["public", "internal", "confidential", "restricted"]
+    },
+    "status": {"enum": ["active", "withdrawn"]},
+    "withdrawal_reason": {"$ref": "#/$defs/nonEmptyText"},
+    "limitations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/nonEmptyText"}
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "active"}}, "required": ["status"]},
+      "then": {"not": {"required": ["withdrawal_reason"]}},
+      "else": {"required": ["withdrawal_reason"]}
+    },
+    {
+      "if": {"properties": {"evidence_type": {"const": "user_provided"}}, "required": ["evidence_type"]},
+      "then": {
+        "properties": {
+          "source": {
+            "properties": {
+              "capture": {
+                "allOf": [
+                  {"$ref": "#/$defs/capture"},
+                  {
+                    "properties": {
+                      "kind": {"const": "user_submission"},
+                      "performed_by": {"$ref": "#/$defs/humanPrincipalRef"}
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"evidence_type": {"const": "document_source"}}, "required": ["evidence_type"]},
+      "then": {"properties": {"source": {"properties": {"capture": {"allOf": [{"$ref": "#/$defs/capture"}, {"properties": {"kind": {"const": "document_lookup"}}}]}}}}}
+    },
+    {
+      "if": {"properties": {"evidence_type": {"const": "tool_observation"}}, "required": ["evidence_type"]},
+      "then": {"properties": {"source": {"properties": {"capture": {"allOf": [{"$ref": "#/$defs/capture"}, {"properties": {"kind": {"const": "tool_invocation"}}, "required": ["tool", "invocation_id"]}]}}}}}
+    },
+    {
+      "if": {"properties": {"evidence_type": {"const": "measured_result"}}, "required": ["evidence_type"]},
+      "then": {"properties": {"source": {"properties": {"capture": {"allOf": [{"$ref": "#/$defs/capture"}, {"properties": {"kind": {"const": "measurement"}}, "required": ["procedure_ref"]}]}}}}}
+    },
+    {
+      "if": {"properties": {"evidence_type": {"const": "computed_result"}}, "required": ["evidence_type"]},
+      "then": {"properties": {"source": {"properties": {"capture": {"allOf": [{"$ref": "#/$defs/capture"}, {"properties": {"kind": {"const": "calculation"}}, "required": ["procedure_ref", "input_refs"]}]}}}}}
+    },
+    {
+      "if": {"properties": {"evidence_type": {"const": "model_inference"}}, "required": ["evidence_type"]},
+      "then": {"properties": {"source": {"properties": {"capture": {"allOf": [{"$ref": "#/$defs/capture"}, {"properties": {"kind": {"const": "model_inference"}}, "required": ["model_identifier"]}]}}}}}
+    },
+    {
+      "if": {"properties": {"evidence_type": {"const": "external_reference"}}, "required": ["evidence_type"]},
+      "then": {"properties": {"source": {"properties": {"capture": {"allOf": [{"$ref": "#/$defs/capture"}, {"properties": {"kind": {"const": "external_lookup"}}}]}}}}}
+    },
+    {
+      "if": {"properties": {"evidence_type": {"const": "human_confirmation"}}, "required": ["evidence_type"]},
+      "then": {
+        "properties": {
+          "source": {
+            "properties": {
+              "capture": {
+                "allOf": [
+                  {"$ref": "#/$defs/capture"},
+                  {
+                    "properties": {
+                      "kind": {"const": "human_confirmation"},
+                      "performed_by": {"$ref": "#/$defs/humanPrincipalRef"}
+                    },
+                    "required": ["confirmation_criteria"]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "nonEmptyText": {"type": "string", "minLength": 1, "maxLength": 4000},
+    "classification": {"enum": ["public", "internal", "confidential", "restricted"]},
+    "goalRef": {
+      "allOf": [
+        {"$ref": "urn:w1-cip:schema:0.1:entity-ref"},
+        {"properties": {"entity_type": {"const": "goal_contract"}}}
+      ]
+    },
+    "teamPlanRef": {
+      "allOf": [
+        {"$ref": "urn:w1-cip:schema:0.1:entity-ref"},
+        {"properties": {"entity_type": {"const": "team_plan"}}}
+      ]
+    },
+    "taskRef": {
+      "allOf": [
+        {"$ref": "urn:w1-cip:schema:0.1:entity-ref"},
+        {"properties": {"entity_type": {"const": "task"}}}
+      ]
+    },
+    "roleAssignmentRef": {
+      "allOf": [
+        {"$ref": "urn:w1-cip:schema:0.1:entity-ref"},
+        {"properties": {"entity_type": {"const": "role_assignment"}}}
+      ]
+    },
+    "contributionRef": {
+      "allOf": [
+        {"$ref": "urn:w1-cip:schema:0.1:entity-ref"},
+        {"properties": {"entity_type": {"const": "contribution"}}}
+      ]
+    },
+    "humanPrincipalRef": {
+      "allOf": [
+        {"$ref": "urn:w1-cip:schema:0.1:principal-ref"},
+        {"properties": {"principal_type": {"const": "human"}}}
+      ]
+    },
+    "toolPrincipalRef": {
+      "allOf": [
+        {"$ref": "urn:w1-cip:schema:0.1:principal-ref"},
+        {"properties": {"principal_type": {"const": "tool"}}}
+      ]
+    },
+    "sourceVersion": {
+      "oneOf": [
+        {"type": "integer", "minimum": 1},
+        {"type": "string", "minLength": 1, "maxLength": 256}
+      ]
+    },
+    "capture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "performed_by", "performed_at"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "user_submission",
+            "document_lookup",
+            "tool_invocation",
+            "measurement",
+            "calculation",
+            "model_inference",
+            "external_lookup",
+            "human_confirmation"
+          ]
+        },
+        "performed_by": {"$ref": "urn:w1-cip:schema:0.1:principal-ref"},
+        "performed_at": {"type": "string", "format": "date-time"},
+        "procedure_ref": {"type": "string", "format": "uri"},
+        "tool": {"$ref": "#/$defs/toolPrincipalRef"},
+        "invocation_id": {"$ref": "#/$defs/identifier"},
+        "model_identifier": {"type": "string", "minLength": 1, "maxLength": 512},
+        "input_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "urn:w1-cip:schema:0.1:entity-ref"}
+        },
+        "confirmation_criteria": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/nonEmptyText"}
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["uri", "source_version", "description", "classification", "capture"],
+      "properties": {
+        "uri": {"type": "string", "format": "uri"},
+        "source_version": {"$ref": "#/$defs/sourceVersion"},
+        "description": {"$ref": "#/$defs/nonEmptyText"},
+        "classification": {"$ref": "#/$defs/classification"},
+        "capture": {"$ref": "#/$defs/capture"}
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {"enum": ["unverified", "verified", "disputed", "unavailable"]},
+        "basis": {"$ref": "#/$defs/nonEmptyText"},
+        "assessed_by_role_assignment": {"$ref": "#/$defs/roleAssignmentRef"},
+        "assessed_at": {"type": "string", "format": "date-time"},
+        "dispute_reason": {"$ref": "#/$defs/nonEmptyText"},
+        "unavailability_reason": {"$ref": "#/$defs/nonEmptyText"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "verified"}}, "required": ["status"]},
+          "then": {"required": ["basis", "assessed_by_role_assignment", "assessed_at"]}
+        },
+        {
+          "if": {"properties": {"status": {"const": "disputed"}}, "required": ["status"]},
+          "then": {"required": ["dispute_reason"]}
+        },
+        {
+          "if": {"properties": {"status": {"const": "unavailable"}}, "required": ["status"]},
+          "then": {"required": ["unavailability_reason"]}
+        }
+      ]
+    }
+  }
+}

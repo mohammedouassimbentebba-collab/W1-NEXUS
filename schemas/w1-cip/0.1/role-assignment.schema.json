@@ -1,0 +1,254 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:entity-payload:0.1:role-assignment",
+  "title": "W1-CIP RoleAssignment legal payload v0.1",
+  "description": "Complete legal payload for one version of a session-scoped role assignment. Identity is supplied by the enclosing VersionedEntity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "subject",
+    "role",
+    "authority_scope",
+    "status",
+    "valid_from",
+    "assignment_reason"
+  ],
+  "properties": {
+    "subject": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:principal-ref"
+        },
+        {
+          "properties": {
+            "principal_type": {
+              "enum": [
+                "agent",
+                "human",
+                "service"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "role": {
+      "enum": [
+        "orchestrator",
+        "executor",
+        "reviewer",
+        "verifier",
+        "decision_authority",
+        "synthesizer",
+        "human_owner"
+      ]
+    },
+    "authority_scope": {
+      "$ref": "#/$defs/authorityScope"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "suspended",
+        "revoked"
+      ]
+    },
+    "valid_from": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "valid_until": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status_reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "assignment_reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "basis": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "role": {
+            "const": "human_owner"
+          }
+        },
+        "required": [
+          "role"
+        ]
+      },
+      "then": {
+        "properties": {
+          "subject": {
+            "properties": {
+              "principal_type": {
+                "const": "human"
+              }
+            },
+            "required": [
+              "principal_type"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "role": {
+            "const": "decision_authority"
+          }
+        },
+        "required": [
+          "role"
+        ]
+      },
+      "then": {
+        "properties": {
+          "authority_scope": {
+            "required": [
+              "decision_subjects"
+            ]
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "authority_scope": {
+            "not": {
+              "required": [
+                "decision_subjects"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "active"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "status_reason"
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "status_reason"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "subject": {
+            "properties": {
+              "principal_type": {
+                "const": "agent"
+              }
+            },
+            "required": [
+              "principal_type"
+            ]
+          }
+        },
+        "required": [
+          "subject"
+        ]
+      },
+      "then": {
+        "required": [
+          "basis"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "typeName": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 160,
+      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*(?:\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*)+$"
+    },
+    "capability": {
+      "enum": [
+        "classify_editorial_correction",
+        "accept_risk"
+      ]
+    },
+    "authorityScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "operations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/typeName"
+          }
+        },
+        "capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/capability"
+          }
+        },
+        "decision_subjects": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "operations"
+          ]
+        },
+        {
+          "required": [
+            "capabilities"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" width="100%" height="auto">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C16"/>
+      <stop offset="100%" stop-color="#040711"/>
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#0B1120"/>
+    </linearGradient>
+
+    <linearGradient id="nodeCyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#00D9FF"/>
+    </linearGradient>
+
+    <linearGradient id="nodePurple" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+
+    <linearGradient id="nodeGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+
+    <linearGradient id="nodeOrange" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <style>
+    .header { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: 26px; fill: #F8FAFC; }
+    .subheader { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 400; font-size: 14px; fill: #94A3B8; }
+    .layer-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.5px; text-transform: uppercase; }
+    .box-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 600; font-size: 13px; fill: #F1F5F9; }
+    .box-desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 400; font-size: 11px; fill: #94A3B8; }
+    .arrow { stroke: #38BDF8; stroke-width: 1.5; fill: none; stroke-dasharray: 4,4; }
+  </style>
+
+  <!-- Background Canvas -->
+  <rect width="1100" height="680" rx="16" fill="url(#bg)" stroke="#1E293B" stroke-width="1.5"/>
+
+  <!-- Diagram Title -->
+  <text x="50" y="50" class="header">W1-CIP Architecture &amp; Lifecycle Protocol</text>
+  <text x="50" y="75" class="subheader">Deterministic State Machine from Goal Formulation to Cryptographic Evidence Attestation</text>
+
+  <!-- ================= LAYER 1: IDENTITY & DATA CONTRACTS ================= -->
+  <g transform="translate(50, 110)">
+    <rect width="1000" height="100" rx="10" fill="url(#cardGrad)" stroke="#1E293B" stroke-width="1.2" filter="url(#shadow)"/>
+    <text x="25" y="32" class="layer-title" fill="#38BDF8">Layer 1: Foundational Identity &amp; Data Contracts</text>
+    
+    <!-- Item 1 -->
+    <g transform="translate(25, 45)">
+      <rect width="220" height="42" rx="6" fill="#1E293B" stroke="#0284C7" stroke-width="1"/>
+      <text x="12" y="20" class="box-title">PrincipalRef</text>
+      <text x="12" y="34" class="box-desc">Identity: Agent, Model, User, Tool</text>
+    </g>
+
+    <!-- Item 2 -->
+    <g transform="translate(265, 45)">
+      <rect width="220" height="42" rx="6" fill="#1E293B" stroke="#0284C7" stroke-width="1"/>
+      <text x="12" y="20" class="box-title">EntityRef &amp; Versioning</text>
+      <text x="12" y="34" class="box-desc">Deterministic UUIDv7 &amp; Hashes</text>
+    </g>
+
+    <!-- Item 3 -->
+    <g transform="translate(505, 45)">
+      <rect width="220" height="42" rx="6" fill="#1E293B" stroke="#0284C7" stroke-width="1"/>
+      <text x="12" y="20" class="box-title">AgentCard</text>
+      <text x="12" y="34" class="box-desc">Capabilities, Budgets &amp; Limits</text>
+    </g>
+
+    <!-- Item 4 -->
+    <g transform="translate(745, 45)">
+      <rect width="225" height="42" rx="6" fill="#1E293B" stroke="#0284C7" stroke-width="1"/>
+      <text x="12" y="20" class="box-title">ProtocolEnvelope</text>
+      <text x="12" y="34" class="box-desc">Event-Sourced Cryptographic Trace</text>
+    </g>
+  </g>
+
+  <!-- ================= LAYER 2: W1-CIP STATE MACHINE ================= -->
+  <g transform="translate(50, 230)">
+    <rect width="1000" height="150" rx="10" fill="url(#cardGrad)" stroke="#7C3AED" stroke-width="1.2" filter="url(#shadow)"/>
+    <text x="25" y="32" class="layer-title" fill="#A855F7">Layer 2: W1-CIP Protocol State Machine (The Consensus Flow)</text>
+
+    <!-- State 1: GoalContract -->
+    <g transform="translate(25, 55)">
+      <rect width="135" height="70" rx="8" fill="#1E1B4B" stroke="#818CF8" stroke-width="1.5"/>
+      <text x="10" y="25" class="box-title" fill="#A5B4FC">GoalContract</text>
+      <text x="10" y="42" class="box-desc">Explicit Objective</text>
+      <text x="10" y="56" class="box-desc">&amp; Invariants</text>
+    </g>
+    <!-- Arrow -->
+    <path d="M 165,90 L 185,90" stroke="#818CF8" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+    <!-- State 2: TeamPlan -->
+    <g transform="translate(190, 55)">
+      <rect width="135" height="70" rx="8" fill="#1E1B4B" stroke="#818CF8" stroke-width="1.5"/>
+      <text x="10" y="25" class="box-title" fill="#A5B4FC">TeamPlan</text>
+      <text x="10" y="42" class="box-desc">Role Decomposition</text>
+      <text x="10" y="56" class="box-desc">&amp; Topology</text>
+    </g>
+    <!-- Arrow -->
+    <path d="M 330,90 L 350,90" stroke="#818CF8" stroke-width="2"/>
+
+    <!-- State 3: Task & Contribution -->
+    <g transform="translate(355, 55)">
+      <rect width="140" height="70" rx="8" fill="#1E1B4B" stroke="#818CF8" stroke-width="1.5"/>
+      <text x="10" y="25" class="box-title" fill="#A5B4FC">Task / Action</text>
+      <text x="10" y="42" class="box-desc">Fine-Grained Steps</text>
+      <text x="10" y="56" class="box-desc">&amp; Tool Execution</text>
+    </g>
+    <!-- Arrow -->
+    <path d="M 500,90 L 520,90" stroke="#818CF8" stroke-width="2"/>
+
+    <!-- State 4: Evidence & Verification -->
+    <g transform="translate(525, 55)">
+      <rect width="145" height="70" rx="8" fill="#064E3B" stroke="#34D399" stroke-width="1.5"/>
+      <text x="10" y="25" class="box-title" fill="#6EE7B7">Evidence</text>
+      <text x="10" y="42" class="box-desc">Attestation Hashes</text>
+      <text x="10" y="56" class="box-desc">&amp; Grounded Tests</text>
+    </g>
+    <!-- Arrow -->
+    <path d="M 675,90 L 695,90" stroke="#34D399" stroke-width="2"/>
+
+    <!-- State 5: Challenge & Review -->
+    <g transform="translate(700, 55)">
+      <rect width="135" height="70" rx="8" fill="#451A03" stroke="#FBBF24" stroke-width="1.5"/>
+      <text x="10" y="25" class="box-title" fill="#FDE68A">Challenge</text>
+      <text x="10" y="42" class="box-desc">Auditor Critique</text>
+      <text x="10" y="56" class="box-desc">&amp; Dispute Log</text>
+    </g>
+    <!-- Arrow -->
+    <path d="M 840,90 L 860,90" stroke="#FBBF24" stroke-width="2"/>
+
+    <!-- State 6: FinalResult -->
+    <g transform="translate(865, 55)">
+      <rect width="115" height="70" rx="8" fill="#022C22" stroke="#10B981" stroke-width="1.5"/>
+      <text x="10" y="25" class="box-title" fill="#A7F3D0">FinalResult</text>
+      <text x="10" y="42" class="box-desc">Proven Truth</text>
+      <text x="10" y="56" class="box-desc">&amp; Provenance</text>
+    </g>
+  </g>
+
+  <!-- ================= LAYER 3: RUNTIME & SECURE EXECUTION ================= -->
+  <g transform="translate(50, 400)">
+    <rect width="485" height="120" rx="10" fill="url(#cardGrad)" stroke="#059669" stroke-width="1.2" filter="url(#shadow)"/>
+    <text x="25" y="32" class="layer-title" fill="#34D399">Layer 3: Secure Execution &amp; Memory Fabric</text>
+
+    <g transform="translate(25, 45)">
+      <rect width="210" height="55" rx="6" fill="#1E293B" stroke="#059669" stroke-width="1"/>
+      <text x="12" y="22" class="box-title">Action Runtime &amp; Sandbox</text>
+      <text x="12" y="38" class="box-desc">Deterministic rollback &amp; locks</text>
+    </g>
+
+    <g transform="translate(250, 45)">
+      <rect width="210" height="55" rx="6" fill="#1E293B" stroke="#059669" stroke-width="1"/>
+      <text x="12" y="22" class="box-title">MCP Tool Registry &amp; Vault</text>
+      <text x="12" y="38" class="box-desc">Isolated credentials broker</text>
+    </g>
+  </g>
+
+  <!-- ================= LAYER 4: MULTI-MODEL DISCOVERY & BENCHMARK LAB ================= -->
+  <g transform="translate(565, 400)">
+    <rect width="485" height="120" rx="10" fill="url(#cardGrad)" stroke="#0284C7" stroke-width="1.2" filter="url(#shadow)"/>
+    <text x="25" y="32" class="layer-title" fill="#38BDF8">Layer 4: Multi-Model Discovery &amp; Benchmarking</text>
+
+    <g transform="translate(25, 45)">
+      <rect width="210" height="55" rx="6" fill="#1E293B" stroke="#0284C7" stroke-width="1"/>
+      <text x="12" y="22" class="box-title">Credential ≠ Model Engine</text>
+      <text x="12" y="38" class="box-desc">1 key -> 80+ dynamic catalog models</text>
+    </g>
+
+    <g transform="translate(250, 45)">
+      <rect width="210" height="55" rx="6" fill="#1E293B" stroke="#0284C7" stroke-width="1"/>
+      <text x="12" y="22" class="box-title">12-Class Failure Taxonomy</text>
+      <text x="12" y="38" class="box-desc">Isolates queue timeouts from logic</text>
+    </g>
+  </g>
+
+  <!-- ================= FOOTER / STANDARDIZATION SUITES ================= -->
+  <g transform="translate(50, 545)">
+    <rect width="1000" height="95" rx="10" fill="#0A0F1D" stroke="#334155" stroke-width="1"/>
+    <text x="25" y="30" class="layer-title" fill="#E2E8F0">9 Standardized Evaluation Benchmark Suites (Integrated Out of the Box)</text>
+    <text x="25" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#94A3B8">
+      • FrontierMath Tier 4  • ExploitBench  • Terminal-Bench 4.0  • Terminal-Bench Science  • SRE-Bench  • AutomationBench  • OSWorld 2.0  • MRCR v2  • AA Intelligence Index
+    </text>
+    <text x="25" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#38BDF8">
+      Evaluates Mode A (Raw Zero-Shot) vs. Mode B (Governed Agent) vs. Mode C (Collaborative Multi-Model Ensemble)
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,601 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:entity-payload:0.1:verification",
+  "title": "W1-CIP Verification legal payload v0.1",
+  "description": "A task-bound application of one pinned method version to pinned claim Contributions and Evidence records, recording method validity, assumptions, result, qualification, and limitations without changing the target claims.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "goal",
+    "team_plan",
+    "task",
+    "performed_by_role_assignment",
+    "target_claims",
+    "method",
+    "evidence",
+    "input_assumptions",
+    "result",
+    "conclusion_status",
+    "summary",
+    "performed_at",
+    "classification",
+    "status",
+    "limitations"
+  ],
+  "properties": {
+    "goal": {
+      "$ref": "#/$defs/goalRef"
+    },
+    "team_plan": {
+      "$ref": "#/$defs/teamPlanRef"
+    },
+    "task": {
+      "$ref": "#/$defs/taskRef"
+    },
+    "performed_by_role_assignment": {
+      "$ref": "#/$defs/roleAssignmentRef"
+    },
+    "target_claims": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/contributionRef"
+      }
+    },
+    "method": {
+      "$ref": "#/$defs/method"
+    },
+    "evidence": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/evidenceRef"
+      }
+    },
+    "input_assumptions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/nonEmptyText"
+      }
+    },
+    "result": {
+      "enum": [
+        "passed",
+        "failed",
+        "inconclusive",
+        "not_run"
+      ]
+    },
+    "conclusion_status": {
+      "enum": [
+        "conclusive",
+        "qualified"
+      ]
+    },
+    "summary": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "not_run_reason": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "performed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "classification": {
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    },
+    "status": {
+      "enum": [
+        "active",
+        "withdrawn"
+      ]
+    },
+    "withdrawal_reason": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "limitations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/nonEmptyText"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "active"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "withdrawal_reason"
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "withdrawal_reason"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "not_run"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "then": {
+        "required": [
+          "not_run_reason"
+        ],
+        "properties": {
+          "evidence": {
+            "maxItems": 0
+          },
+          "conclusion_status": {
+            "const": "qualified"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "evidence": {
+            "minItems": 1
+          }
+        },
+        "not": {
+          "required": [
+            "not_run_reason"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "conclusion_status": {
+            "const": "conclusive"
+          }
+        },
+        "required": [
+          "conclusion_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "method": {
+            "properties": {
+              "validation": {
+                "properties": {
+                  "status": {
+                    "const": "validated"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            },
+            "required": [
+              "validation"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "properties": {
+              "validation": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "unvalidated",
+                      "disputed"
+                    ]
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            },
+            "required": [
+              "validation"
+            ]
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "properties": {
+          "conclusion_status": {
+            "const": "qualified"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "properties": {
+              "validation": {
+                "properties": {
+                  "status": {
+                    "const": "disputed"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            },
+            "required": [
+              "validation"
+            ]
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "properties": {
+          "result": {
+            "enum": [
+              "failed",
+              "inconclusive",
+              "not_run"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "method": {
+            "properties": {
+              "type": {
+                "const": "source_cross_check"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        },
+        "required": [
+          "method"
+        ]
+      },
+      "then": {
+        "properties": {
+          "evidence": {
+            "minItems": 2
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "nonEmptyText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "goalRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "goal_contract"
+            }
+          }
+        }
+      ]
+    },
+    "teamPlanRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "team_plan"
+            }
+          }
+        }
+      ]
+    },
+    "taskRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "task"
+            }
+          }
+        }
+      ]
+    },
+    "roleAssignmentRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "role_assignment"
+            }
+          }
+        }
+      ]
+    },
+    "contributionRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "contribution"
+            }
+          }
+        }
+      ]
+    },
+    "evidenceRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "evidence"
+            }
+          }
+        }
+      ]
+    },
+    "methodValidation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "scope"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "validated",
+            "unvalidated",
+            "disputed"
+          ]
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "basis": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "assessed_by_role_assignment": {
+          "$ref": "#/$defs/roleAssignmentRef"
+        },
+        "assessed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dispute_reason": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "validated"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "basis",
+              "assessed_by_role_assignment",
+              "assessed_at"
+            ],
+            "not": {
+              "required": [
+                "dispute_reason"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "unvalidated"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "assessed_by_role_assignment"
+                  ]
+                },
+                {
+                  "required": [
+                    "assessed_at"
+                  ]
+                },
+                {
+                  "required": [
+                    "dispute_reason"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "disputed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "dispute_reason"
+            ],
+            "not": {
+              "required": [
+                "basis"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "method_id",
+        "method_version",
+        "procedure_source",
+        "validation"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "deterministic_rule",
+            "executable_test",
+            "calculation",
+            "source_cross_check",
+            "human_check"
+          ]
+        },
+        "method_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "method_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "procedure_source": {
+          "type": "string",
+          "format": "uri"
+        },
+        "validation": {
+          "$ref": "#/$defs/methodValidation"
+        },
+        "criteria": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/nonEmptyText"
+          }
+        },
+        "execution_environment": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "human_check"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "criteria"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "executable_test"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "execution_environment"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

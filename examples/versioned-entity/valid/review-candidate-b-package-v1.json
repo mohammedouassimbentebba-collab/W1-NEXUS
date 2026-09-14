@@ -1,0 +1,167 @@
+{
+  "entity": {
+    "entity_type": "review",
+    "entity_id": "review-candidate-b-package-001",
+    "entity_version": 1
+  },
+  "created_by_event_id": "evt-review-candidate-b-package-001",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:review",
+  "legal_payload": {
+    "goal": {
+      "entity_type": "goal_contract",
+      "entity_id": "goal-pump-driver-001",
+      "entity_version": 1
+    },
+    "team_plan": {
+      "entity_type": "team_plan",
+      "entity_id": "team-plan-pump-001",
+      "entity_version": 1
+    },
+    "task": {
+      "entity_type": "task",
+      "entity_id": "task-review-startup-001",
+      "entity_version": 4
+    },
+    "reviewed_by_role_assignment": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-reviewer-001",
+      "entity_version": 1
+    },
+    "reviewed_at": "2026-08-04T15:29:00Z",
+    "scope": {
+      "kind": "solution_package",
+      "targets": [
+        {
+          "entity_type": "contribution",
+          "entity_id": "proposal-driver-001",
+          "entity_version": 1
+        },
+        {
+          "entity_type": "contribution",
+          "entity_id": "claim-candidate-b-startup-001",
+          "entity_version": 1
+        }
+      ],
+      "description": "Review the candidate-b selection package against the pinned goal, evidence, verification, and resolved candidate-a challenge."
+    },
+    "criteria_assessments": [
+      {
+        "criterion": "goal_alignment",
+        "outcome": "satisfied",
+        "severity": "informational",
+        "rationale": "The package selects candidate-b within the bounded synthetic fixture scope.",
+        "related_refs": [
+          {
+            "entity_type": "contribution",
+            "entity_id": "proposal-driver-001",
+            "entity_version": 1
+          }
+        ]
+      },
+      {
+        "criterion": "requirement_coverage",
+        "outcome": "satisfied",
+        "severity": "informational",
+        "rationale": "The pinned evidence and conclusive verification cover the critical startup-current requirement.",
+        "related_refs": [
+          {
+            "entity_type": "contribution",
+            "entity_id": "claim-candidate-b-startup-001",
+            "entity_version": 1
+          },
+          {
+            "entity_type": "verification",
+            "entity_id": "verification-candidate-b-startup-001",
+            "entity_version": 1
+          }
+        ]
+      },
+      {
+        "criterion": "internal_consistency",
+        "outcome": "satisfied",
+        "severity": "informational",
+        "rationale": "The proposal, claim, evidence, and verification consistently support candidate-b.",
+        "related_refs": [
+          {
+            "entity_type": "contribution",
+            "entity_id": "proposal-driver-001",
+            "entity_version": 1
+          },
+          {
+            "entity_type": "verification",
+            "entity_id": "verification-candidate-b-startup-001",
+            "entity_version": 1
+          }
+        ]
+      },
+      {
+        "criterion": "risk_and_limitations",
+        "outcome": "satisfied",
+        "severity": "informational",
+        "rationale": "The synthetic-fixture limitation is disclosed and the candidate-a challenge is resolved.",
+        "related_refs": [
+          {
+            "entity_type": "challenge",
+            "entity_id": "challenge-startup-current-001",
+            "entity_version": 4
+          }
+        ]
+      },
+      {
+        "criterion": "evidence_sufficiency",
+        "outcome": "satisfied",
+        "severity": "informational",
+        "rationale": "The pinned candidate-b specification is sufficient for the bounded deterministic comparison.",
+        "related_refs": [
+          {
+            "entity_type": "evidence",
+            "entity_id": "candidate-b-peak-spec-001",
+            "entity_version": 1
+          }
+        ]
+      },
+      {
+        "criterion": "verification_sufficiency",
+        "outcome": "satisfied",
+        "severity": "informational",
+        "rationale": "A validated deterministic rule produced a conclusive passed result.",
+        "related_refs": [
+          {
+            "entity_type": "verification",
+            "entity_id": "verification-candidate-b-startup-001",
+            "entity_version": 1
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "entity_type": "evidence",
+        "entity_id": "candidate-b-peak-spec-001",
+        "entity_version": 1
+      }
+    ],
+    "verifications": [
+      {
+        "entity_type": "verification",
+        "entity_id": "verification-candidate-b-startup-001",
+        "entity_version": 1
+      }
+    ],
+    "challenges": [
+      {
+        "entity_type": "challenge",
+        "entity_id": "challenge-startup-current-001",
+        "entity_version": 4
+      }
+    ],
+    "result": "approved",
+    "summary": "The candidate-b package satisfies the pinned goal within the synthetic fixture and may proceed to decision.",
+    "classification": "internal",
+    "status": "active",
+    "limitations": [
+      "synthetic fixture only"
+    ],
+    "required_actions": []
+  }
+}

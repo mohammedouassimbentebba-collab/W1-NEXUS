@@ -1,0 +1,57 @@
+{
+  "entity": {
+    "entity_type": "task",
+    "entity_id": "task-driver-selection-001",
+    "entity_version": 4
+  },
+  "created_by_event_id": "evt-task-started-004",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:task",
+  "legal_payload": {
+    "goal": {
+      "entity_type": "goal_contract",
+      "entity_id": "goal-pump-driver-001",
+      "entity_version": 1
+    },
+    "team_plan": {
+      "entity_type": "team_plan",
+      "entity_id": "team-plan-pump-001",
+      "entity_version": 1
+    },
+    "title": "Prepare the motor-driver selection proposal",
+    "description": "Evaluate the supplied candidates against the electrical constraints and produce one structured proposal.",
+    "phase": "execution",
+    "status": "in_progress",
+    "assigned_role_assignment": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-executor-001",
+      "entity_version": 1
+    },
+    "dependencies": [],
+    "required_outputs": [
+      {
+        "output_id": "candidate-proposal",
+        "entity_type": "contribution",
+        "description": "A structured candidate-selection proposal.",
+        "required": true
+      }
+    ],
+    "budget_allocation": {
+      "max_model_calls": 2,
+      "max_tool_calls": 2,
+      "max_elapsed_seconds": 600
+    },
+    "required_context_fields": [
+      "available_supply_voltage",
+      "user_skill_level"
+    ]
+  },
+  "previous_version": {
+    "entity_type": "task",
+    "entity_id": "task-driver-selection-001",
+    "entity_version": 3
+  },
+  "change_metadata": {
+    "change_reason": "semantic",
+    "substantive_effect": "may_affect_dependents"
+  }
+}

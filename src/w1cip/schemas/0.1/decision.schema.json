@@ -1,0 +1,776 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:entity-payload:0.1:decision",
+  "title": "W1-CIP Decision legal payload v0.1",
+  "description": "A task-bound, authority-controlled decision that records options, pinned basis records, dependencies, lifecycle state, and reassessment semantics.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "goal",
+    "team_plan",
+    "task",
+    "subject",
+    "status",
+    "proposed_by_role_assignment",
+    "proposed_at",
+    "last_transition_by_role_assignment",
+    "last_transition_at",
+    "options_considered",
+    "based_on_contributions",
+    "supporting_evidence",
+    "verifications",
+    "reviews",
+    "addressed_challenges",
+    "unresolved_challenges",
+    "approvals",
+    "depends_on_decisions",
+    "rationale",
+    "confidence",
+    "reversibility",
+    "classification",
+    "limitations"
+  ],
+  "properties": {
+    "goal": {
+      "$ref": "#/$defs/goalRef"
+    },
+    "team_plan": {
+      "$ref": "#/$defs/teamPlanRef"
+    },
+    "task": {
+      "$ref": "#/$defs/taskRef"
+    },
+    "subject": {
+      "$ref": "#/$defs/identifier"
+    },
+    "status": {
+      "enum": [
+        "proposed",
+        "under_review",
+        "needs_evidence",
+        "accepted",
+        "rejected",
+        "reassessment_required",
+        "superseded",
+        "revoked"
+      ]
+    },
+    "status_reason": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "proposed_by_role_assignment": {
+      "$ref": "#/$defs/roleAssignmentRef"
+    },
+    "proposed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_transition_by_role_assignment": {
+      "$ref": "#/$defs/roleAssignmentRef"
+    },
+    "last_transition_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "decided_by_role_assignment": {
+      "$ref": "#/$defs/roleAssignmentRef"
+    },
+    "decided_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "options_considered": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/option"
+      }
+    },
+    "selected_option": {
+      "$ref": "#/$defs/identifier"
+    },
+    "based_on_contributions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/contributionRef"
+      }
+    },
+    "supporting_evidence": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/evidenceRef"
+      }
+    },
+    "verifications": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/verificationRef"
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/reviewRef"
+      }
+    },
+    "addressed_challenges": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/challengeRef"
+      }
+    },
+    "unresolved_challenges": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/challengeRef"
+      }
+    },
+    "approvals": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/approvalRef"
+      }
+    },
+    "depends_on_decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/decisionDependency"
+      }
+    },
+    "rationale": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "confidence": {
+      "$ref": "#/$defs/confidence"
+    },
+    "reversibility": {
+      "$ref": "#/$defs/reversibility"
+    },
+    "reassessment": {
+      "$ref": "#/$defs/reassessment"
+    },
+    "superseded_by": {
+      "$ref": "#/$defs/decisionRef"
+    },
+    "revocation": {
+      "$ref": "#/$defs/revocation"
+    },
+    "classification": {
+      "$ref": "#/$defs/classification"
+    },
+    "limitations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/nonEmptyText"
+      }
+    },
+    "fulfills_output_id": {
+      "$ref": "#/$defs/identifier"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "accepted"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "selected_option",
+          "decided_by_role_assignment",
+          "decided_at"
+        ],
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "status_reason"
+              ]
+            },
+            {
+              "required": [
+                "reassessment"
+              ]
+            },
+            {
+              "required": [
+                "superseded_by"
+              ]
+            },
+            {
+              "required": [
+                "revocation"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "under_review",
+              "needs_evidence",
+              "rejected"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "status_reason"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "rejected"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "decided_by_role_assignment",
+          "decided_at"
+        ],
+        "not": {
+          "required": [
+            "selected_option"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "reassessment_required"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "selected_option",
+          "decided_by_role_assignment",
+          "decided_at",
+          "status_reason",
+          "reassessment"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "superseded"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "selected_option",
+          "decided_by_role_assignment",
+          "decided_at",
+          "status_reason",
+          "superseded_by"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "revoked"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "selected_option",
+          "decided_by_role_assignment",
+          "decided_at",
+          "status_reason",
+          "revocation"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "proposed",
+              "under_review",
+              "needs_evidence"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "decided_by_role_assignment"
+              ]
+            },
+            {
+              "required": [
+                "decided_at"
+              ]
+            },
+            {
+              "required": [
+                "reassessment"
+              ]
+            },
+            {
+              "required": [
+                "superseded_by"
+              ]
+            },
+            {
+              "required": [
+                "revocation"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "nonEmptyText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000,
+      "pattern": "\\S"
+    },
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "classification": {
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    },
+    "goalRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "goal_contract"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "teamPlanRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "team_plan"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "taskRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "task"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "roleAssignmentRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "role_assignment"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "contributionRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "contribution"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "evidenceRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "evidence"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "verificationRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "verification"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "reviewRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "review"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "challengeRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "challenge"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "approvalRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "approval"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "decisionRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "decision"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "option": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "option_id",
+        "description"
+      ],
+      "properties": {
+        "option_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      }
+    },
+    "decisionDependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "critical",
+        "on_revoked",
+        "on_superseded",
+        "on_reassessment"
+      ],
+      "properties": {
+        "decision": {
+          "$ref": "#/$defs/decisionRef"
+        },
+        "critical": {
+          "type": "boolean"
+        },
+        "on_revoked": {
+          "$ref": "#/$defs/dependencyPolicy"
+        },
+        "on_superseded": {
+          "$ref": "#/$defs/dependencyPolicy"
+        },
+        "on_reassessment": {
+          "$ref": "#/$defs/dependencyPolicy"
+        }
+      }
+    },
+    "dependencyPolicy": {
+      "enum": [
+        "notify",
+        "reassess",
+        "invalidate",
+        "block"
+      ]
+    },
+    "confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "basis",
+        "calibrated"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "basis": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "calibrated": {
+          "type": "boolean"
+        },
+        "numeric_value": {
+          "type": "number"
+        },
+        "scale_owner": {
+          "$ref": "#/$defs/identifier"
+        },
+        "calibration_reference": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "reversibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reversible"
+      ],
+      "properties": {
+        "reversible": {
+          "type": "boolean"
+        },
+        "rollback_action": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "reversible": {
+                "const": true
+              }
+            },
+            "required": [
+              "reversible"
+            ]
+          },
+          "then": {
+            "required": [
+              "rollback_action"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "rollback_action"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "reassessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trigger_type",
+        "triggered_at",
+        "basis_refs"
+      ],
+      "properties": {
+        "trigger_type": {
+          "enum": [
+            "evidence_changed",
+            "verification_invalidated",
+            "challenge_reopened",
+            "dependency_changed",
+            "goal_changed",
+            "approval_withdrawn",
+            "authority_invalidated",
+            "context_reliance_invalidated",
+            "other"
+          ]
+        },
+        "triggered_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "basis_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+          }
+        }
+      }
+    },
+    "revocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "revoked_at",
+        "reason",
+        "basis_refs"
+      ],
+      "properties": {
+        "revoked_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reason": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "basis_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+          }
+        }
+      }
+    }
+  }
+}

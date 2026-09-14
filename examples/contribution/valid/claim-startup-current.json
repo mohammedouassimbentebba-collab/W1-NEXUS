@@ -1,0 +1,41 @@
+{
+  "goal": {
+    "entity_type": "goal_contract",
+    "entity_id": "goal-pump-driver-001",
+    "entity_version": 1
+  },
+  "team_plan": {
+    "entity_type": "team_plan",
+    "entity_id": "team-plan-pump-001",
+    "entity_version": 1
+  },
+  "task": {
+    "entity_type": "task",
+    "entity_id": "task-driver-selection-001",
+    "entity_version": 4
+  },
+  "authored_by_role_assignment": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-executor-001",
+    "entity_version": 1
+  },
+  "status": "active",
+  "limitations": [
+    "synthetic fixture only"
+  ],
+  "confidence": {
+    "level": "high",
+    "basis": "bounded comparison over the supplied fixture",
+    "calibrated": false
+  },
+  "contribution_type": "claim",
+  "content": {
+    "statement": "candidate-a does not support the required startup current",
+    "verifiability": "deterministic",
+    "submission_verification_status": "unverified",
+    "verification_requirements": [
+      "compare the supplied 15 A peak limit with the 18 A startup peak"
+    ]
+  },
+  "classification": "internal"
+}

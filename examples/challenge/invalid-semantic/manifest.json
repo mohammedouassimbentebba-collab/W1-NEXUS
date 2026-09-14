@@ -1,0 +1,15 @@
+{
+  "open-actor-mismatch.json": [
+    "challenge_open_transition_actor_mismatch"
+  ],
+  "transition-before-raise.json": [
+    "challenge_transition_before_raise",
+    "challenge_open_transition_time_mismatch"
+  ],
+  "category-target-mismatch.json": [
+    "challenge_category_target_type_mismatch"
+  ],
+  "resolution-time-mismatch.json": [
+    "challenge_resolution_time_mismatch"
+  ]
+}

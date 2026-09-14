@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <title>W1 Nexus Workspace</title>
+  <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <div id="app" data-bootstrap="__W1_BOOTSTRAP__">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="/assets/logo.svg" alt="W1">
+        <div><strong>W1 NEXUS</strong><span>Operations Workspace</span></div>
+      </div>
+      <nav id="nav">
+        <button class="nav-item active" data-view="overview"><span class="nav-icon">⌂</span><span>نظرة عامة</span></button>
+        <button class="nav-item" data-view="agents"><span class="nav-icon">◈</span><span>الوكلاء والمهام</span></button>
+        <button class="nav-item" data-view="models"><span class="nav-icon">◇</span><span>النماذج والحصص</span></button>
+        <button class="nav-item" data-view="approvals"><span class="nav-icon">✓</span><span>مركز الموافقات</span><b id="approval-badge" class="badge hidden">0</b></button>
+        <button class="nav-item" data-view="memory"><span class="nav-icon">◎</span><span>الذاكرة والمعرفة</span></button>
+        <button class="nav-item" data-view="science"><span class="nav-icon">⌬</span><span>المختبر العلمي</span></button>
+        <button class="nav-item" data-view="git"><span class="nav-icon">⑂</span><span>Git والدمج</span></button>
+        <button class="nav-item" data-view="sandbox"><span class="nav-icon">▣</span><span>Sandbox</span></button>
+        <button class="nav-item" data-view="audit"><span class="nav-icon">≡</span><span>سجل التدقيق</span></button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="connection"><i id="connection-dot"></i><span id="connection-label">جارٍ الاتصال…</span></div>
+        <small id="console-version">W1 Workspace</small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">W1 NEXUS / LIVE OPERATIONS</p>
+          <h1 id="page-title">نظرة عامة</h1>
+        </div>
+        <div class="top-actions">
+          <div class="search-wrap"><span>⌕</span><input id="global-search" placeholder="ابحث في الجلسات والوكلاء والذاكرة…"></div>
+          <button id="verify-all" class="button secondary">فحص السجل</button>
+          <button id="refresh" class="button primary">تحديث</button>
+        </div>
+      </header>
+
+      <div id="toast" class="toast hidden"></div>
+      <div id="loading" class="loading"><div class="spinner"></div><span>تجميع حالة W1 Nexus…</span></div>
+
+      <section id="view-overview" class="view active">
+        <div id="metric-grid" class="metric-grid"></div>
+        <div class="grid two-one">
+          <article class="panel hero-panel">
+            <div class="panel-head"><div><p class="kicker">LIVE ORCHESTRATION</p><h2>مخطط التشغيل الحالي</h2></div><span id="run-state" class="status neutral">لا يوجد تشغيل</span></div>
+            <div id="agent-graph" class="agent-graph empty-state">لا توجد مهام نشطة بعد.</div>
+            <div id="task-progress" class="progress-strip"></div>
+          </article>
+          <article class="panel">
+            <div class="panel-head"><div><p class="kicker">SYSTEM HEALTH</p><h2>صحة المكونات</h2></div><span class="pulse-dot"></span></div>
+            <div id="health-list" class="health-list"></div>
+          </article>
+        </div>
+        <div class="grid two">
+          <article class="panel">
+            <div class="panel-head"><div><p class="kicker">MODEL ROUTING</p><h2>النماذج والحصص</h2></div><button class="text-button" data-go="models">عرض الكل</button></div>
+            <div id="provider-preview" class="provider-list"></div>
+          </article>
+          <article class="panel">
+            <div class="panel-head"><div><p class="kicker">AUDIT STREAM</p><h2>آخر الأحداث</h2></div><button class="text-button" data-go="audit">فتح السجل</button></div>
+            <div id="audit-preview" class="timeline compact"></div>
+          </article>
+        </div>
+        <article class="panel final-card">
+          <div class="panel-head"><div><p class="kicker">FINAL RESULT</p><h2>آخر نتيجة موحدة</h2></div><span id="final-status" class="status neutral">غير متاحة</span></div>
+          <div id="final-result" class="final-result empty-state">ستظهر هنا النتيجة الموحدة عند اكتمال أول تشغيل.</div>
+        </article>
+      </section>
+
+      <section id="view-agents" class="view">
+        <div class="section-heading"><div><p class="kicker">MULTI-AGENT RUNTIME</p><h2>الوكلاء والمهام الحية</h2></div><div id="agent-summary" class="summary-pills"></div></div>
+        <div class="grid two-one">
+          <article class="panel"><div class="panel-head"><h3>خريطة الفريق</h3><span class="legend"><i class="online"></i> نشط <i class="waiting"></i> ينتظر</span></div><div id="full-agent-graph" class="agent-graph large"></div></article>
+          <article class="panel"><div class="panel-head"><h3>تشغيلات الفريق</h3></div><div id="parallel-runs" class="stack-list"></div></article>
+        </div>
+        <article class="panel"><div class="panel-head"><h3>الجدول الزمني للمهام</h3></div><div class="table-wrap"><table><thead><tr><th>المهمة</th><th>الوكيل</th><th>الحالة</th><th>المورد</th><th>المحاولات</th><th>المراجعة</th></tr></thead><tbody id="task-table"></tbody></table></div></article>
+      </section>
+
+      <section id="view-models" class="view">
+        <div class="section-heading"><div><p class="kicker">MODEL CONTROL PLANE</p><h2>النماذج والحصص والتوجيه</h2></div></div>
+        <div id="model-grid" class="model-grid"></div>
+        <article class="panel"><div class="panel-head"><h3>قواعد الجودة</h3></div><div class="policy-grid"><div><b>لا تصويت عددي</b><span>القرار يعتمد على السلطة والأدلة والتحقق.</span></div><div><b>لا خفض صامت</b><span>أي انتقال لنموذج أضعف يظهر ويحتاج مراجعة.</span></div><div><b>احتياطي للمراحل الحرجة</b><span>تحمى الحصة للمراجعة والتحقق والقرار.</span></div></div></article>
+      </section>
+
+      <section id="view-approvals" class="view">
+        <div class="section-heading"><div><p class="kicker">HUMAN CONTROL</p><h2>مركز الموافقات</h2></div><span id="operations-mode" class="status neutral">قراءة فقط</span></div>
+        <div id="approval-list" class="approval-list"></div>
+      </section>
+
+      <section id="view-memory" class="view">
+        <div class="section-heading"><div><p class="kicker">KNOWLEDGE FABRIC</p><h2>الذاكرة والمعرفة</h2></div><div id="memory-counters" class="summary-pills"></div></div>
+        <article class="panel"><div class="filters"><input id="memory-search" placeholder="ابحث في الحقائق والقرارات والقيود…"><select id="memory-filter"><option value="all">كل الأنواع</option><option value="fact">حقائق</option><option value="decision">قرارات</option><option value="preference">تفضيلات</option><option value="constraint">قيود</option></select></div><div id="memory-list" class="memory-grid"></div></article>
+      </section>
+
+      <section id="view-science" class="view">
+        <div class="section-heading"><div><p class="kicker">VERIFICATION LAB</p><h2>المختبر العلمي</h2></div></div>
+        <div id="science-list" class="science-grid"></div>
+      </section>
+
+      <section id="view-git" class="view">
+        <div class="section-heading"><div><p class="kicker">GOVERNED DELIVERY</p><h2>Git والدمج</h2></div><div id="git-status-pill"></div></div>
+        <div class="grid two">
+          <article class="panel"><div class="panel-head"><h3>مقترحات الدمج</h3></div><div id="merge-list" class="stack-list"></div></article>
+          <article class="panel"><div class="panel-head"><h3>آخر الـCommits</h3></div><div id="commit-list" class="timeline compact"></div></article>
+        </div>
+        <article class="panel"><div class="panel-head"><h3>التغييرات غير المثبتة</h3></div><pre id="git-changes" class="code-block">لا توجد تغييرات.</pre></article>
+      </section>
+
+      <section id="view-sandbox" class="view">
+        <div class="section-heading"><div><p class="kicker">SECURE EXECUTION FABRIC</p><h2>Sandbox والموارد</h2></div></div>
+        <article class="panel"><div class="table-wrap"><table><thead><tr><th>التنفيذ</th><th>Profile</th><th>Backend</th><th>الحالة</th><th>المدة</th><th>الذاكرة</th><th>Artifacts</th></tr></thead><tbody id="sandbox-table"></tbody></table></div></article>
+      </section>
+
+      <section id="view-audit" class="view">
+        <div class="section-heading"><div><p class="kicker">IMMUTABLE HISTORY</p><h2>مستكشف التدقيق</h2></div><div class="filters inline"><select id="audit-filter"><option value="all">كل المصادر</option><option value="protocol">البروتوكول</option><option value="agents">الوكلاء</option><option value="science">العلم</option><option value="actions">الأفعال</option></select></div></div>
+        <article class="panel"><div id="audit-list" class="timeline"></div></article>
+      </section>
+    </main>
+  </div>
+  <script src="/assets/app.js" defer></script>
+</body>
+</html>

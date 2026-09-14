@@ -5,8 +5,8 @@ Mozilla Public License Version 2.0
 --------------
 
 1.1. "Contributor"
-    means each individual or legal entity that creates, contributes to
-    the creation of, or owns Covered Software.
+    means each individual or entity that creates, contributes to the
+    creation of, or owns Covered Software.
 
 1.2. "Contributor Version"
     means the combination of the Contributions of others (if any) used
@@ -49,9 +49,8 @@ Mozilla Public License Version 2.0
 1.10. "Modifications"
     means any of the following:
 
-    (a) any file in Source Code Form that results from an addition to,
-        deletion from, or modification of the contents of Covered
-        Software; or
+    (a) any addition to or deletion from the contents of a file containing
+        Covered Software; or
 
     (b) any new file in Source Code Form that contains any Covered
         Software.
@@ -115,20 +114,21 @@ distribution or licensing of Covered Software under this License.
 Notwithstanding Section 2.1(b) above, no patent license is granted by a
 Contributor:
 
-(a) for any code that a Contributor has removed from Covered Software;
-    or
+(a) for any code that a Contributor has deleted from the Covered
+    Software; or
 
 (b) for infringements caused by: (i) Your and any other third party's
-    modifications of Covered Software, or (ii) the combination of its
-    Contributions with other software (except as part of its Contributor
-    Version); or
+    modifications of the Covered Software, or (ii) the combination of
+    its Contributions with other software (except as part of its
+    Contributor Version); or
 
 (c) under Patent Claims infringed by Covered Software in the absence of
     its Contributions.
 
 This License does not grant any rights in the trademarks, service marks,
-or logos of any Contributor (except as may be necessary to comply with
-the notice requirements in Section 3.4).
+or logos of any Contributor (except as may be necessary for reasonable,
+customary, and normal use in describing the origin of the Covered
+Software).
 
 2.4. Subsequent Licenses
 
@@ -225,9 +225,9 @@ statute, judicial order, or regulation then You must: (a) comply with
 the terms of this License to the maximum extent possible; and (b)
 describe the limitations and the code they affect. Such description must
 be placed in a text file included with all distributions of the Covered
-Software under this License. Except to the extent prohibited by statute
-or regulation, such description must be sufficiently detailed for a
-recipient of ordinary skill to be able to understand it.
+Software. Except to the extent prohibited by statute or regulation, such
+description must be sufficiently detailed for a recipient of ordinary
+skill to be able to understand it.
 
 5. Termination
 --------------
@@ -318,7 +318,7 @@ matter hereof. If any provision of this License is held to be
 unenforceable, such provision shall be reformed only to the extent
 necessary to make it enforceable. Any law or regulation which provides
 that the language of a contract shall be construed against the drafter
-shall not be used to construe this License against a Contributor.
+shall not be used against the drafter.
 
 10. Versions of the License
 ---------------------------
@@ -343,7 +343,7 @@ If you create software not governed by this License, and you want to
 create a new license for such software, you may create and use a
 modified version of this License if you rename the license and remove
 any references to the name of the license steward (except to note that
-such modified license differs from this License).
+such license differs from this License).
 
 10.4. Distributing Source Code Form that is Incompatible With Secondary
 Licenses
@@ -357,17 +357,11 @@ Exhibit A - Source Code Form License Notice
 
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this
-  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-If it is not possible or desirable to put the notice in a particular
-file, then You may include the notice in a location (such as a LICENSE
-file in a relevant directory) where a recipient would be likely to look
-for such a notice.
+If it is not possible to put the notice in a particular file, then You
+may include the notice in a location (such as a LICENSE file in a
+relevant directory) where a recipient would be likely to look for such a
+notice.
 
 You may add additional accurate notices of copyright ownership.
-
-Exhibit B - "Incompatible With Secondary Licenses" Notice
----------------------------------------------------------
-
-  This Source Code Form is "Incompatible With Secondary Licenses", as
-  defined by the Mozilla Public License, v. 2.0.

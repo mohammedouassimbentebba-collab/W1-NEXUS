@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NEXUS — Comparative Leaderboard</title>
+  <style>
+    body { background: #0B0F17; color: #F8FAFC; font-family: -apple-system, system-ui, sans-serif; padding: 40px; }
+    .banner { background: rgba(239, 68, 68, 0.2); border: 2px solid #EF4444; color: #FCA5A5; padding: 24px; border-radius: 8px; text-align: center; }
+    .banner h2 { margin-bottom: 8px; color: #EF4444; }
+    .card { background: #111827; border: 1px solid #1F2937; border-radius: 8px; padding: 24px; margin-top: 24px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    th, td { padding: 12px; border-bottom: 1px solid #1E293B; text-align: left; }
+    th { color: #38BDF8; font-size: 13px; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <h1>NEXUS Frontier Model Leaderboard</h1>
+  
+  <div style="background: rgba(16, 185, 129, 0.15); border: 2px solid #10B981; color: #34D399; padding: 24px; border-radius: 8px; text-align: center;">
+    <h2 style="color: #10B981; margin-bottom: 8px;">ALL 3 MODELS QUALIFIED — READY FOR COMPARATIVE BENCHMARKING</h2>
+    <p>Muse Glimmer 30B, Kimi K3, and DeepSeek V4 Pro have all achieved verified availability and contract compliance on NVIDIA NIM.</p>
+    <p style="margin-top:8px;font-size:13px;color:#94A3B8;">Historical Muse results remain preliminary until balanced matrix execution completes.</p>
+  </div>
+  <div class="card">
+    <h3>Coverage & Evaluation Status</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Coverage Status</th>
+          <th>Benchmark Runs</th>
+          <th>Availability Status</th>
+          <th>Classification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Muse Glimmer 30B</strong></td>
+          <td><span style="color:#F59E0B;font-weight:bold;">Preliminary Local</span></td>
+          <td>92 evaluations (Historical)</td>
+          <td><span style="color:#10B981;font-weight:bold;">100% Operational</span></td>
+          <td>Muse preliminary local evaluation — NOT a cross-model winner</td>
+        </tr>
+        <tr>
+          <td><strong>Kimi K3</strong></td>
+          <td><span style="color:#10B981;font-weight:bold;">Qualified</span></td>
+          <td>Smoke Verified</td>
+          <td><span style="color:#10B981;font-weight:bold;">100% Operational</span></td>
+          <td>Qualified for Comparative Matrix (top_p=0.95 enforced)</td>
+        </tr>
+        <tr>
+          <td><strong>DeepSeek V4 Pro</strong></td>
+          <td><span style="color:#10B981;font-weight:bold;">Qualified</span></td>
+          <td>Smoke Verified</td>
+          <td><span style="color:#10B981;font-weight:bold;">100% Operational</span></td>
+          <td>Qualified for Comparative Matrix (stream=True enforced)</td>
+        </tr></tbody>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+{
+  "protocol": "w1-cip",
+  "protocol_version": "0.1",
+  "session_id": "session-pump-001",
+  "kind": "event",
+  "event_class": "protocol_event",
+  "actor": {
+    "principal_type": "human",
+    "principal_id": "human-owner-001"
+  },
+  "authorized_by": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-owner-001",
+    "entity_version": 4
+  },
+  "recorded_by": {
+    "principal_type": "runtime",
+    "principal_id": "runtime-local-001"
+  },
+  "correlation_id": "corr-pump-driver-001",
+  "payload_schema": "urn:w1-cip:schema:0.1:versioned-entity",
+  "related_events": [],
+  "message_id": "evt-decision-reassessment-required-001",
+  "type": "protocol_event.reassessment_required",
+  "sequence": 37,
+  "occurred_at": "2026-08-04T15:35:00Z",
+  "received_at": "2026-08-04T15:35:01Z",
+  "recorded_at": "2026-08-04T15:35:02Z",
+  "causation_id": "evt-challenge-startup-current-005",
+  "entity": {
+    "entity_type": "protocol_event",
+    "entity_id": "evt-decision-reassessment-required-001",
+    "entity_version": 1
+  },
+  "precondition": {
+    "mode": "create",
+    "expected_absent": true,
+    "target_identity": {
+      "entity_type": "protocol_event",
+      "entity_id": "evt-decision-reassessment-required-001"
+    }
+  },
+  "payload": {
+    "entity": {
+      "entity_type": "protocol_event",
+      "entity_id": "evt-decision-reassessment-required-001",
+      "entity_version": 1
+    },
+    "created_by_event_id": "evt-decision-reassessment-required-001",
+    "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:protocol-event",
+    "legal_payload": {
+      "event_type": "reassessment_required",
+      "subject": {
+        "entity_type": "decision",
+        "entity_id": "decision-motor-driver-001",
+        "entity_version": 3
+      },
+      "trigger_refs": [
+        {
+          "entity_type": "challenge",
+          "entity_id": "challenge-startup-current-001",
+          "entity_version": 5
+        }
+      ],
+      "reason": {
+        "code": "critical_challenge_reopened",
+        "description": "The critical startup-current challenge was reopened after the decision had been accepted."
+      },
+      "classification": "internal",
+      "propagation": "declared_dependents",
+      "blocking": true,
+      "required_follow_up": {
+        "operation": "decision.next_version",
+        "must_complete_before": "decision.accepted",
+        "description": "Record reassessment before the decision can be treated as accepted again."
+      }
+    }
+  }
+}

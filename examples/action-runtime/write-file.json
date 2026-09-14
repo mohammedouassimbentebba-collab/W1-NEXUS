@@ -1,0 +1,10 @@
+{
+  "action_id": "write-reviewed-output",
+  "kind": "file.write",
+  "parameters": {
+    "path": "outputs/reviewed-result.txt",
+    "content": "Reviewed by W1 Action Runtime.\n"
+  },
+  "requested_by": "executor-agent",
+  "reason": "Materialize the reviewed output inside the workspace."
+}

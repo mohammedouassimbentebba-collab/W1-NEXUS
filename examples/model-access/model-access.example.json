@@ -1,0 +1,82 @@
+{
+  "local_first": true,
+  "requires_w1_owned_server": false,
+  "profiles": [
+    {
+      "model_id": "local-coder",
+      "display_name": "Local coding model",
+      "provider_id": "local",
+      "connector_type": "openai_compatible",
+      "connector_resource_id": "local-coder-resource",
+      "model_name": "user-selected-local-model",
+      "access_mode": "local_endpoint",
+      "privacy_mode": "local",
+      "capabilities": {
+        "executor": 0.9,
+        "execution": 0.9,
+        "coding": 0.94
+      },
+      "roles": ["executor"],
+      "domains": ["coding"],
+      "endpoint": "http://127.0.0.1:11434/v1/chat/completions",
+      "enabled": true
+    },
+    {
+      "model_id": "cloud-reasoner",
+      "display_name": "User-owned cloud reasoning model",
+      "provider_id": "user-provider",
+      "connector_type": "openai_responses",
+      "connector_resource_id": "cloud-reasoner-resource",
+      "model_name": "pinned-model-id",
+      "access_mode": "byok_api",
+      "privacy_mode": "provider_cloud",
+      "credential_reference": "USER_PROVIDER_API_KEY",
+      "capabilities": {
+        "specialist": 0.95,
+        "execution": 0.92,
+        "coding": 0.9
+      },
+      "roles": ["executor"],
+      "domains": ["coding"],
+      "enabled": true
+    },
+    {
+      "model_id": "independent-verifier",
+      "display_name": "Independent verification model",
+      "provider_id": "second-provider",
+      "connector_type": "anthropic_messages",
+      "connector_resource_id": "independent-verifier-resource",
+      "model_name": "pinned-verifier-model-id",
+      "access_mode": "byok_api",
+      "privacy_mode": "provider_cloud",
+      "credential_reference": "SECOND_PROVIDER_API_KEY",
+      "capabilities": {
+        "verifier": 0.96,
+        "verification": 0.95,
+        "coding": 0.88
+      },
+      "roles": ["verifier"],
+      "domains": ["coding"],
+      "enabled": true
+    }
+  ],
+  "portfolios": [
+    {
+      "portfolio_id": "preferred-coding-team",
+      "display_name": "Preferred coding team",
+      "strategy": "verified_synthesis",
+      "members": [
+        {"model_id": "local-coder", "role": "producer", "priority": 10},
+        {"model_id": "cloud-reasoner", "role": "specialist", "priority": 20},
+        {"model_id": "independent-verifier", "role": "verifier", "priority": 30}
+      ],
+      "max_parallel": 2,
+      "minimum_successful_producers": 1,
+      "require_independent_verifier": true
+    }
+  ],
+  "control_api": {
+    "host": "127.0.0.1",
+    "port": 8871
+  }
+}

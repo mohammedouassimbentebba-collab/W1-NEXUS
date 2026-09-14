@@ -1,0 +1,86 @@
+{
+  "entity": {
+    "entity_type": "verification",
+    "entity_id": "verification-startup-current-001",
+    "entity_version": 2
+  },
+  "created_by_event_id": "evt-verification-startup-current-withdrawn-002",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:verification",
+  "legal_payload": {
+    "goal": {
+      "entity_type": "goal_contract",
+      "entity_id": "goal-pump-driver-001",
+      "entity_version": 1
+    },
+    "team_plan": {
+      "entity_type": "team_plan",
+      "entity_id": "team-plan-pump-001",
+      "entity_version": 1
+    },
+    "task": {
+      "entity_type": "task",
+      "entity_id": "task-verify-startup-001",
+      "entity_version": 4
+    },
+    "performed_by_role_assignment": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-verifier-001",
+      "entity_version": 1
+    },
+    "target_claims": [
+      {
+        "entity_type": "contribution",
+        "entity_id": "claim-candidate-a-startup-001",
+        "entity_version": 1
+      }
+    ],
+    "method": {
+      "type": "deterministic_rule",
+      "method_id": "peak-current-comparison",
+      "method_version": 1,
+      "procedure_source": "fixture://rules/peak-current-v1",
+      "validation": {
+        "status": "validated",
+        "scope": "Compare a measured startup-current peak with a declared one-second peak-current limit using amperes and seconds.",
+        "basis": "The rule directly compares pinned numeric values expressed in the same units.",
+        "assessed_by_role_assignment": {
+          "entity_type": "role_assignment",
+          "entity_id": "role-assignment-verifier-001",
+          "entity_version": 1
+        },
+        "assessed_at": "2026-08-04T15:20:02Z"
+      }
+    },
+    "evidence": [
+      {
+        "entity_type": "evidence",
+        "entity_id": "startup-current-capture-001",
+        "entity_version": 1
+      }
+    ],
+    "input_assumptions": [
+      "current values use amperes",
+      "duration values use seconds"
+    ],
+    "result": "failed",
+    "conclusion_status": "conclusive",
+    "summary": "Candidate-a fails the startup-current requirement because its declared 15 A one-second peak limit is below the measured 18 A startup peak lasting 0.8 s.",
+    "performed_at": "2026-08-04T15:20:03Z",
+    "classification": "internal",
+    "status": "withdrawn",
+    "limitations": [
+      "synthetic fixture only",
+      "single pinned startup-current capture"
+    ],
+    "withdrawal_reason": "The verification record was superseded by a newly executed method run."
+  },
+  "previous_version": {
+    "entity_type": "verification",
+    "entity_id": "verification-startup-current-001",
+    "entity_version": 1
+  },
+  "change_metadata": {
+    "change_reason": "semantic",
+    "substantive_effect": "may_affect_dependents"
+  }
+}

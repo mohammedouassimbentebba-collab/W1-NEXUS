@@ -1,0 +1,20 @@
+{
+  "protocol_version": "2025-11-25",
+  "servers": [
+    {
+      "server_id": "demo",
+      "transport": "stdio",
+      "command": ["python", "-m", "w1cip.mcp_demo_server"],
+      "enabled": true,
+      "timeout_seconds": 30,
+      "environment": {},
+      "headers_from_env": {},
+      "bearer_token_env": null,
+      "trust_mode": "untrusted",
+      "auto_approve_tools": ["echo"],
+      "allowed_tools": [],
+      "workspace_root": null,
+      "allow_insecure_loopback": false
+    }
+  ]
+}

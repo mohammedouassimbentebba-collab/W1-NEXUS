@@ -1,0 +1,40 @@
+{
+  "goal": {
+    "entity_type": "goal_contract",
+    "entity_id": "goal-pump-driver-001",
+    "entity_version": 1
+  },
+  "team_plan": {
+    "entity_type": "team_plan",
+    "entity_id": "team-plan-pump-001",
+    "entity_version": 1
+  },
+  "task": {
+    "entity_type": "task",
+    "entity_id": "task-driver-selection-001",
+    "entity_version": 4
+  },
+  "authored_by_role_assignment": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-executor-001",
+    "entity_version": 1
+  },
+  "status": "active",
+  "limitations": [
+    "synthetic fixture only"
+  ],
+  "confidence": {
+    "level": "high",
+    "basis": "bounded comparison over the supplied fixture",
+    "calibrated": false
+  },
+  "contribution_type": "recommendation",
+  "content": {
+    "statement": "Use candidate-b",
+    "rationale": "candidate-a fails the supplied peak-current constraint",
+    "recommended_action": "advance candidate-b to independent review",
+    "decision_subject": "motor_driver_selection",
+    "urgency": "normal"
+  },
+  "classification": "internal"
+}

@@ -1,0 +1,26 @@
+{
+  "expired-before-start.json": [
+    "role_assignment_invalid_validity_interval"
+  ],
+  "executor-manages-roles.json": [
+    "role_assignment_management_requires_human_owner"
+  ],
+  "executor-classifies-editorial.json": [
+    "editorial_classification_role_not_allowed"
+  ],
+  "reviewer-accepts-risk.json": [
+    "risk_acceptance_requires_human_owner"
+  ],
+  "agent-multiple-cards.json": [
+    "agent_card_basis_ambiguous"
+  ],
+  "agent-card-mismatch.json": [
+    "agent_card_subject_mismatch"
+  ],
+  "human-with-agent-card.json": [
+    "agent_card_basis_for_non_agent"
+  ],
+  "orchestrator-manages-goal.json": [
+    "goal_contract_management_requires_human_owner"
+  ]
+}

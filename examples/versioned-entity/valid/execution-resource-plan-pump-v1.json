@@ -1,0 +1,247 @@
+{
+  "entity": {
+    "entity_type": "execution_resource_plan",
+    "entity_id": "execution-resource-plan-pump-001",
+    "entity_version": 1
+  },
+  "created_by_event_id": "evt-execution-resource-plan-created-001",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:execution-resource-plan",
+  "legal_payload": {
+    "goal": {
+      "entity_type": "goal_contract",
+      "entity_id": "goal-pump-driver-001",
+      "entity_version": 1
+    },
+    "team_plan": {
+      "entity_type": "team_plan",
+      "entity_id": "team-plan-pump-001",
+      "entity_version": 2
+    },
+    "resources": [
+      {
+        "resource_id": "opus-resource",
+        "role_assignment": {
+          "entity_type": "role_assignment",
+          "entity_id": "role-assignment-executor-opus-001",
+          "entity_version": 1
+        },
+        "agent_card": {
+          "entity_type": "agent_card",
+          "entity_id": "agent-opus-01",
+          "entity_version": 1
+        },
+        "quota": {
+          "accounting_scope": "user_account",
+          "meter": "requests",
+          "window": "week",
+          "status": "low",
+          "limit_units": 50,
+          "remaining_units": 4,
+          "reserved_units": 2,
+          "observed_at": "2026-08-05T15:35:00Z",
+          "reset_at": "2026-08-10T00:00:00Z",
+          "source": "user_report",
+          "status_reason": "Only four weekly requests remain; two are protected for critical work."
+        }
+      },
+      {
+        "resource_id": "sol-resource",
+        "role_assignment": {
+          "entity_type": "role_assignment",
+          "entity_id": "role-assignment-executor-sol-001",
+          "entity_version": 1
+        },
+        "agent_card": {
+          "entity_type": "agent_card",
+          "entity_id": "agent-sol-01",
+          "entity_version": 1
+        },
+        "quota": {
+          "accounting_scope": "user_account",
+          "meter": "requests",
+          "window": "day",
+          "status": "available",
+          "limit_units": 100,
+          "remaining_units": 60,
+          "reserved_units": 10,
+          "observed_at": "2026-08-05T15:35:00Z",
+          "reset_at": "2026-08-06T00:00:00Z",
+          "source": "local_meter"
+        }
+      },
+      {
+        "resource_id": "lite-resource",
+        "role_assignment": {
+          "entity_type": "role_assignment",
+          "entity_id": "role-assignment-executor-lite-001",
+          "entity_version": 1
+        },
+        "agent_card": {
+          "entity_type": "agent_card",
+          "entity_id": "agent-lite-01",
+          "entity_version": 1
+        },
+        "quota": {
+          "accounting_scope": "user_account",
+          "meter": "requests",
+          "window": "day",
+          "status": "available",
+          "limit_units": 1000,
+          "remaining_units": 900,
+          "reserved_units": 0,
+          "observed_at": "2026-08-05T15:35:00Z",
+          "reset_at": "2026-08-06T00:00:00Z",
+          "source": "local_meter"
+        }
+      }
+    ],
+    "routing_rules": [
+      {
+        "rule_id": "material-execution-routing",
+        "applies_to": {
+          "roles": [
+            "executor"
+          ],
+          "phases": [
+            "execution",
+            "revision"
+          ],
+          "risk_levels": [
+            "medium",
+            "high"
+          ],
+          "task_complexities": [
+            "bounded",
+            "multi_step"
+          ],
+          "domains": [
+            "electronics"
+          ]
+        },
+        "selection_objective": "capability_first",
+        "minimum_fitness_score": 85,
+        "active_resource_id": "opus-resource",
+        "activation_reason": "initial_selection",
+        "candidates": [
+          {
+            "resource_id": "opus-resource",
+            "mode": "primary",
+            "priority": 1,
+            "fitness_score": 96,
+            "assessment_source": "human_assessment",
+            "assessment_confidence": "medium",
+            "assessment_basis": "Scenario-local assessment for difficult reasoning; this is not a universal benchmark claim.",
+            "minimum_remaining_units": 1
+          },
+          {
+            "resource_id": "sol-resource",
+            "mode": "fallback",
+            "priority": 2,
+            "fitness_score": 91,
+            "assessment_source": "human_assessment",
+            "assessment_confidence": "medium",
+            "assessment_basis": "Scenario-local assessment indicates near-primary capability for this electronics task.",
+            "minimum_remaining_units": 1
+          },
+          {
+            "resource_id": "lite-resource",
+            "mode": "fallback",
+            "priority": 3,
+            "fitness_score": 58,
+            "assessment_source": "human_assessment",
+            "assessment_confidence": "low",
+            "assessment_basis": "Suitable for bounded drafting but below the quality floor for material-risk reasoning.",
+            "minimum_remaining_units": 1
+          }
+        ],
+        "on_primary_unavailable": "activate_fallback",
+        "below_floor_policy": "prohibited",
+        "additional_review_required": false,
+        "routing_status": "active"
+      },
+      {
+        "rule_id": "low-risk-bounded-routing",
+        "applies_to": {
+          "roles": [
+            "executor"
+          ],
+          "phases": [
+            "execution",
+            "revision"
+          ],
+          "risk_levels": [
+            "low"
+          ],
+          "task_complexities": [
+            "bounded"
+          ],
+          "domains": [
+            "electronics"
+          ]
+        },
+        "selection_objective": "balanced",
+        "minimum_fitness_score": 70,
+        "active_resource_id": "lite-resource",
+        "activation_reason": "initial_selection",
+        "candidates": [
+          {
+            "resource_id": "lite-resource",
+            "mode": "primary",
+            "priority": 1,
+            "fitness_score": 82,
+            "assessment_source": "human_assessment",
+            "assessment_confidence": "medium",
+            "assessment_basis": "Task-specific score for simple bounded drafting, not for difficult reasoning.",
+            "minimum_remaining_units": 1
+          },
+          {
+            "resource_id": "sol-resource",
+            "mode": "fallback",
+            "priority": 2,
+            "fitness_score": 94,
+            "assessment_source": "human_assessment",
+            "assessment_confidence": "medium",
+            "assessment_basis": "Strong fallback when the low-cost resource is unavailable.",
+            "minimum_remaining_units": 1
+          },
+          {
+            "resource_id": "opus-resource",
+            "mode": "fallback",
+            "priority": 3,
+            "fitness_score": 97,
+            "assessment_source": "human_assessment",
+            "assessment_confidence": "medium",
+            "assessment_basis": "Highest capability but intentionally reserved for harder work.",
+            "minimum_remaining_units": 1
+          }
+        ],
+        "on_primary_unavailable": "activate_fallback",
+        "below_floor_policy": "allow_with_extra_review",
+        "additional_review_required": false,
+        "routing_status": "active"
+      }
+    ],
+    "reserve_policy": {
+      "protected_phases": [
+        "review",
+        "verification",
+        "approval",
+        "synthesis"
+      ],
+      "release_condition": "explicit_orchestrator_or_owner"
+    },
+    "heterogeneity_policy": {
+      "model_count_voting": "prohibited",
+      "decision_basis": "authority_evidence_verification",
+      "fitness_scope": "task_specific",
+      "silent_downgrade": "prohibited"
+    },
+    "fallback_policy": {
+      "all_candidates_unavailable": "await_reset",
+      "cross_provider_allowed": true,
+      "disclosure_required": true,
+      "preserve_artifacts": true
+    },
+    "status": "active"
+  }
+}

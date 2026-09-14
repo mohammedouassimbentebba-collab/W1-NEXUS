@@ -1,0 +1,8 @@
+{
+  "duplicate-target-identity.json": [
+    "duplicate_verification_target_identity"
+  ],
+  "method-validated-after-run.json": [
+    "verification_method_validated_after_performance"
+  ]
+}

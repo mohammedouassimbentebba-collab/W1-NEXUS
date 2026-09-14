@@ -1,0 +1,71 @@
+{
+  "assets": {
+    "favicon.ico": {
+      "bytes": 28197,
+      "sha256": "877154cf42ce0200a31cb32dceff44b9b63855f1a0517dd482ad53cc25c49a3c"
+    },
+    "favicon.svg": {
+      "bytes": 793,
+      "sha256": "bf8cb0b81079cf9f775dc3de0d46770e6e1b90cfed12ee5ccc6850e621de0dd6"
+    },
+    "w1-nexus-splash.png": {
+      "bytes": 47693,
+      "sha256": "0d4fccdfbde11f84a8e6f9b82ddb30c39e1732321c799705c13c7595a1065be3"
+    },
+    "w1-nexus-symbol-1024.png": {
+      "bytes": 88556,
+      "sha256": "8bc39ff9af1aecfc1f72f42aedb21312310ca69fc493025c31328dd5a33e26f7"
+    },
+    "w1-nexus-symbol-128.png": {
+      "bytes": 6904,
+      "sha256": "c2e2163c45c5ccb621628a9b9c7b8d3170919bcb4c713c8982c126faf63454df"
+    },
+    "w1-nexus-symbol-16.png": {
+      "bytes": 355,
+      "sha256": "0522d00db31d3e41f359d11bef0fb3b675ceced5108b03ee465e58eb118325dc"
+    },
+    "w1-nexus-symbol-256.png": {
+      "bytes": 14627,
+      "sha256": "e18d3c3d871389f35a95b75371c67a2503017fae55c8f83663ad0bebaffc1c3f"
+    },
+    "w1-nexus-symbol-32.png": {
+      "bytes": 932,
+      "sha256": "c3c07e355bd5209350d64d898530e2917810542dd4092f08b06e5965b703ba48"
+    },
+    "w1-nexus-symbol-48.png": {
+      "bytes": 1728,
+      "sha256": "31ceae146793a59032072c54cd1e5698c67c4fa9bed6503a2f5c9ce35545672a"
+    },
+    "w1-nexus-symbol-512.png": {
+      "bytes": 33317,
+      "sha256": "391b7dd27253a6796dac1d4c75810e6e2bc3cc32f8106bee7dd40ebe85c407b4"
+    },
+    "w1-nexus-symbol-64.png": {
+      "bytes": 2570,
+      "sha256": "a57c045d67cf493642bd56ba637a77d5da535009480064a9232fac1e7e4a1403"
+    },
+    "w1-nexus-symbol-black-1024.png": {
+      "bytes": 64513,
+      "sha256": "30f12f25b5382b6e7386df7e1ac9667a0a7737bdd07d8a75e9677988c8e1c0aa"
+    },
+    "w1-nexus-symbol-white-1024.png": {
+      "bytes": 64081,
+      "sha256": "1e206928ffa0330b92d8b870fae6dadc036ae1f3ee2bf9c20f81ef2dd66f85a5"
+    },
+    "w1-nexus-symbol.svg": {
+      "bytes": 793,
+      "sha256": "bf8cb0b81079cf9f775dc3de0d46770e6e1b90cfed12ee5ccc6850e621de0dd6"
+    },
+    "w1-nexus.icns": {
+      "bytes": 174099,
+      "sha256": "11f6d6fdacfce5d096ebd58bdf08eb51b6f2f29e470eea7fc5f02ae707d7a576"
+    },
+    "w1-nexus.ico": {
+      "bytes": 28683,
+      "sha256": "756456f73caf26a68f05e91e6e112484113463fd1a2472eeb7f3af5bff4dc67e"
+    }
+  },
+  "derivation": "deterministic color-mask extraction + contour vectorization; no generative redesign",
+  "schema": "w1-brand-assets/1.0",
+  "source_master_sha256": "8031d4e3e37cccca1ff5c9268f0e03011f5d0fbddf9c9e57175fcce5bd8b5cd2"
+}

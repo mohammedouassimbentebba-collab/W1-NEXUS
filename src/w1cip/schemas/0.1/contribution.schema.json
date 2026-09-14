@@ -1,0 +1,677 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:entity-payload:0.1:contribution",
+  "title": "W1-CIP Contribution legal payload v0.1",
+  "description": "One authored, task-bound contribution such as a proposal, claim, assumption, measured result, tool result, question, or recommendation. Identity and version are supplied by VersionedEntity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "goal",
+    "team_plan",
+    "task",
+    "authored_by_role_assignment",
+    "contribution_type",
+    "status",
+    "classification",
+    "content",
+    "limitations"
+  ],
+  "properties": {
+    "goal": {
+      "$ref": "#/$defs/goalRef"
+    },
+    "team_plan": {
+      "$ref": "#/$defs/teamPlanRef"
+    },
+    "task": {
+      "$ref": "#/$defs/taskRef"
+    },
+    "authored_by_role_assignment": {
+      "$ref": "#/$defs/roleAssignmentRef"
+    },
+    "contribution_type": {
+      "enum": [
+        "proposal",
+        "claim",
+        "assumption",
+        "measured_result",
+        "tool_result",
+        "question",
+        "recommendation"
+      ]
+    },
+    "status": {
+      "enum": [
+        "active",
+        "withdrawn"
+      ]
+    },
+    "content": {
+      "type": "object"
+    },
+    "fulfills_output_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "basis": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+      }
+    },
+    "context_usage": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/contextUsage"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/nonEmptyText"
+      }
+    },
+    "confidence": {
+      "$ref": "#/$defs/confidence"
+    },
+    "withdrawal_reason": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "classification": {
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "active"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "withdrawal_reason"
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "withdrawal_reason"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "contribution_type": {
+            "const": "proposal"
+          }
+        },
+        "required": [
+          "contribution_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "content": {
+            "$ref": "#/$defs/proposalContent"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "contribution_type": {
+            "const": "claim"
+          }
+        },
+        "required": [
+          "contribution_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "content": {
+            "$ref": "#/$defs/claimContent"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "contribution_type": {
+            "const": "assumption"
+          }
+        },
+        "required": [
+          "contribution_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "content": {
+            "$ref": "#/$defs/assumptionContent"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "contribution_type": {
+            "const": "measured_result"
+          }
+        },
+        "required": [
+          "contribution_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "content": {
+            "$ref": "#/$defs/measuredResultContent"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "contribution_type": {
+            "const": "tool_result"
+          }
+        },
+        "required": [
+          "contribution_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "content": {
+            "$ref": "#/$defs/toolResultContent"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "contribution_type": {
+            "const": "question"
+          }
+        },
+        "required": [
+          "contribution_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "content": {
+            "$ref": "#/$defs/questionContent"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "contribution_type": {
+            "const": "recommendation"
+          }
+        },
+        "required": [
+          "contribution_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "content": {
+            "$ref": "#/$defs/recommendationContent"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "typeName": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 160,
+      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*(?:\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*)+$"
+    },
+    "nonEmptyText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "goalRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "goal_contract"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "teamPlanRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "team_plan"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "taskRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "task"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "roleAssignmentRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "role_assignment"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "contextGrantRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "context_grant"
+            }
+          },
+          "required": [
+            "entity_type"
+          ]
+        }
+      ]
+    },
+    "confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "basis",
+        "calibrated"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "basis": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "calibrated": {
+          "const": false
+        }
+      }
+    },
+    "contextUsage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grant",
+        "fields_used",
+        "purpose_code"
+      ],
+      "properties": {
+        "grant": {
+          "$ref": "#/$defs/contextGrantRef"
+        },
+        "fields_used": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "purpose_code": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "proposalContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject",
+        "description",
+        "rationale"
+      ],
+      "properties": {
+        "subject": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "rationale": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "alternatives_considered": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/nonEmptyText"
+          }
+        }
+      }
+    },
+    "claimContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement",
+        "verifiability",
+        "submission_verification_status"
+      ],
+      "properties": {
+        "statement": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "verifiability": {
+          "enum": [
+            "deterministic",
+            "empirical",
+            "source_based",
+            "human_judgment",
+            "not_currently_verifiable"
+          ]
+        },
+        "submission_verification_status": {
+          "const": "unverified"
+        },
+        "verification_requirements": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/nonEmptyText"
+          }
+        },
+        "judgment_criteria": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/nonEmptyText"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "verifiability": {
+                "const": "human_judgment"
+              }
+            },
+            "required": [
+              "verifiability"
+            ]
+          },
+          "then": {
+            "required": [
+              "judgment_criteria"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "judgment_criteria"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "assumptionContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement",
+        "basis",
+        "impact_if_false",
+        "validation_needed"
+      ],
+      "properties": {
+        "statement": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "basis": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "impact_if_false": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "validation_needed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "measuredResultContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric",
+        "value",
+        "unit",
+        "method",
+        "conditions"
+      ],
+      "properties": {
+        "metric": {
+          "$ref": "#/$defs/identifier"
+        },
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "method": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "conditions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/nonEmptyText"
+          }
+        },
+        "sample_count": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "toolResultContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tool",
+        "operation",
+        "outcome",
+        "summary"
+      ],
+      "properties": {
+        "tool": {
+          "allOf": [
+            {
+              "$ref": "urn:w1-cip:schema:0.1:principal-ref"
+            },
+            {
+              "properties": {
+                "principal_type": {
+                  "enum": [
+                    "tool",
+                    "service"
+                  ]
+                }
+              },
+              "required": [
+                "principal_type"
+              ]
+            }
+          ]
+        },
+        "operation": {
+          "$ref": "#/$defs/typeName"
+        },
+        "outcome": {
+          "enum": [
+            "succeeded",
+            "failed",
+            "partial"
+          ]
+        },
+        "summary": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "result_data": {
+          "type": "object"
+        },
+        "source_event_id": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "questionContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "blocking"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "requested_roles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "orchestrator",
+              "executor",
+              "reviewer",
+              "verifier",
+              "decision_authority",
+              "synthesizer",
+              "human_owner"
+            ]
+          }
+        }
+      }
+    },
+    "recommendationContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement",
+        "rationale",
+        "recommended_action"
+      ],
+      "properties": {
+        "statement": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "rationale": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "recommended_action": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "decision_subject": {
+          "$ref": "#/$defs/identifier"
+        },
+        "urgency": {
+          "enum": [
+            "low",
+            "normal",
+            "high"
+          ]
+        }
+      }
+    }
+  }
+}

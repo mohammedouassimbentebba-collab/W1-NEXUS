@@ -1,0 +1,43 @@
+{
+  "goal": {
+    "entity_type": "goal_contract",
+    "entity_id": "goal-pump-driver-001",
+    "entity_version": 1
+  },
+  "team_plan": {
+    "entity_type": "team_plan",
+    "entity_id": "team-plan-pump-001",
+    "entity_version": 1
+  },
+  "task": {
+    "entity_type": "task",
+    "entity_id": "task-driver-selection-001",
+    "entity_version": 4
+  },
+  "authored_by_role_assignment": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-executor-001",
+    "entity_version": 1
+  },
+  "status": "active",
+  "limitations": [
+    "synthetic fixture only"
+  ],
+  "confidence": {
+    "level": "high",
+    "basis": "bounded comparison over the supplied fixture",
+    "calibrated": false
+  },
+  "contribution_type": "measured_result",
+  "content": {
+    "metric": "startup_current",
+    "value": 18.0,
+    "unit": "A",
+    "method": "Read the supplied synthetic startup-current capture.",
+    "conditions": [
+      "startup interval 0.8 s"
+    ],
+    "sample_count": 1
+  },
+  "classification": "internal"
+}

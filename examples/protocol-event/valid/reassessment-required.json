@@ -1,0 +1,27 @@
+{
+  "event_type": "reassessment_required",
+  "subject": {
+    "entity_type": "decision",
+    "entity_id": "decision-motor-driver-001",
+    "entity_version": 3
+  },
+  "trigger_refs": [
+    {
+      "entity_type": "challenge",
+      "entity_id": "challenge-startup-current-001",
+      "entity_version": 5
+    }
+  ],
+  "reason": {
+    "code": "critical_challenge_reopened",
+    "description": "The critical startup-current challenge was reopened after the decision had been accepted."
+  },
+  "classification": "internal",
+  "propagation": "declared_dependents",
+  "blocking": true,
+  "required_follow_up": {
+    "operation": "decision.next_version",
+    "must_complete_before": "decision.accepted",
+    "description": "Record reassessment before the decision can be treated as accepted again."
+  }
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NEXUS — Benchmark Adapter Integrity Report</title>
+  <style>
+    body { background: #0B0F17; color: #F8FAFC; font-family: -apple-system, system-ui, sans-serif; padding: 40px; }
+    .card { background: #111827; border: 1px solid #1F2937; border-radius: 8px; padding: 24px; margin-top: 24px; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { background: #1E293B; padding: 12px; font-size: 13px; color: #38BDF8; text-transform: uppercase; }
+    .banner { background: rgba(239, 68, 68, 0.15); border: 1px solid #EF4444; color: #F87171; padding: 16px; border-radius: 8px; font-weight: 600; margin-bottom: 24px; }
+  </style>
+</head>
+<body>
+  <h1>NEXUS Benchmark Adapter Integrity Audit</h1>
+  <div class="banner">
+    INTEGRITY STATUS: DEMO_ONLY QUALIFIED — All 9 benchmark suites operate on curated representative tasks.<br>
+    Results verify telemetry, meters, and agent uplift, but MUST NOT be claimed as official public leaderboard results.
+  </div>
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Benchmark</th>
+          <th>Official Version</th>
+          <th>Tasks (Local/Official)</th>
+          <th>Off. Eval</th>
+          <th>Off. Env</th>
+          <th>Private Set</th>
+          <th>Integrity Status</th>
+          <th>Audit Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #1E293B;">
+          <td style="padding:12px;font-weight:600;">AutomationBench</td>
+          <td style="padding:12px;"><code>v1.2-public</code></td>
+          <td style="padding:12px;text-align:center;">7 / 24</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;">Yes</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;"><span style="background:#EF4444;color:#FFF;padding:2px 8px;border-radius:4px;font-weight:700;">DEMO_ONLY</span></td>
+          <td style="padding:12px;color:#94A3B8;font-size:13px;">Curated public subset across 6 business domains (Sales, Marketing, Ops, Support, Finance, HR); not official held-out split.</td>
+        </tr>
+        
+        <tr style="border-bottom:1px solid #1E293B;">
+          <td style="padding:12px;font-weight:600;">OSWorld 2.0</td>
+          <td style="padding:12px;"><code>osworld-v2-2026.08.08</code></td>
+          <td style="padding:12px;text-align:center;">4 / 369</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;"><span style="background:#EF4444;color:#FFF;padding:2px 8px;border-radius:4px;font-weight:700;">DEMO_ONLY</span></td>
+          <td style="padding:12px;color:#94A3B8;font-size:13px;">Pinned to official release osworld-v2-2026.08.08; runs local representative GUI/web tasks without live VM cluster.</td>
+        </tr>
+        
+        <tr style="border-bottom:1px solid #1E293B;">
+          <td style="padding:12px;font-weight:600;">Terminal-Bench 4.0</td>
+          <td style="padding:12px;"><code>tb4-2026.01</code></td>
+          <td style="padding:12px;text-align:center;">4 / 89</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;">Yes</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;"><span style="background:#EF4444;color:#FFF;padding:2px 8px;border-radius:4px;font-weight:700;">DEMO_ONLY</span></td>
+          <td style="padding:12px;color:#94A3B8;font-size:13px;">Curated representative bash/process tasks; not the full official Docker execution harness.</td>
+        </tr>
+        
+        <tr style="border-bottom:1px solid #1E293B;">
+          <td style="padding:12px;font-weight:600;">Terminal-Bench Science</td>
+          <td style="padding:12px;"><code>tb-science-0.1</code></td>
+          <td style="padding:12px;text-align:center;">5 / 70</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;">Yes</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;"><span style="background:#EF4444;color:#FFF;padding:2px 8px;border-radius:4px;font-weight:700;">DEMO_ONLY</span></td>
+          <td style="padding:12px;color:#94A3B8;font-size:13px;">Curated representative tasks across 5 science domains (Life, Physical, Earth, Math, Engineering).</td>
+        </tr>
+        
+        <tr style="border-bottom:1px solid #1E293B;">
+          <td style="padding:12px;font-weight:600;">FrontierMath Tier 4</td>
+          <td style="padding:12px;"><code>tier4-v2-eval</code></td>
+          <td style="padding:12px;text-align:center;">3 / 30</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;">Yes</td>
+          <td style="padding:12px;text-align:center;">Yes</td>
+          <td style="padding:12px;text-align:center;"><span style="background:#EF4444;color:#FFF;padding:2px 8px;border-radius:4px;font-weight:700;">DEMO_ONLY</span></td>
+          <td style="padding:12px;color:#94A3B8;font-size:13px;">Official Tier 4 questions are private/held-out research assets. Uses mock verification tasks to prevent leakage.</td>
+        </tr>
+        
+        <tr style="border-bottom:1px solid #1E293B;">
+          <td style="padding:12px;font-weight:600;">ExploitBench</td>
+          <td style="padding:12px;"><code>eb-v1-sandbox</code></td>
+          <td style="padding:12px;text-align:center;">3 / 45</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;">Yes</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;"><span style="background:#EF4444;color:#FFF;padding:2px 8px;border-radius:4px;font-weight:700;">DEMO_ONLY</span></td>
+          <td style="padding:12px;color:#94A3B8;font-size:13px;">Isolated synthetic memory safety and privilege escalation challenges; zero execution against real external targets.</td>
+        </tr>
+        
+        <tr style="border-bottom:1px solid #1E293B;">
+          <td style="padding:12px;font-weight:600;">SRE-Bench</td>
+          <td style="padding:12px;"><code>sre-2026-strict</code></td>
+          <td style="padding:12px;text-align:center;">3 / 50</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;">Yes</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;"><span style="background:#EF4444;color:#FFF;padding:2px 8px;border-radius:4px;font-weight:700;">DEMO_ONLY</span></td>
+          <td style="padding:12px;color:#94A3B8;font-size:13px;">Enforces strict attempts=1 protocol. Evaluates incident remediation on representative scenarios.</td>
+        </tr>
+        
+        <tr style="border-bottom:1px solid #1E293B;">
+          <td style="padding:12px;font-weight:600;">MRCR v2</td>
+          <td style="padding:12px;"><code>mrcr-v2-longcontext</code></td>
+          <td style="padding:12px;text-align:center;">4 / 100</td>
+          <td style="padding:12px;text-align:center;">Yes</td>
+          <td style="padding:12px;text-align:center;">Yes</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;"><span style="background:#EF4444;color:#FFF;padding:2px 8px;border-radius:4px;font-weight:700;">DEMO_ONLY</span></td>
+          <td style="padding:12px;color:#94A3B8;font-size:13px;">Tests multi-needle retrieval scaling across 512K, 768K, and 1M synthetic contexts.</td>
+        </tr>
+        
+        <tr style="border-bottom:1px solid #1E293B;">
+          <td style="padding:12px;font-weight:600;">AA Intelligence Index</td>
+          <td style="padding:12px;"><code>v4.1.1</code></td>
+          <td style="padding:12px;text-align:center;">4 / 4</td>
+          <td style="padding:12px;text-align:center;">Yes</td>
+          <td style="padding:12px;text-align:center;">Yes</td>
+          <td style="padding:12px;text-align:center;">No</td>
+          <td style="padding:12px;text-align:center;"><span style="background:#EF4444;color:#FFF;padding:2px 8px;border-radius:4px;font-weight:700;">DEMO_ONLY</span></td>
+          <td style="padding:12px;color:#94A3B8;font-size:13px;">Computes composite index using official weighting formula across 4 representative capability pillars.</td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+</body>
+</html>

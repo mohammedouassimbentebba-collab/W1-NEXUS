@@ -1,0 +1,11 @@
+{
+  "duplicate-target-identity.json": [
+    "duplicate_evidence_target_identity"
+  ],
+  "collection-time-mismatch.json": [
+    "evidence_collection_time_mismatch"
+  ],
+  "classification-below-source.json": [
+    "evidence_classification_below_source"
+  ]
+}

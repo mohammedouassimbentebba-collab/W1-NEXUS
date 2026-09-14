@@ -1,0 +1,1077 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:schema:0.1:versioned-entity",
+  "title": "W1-CIP VersionedEntity v0.1",
+  "description": "Immutable accepted entity version containing the complete legal payload, lineage, and change classification metadata.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "entity",
+    "created_by_event_id",
+    "legal_payload_schema",
+    "legal_payload"
+  ],
+  "properties": {
+    "entity": {
+      "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+    },
+    "created_by_event_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "legal_payload_schema": {
+      "type": "string",
+      "format": "uri"
+    },
+    "legal_payload": {
+      "type": "object"
+    },
+    "previous_version": {
+      "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+    },
+    "change_metadata": {
+      "$ref": "#/$defs/changeMetadata"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_version": {
+                "const": 1
+              }
+            },
+            "required": [
+              "entity_version"
+            ]
+          }
+        },
+        "required": [
+          "entity"
+        ]
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "previous_version"
+              ]
+            },
+            {
+              "required": [
+                "change_metadata"
+              ]
+            }
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "previous_version",
+          "change_metadata"
+        ]
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "role_assignment"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:role-assignment"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "role_assignment"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:role-assignment"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:role-assignment"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "agent_card"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:agent-card"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "agent_card"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:agent-card"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:agent-card"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "goal_contract"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:goal-contract"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "goal_contract"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:goal-contract"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:goal-contract"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "team_plan"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:team-plan"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "team_plan"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:team-plan"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:team-plan"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "context_grant"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:context-grant"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "context_grant"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:context-grant"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:context-grant"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "task"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:task"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "task"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:task"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:task"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "contribution"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:contribution"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "contribution"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:contribution"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:contribution"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "evidence"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:evidence"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "evidence"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:evidence"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:evidence"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "verification"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:verification"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "verification"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:verification"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:verification"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "challenge"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:challenge"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "challenge"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:challenge"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:challenge"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "review"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:review"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "review"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:review"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:review"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "approval"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:approval"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "approval"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:approval"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:approval"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "decision"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:decision"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "decision"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:decision"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:decision"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "execution_resource_plan"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:execution-resource-plan"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "execution_resource_plan"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:execution-resource-plan"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:execution-resource-plan"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "protocol_event"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:protocol-event"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "protocol_event"
+              },
+              "entity_version": {
+                "const": 1
+              }
+            },
+            "required": [
+              "entity_type",
+              "entity_version"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:protocol-event"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:protocol-event"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "entity": {
+                "properties": {
+                  "entity_type": {
+                    "const": "final_result"
+                  }
+                },
+                "required": [
+                  "entity_type"
+                ]
+              }
+            },
+            "required": [
+              "entity"
+            ]
+          },
+          {
+            "properties": {
+              "legal_payload_schema": {
+                "const": "urn:w1-cip:entity-payload:0.1:final-result"
+              }
+            },
+            "required": [
+              "legal_payload_schema"
+            ]
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "entity": {
+            "properties": {
+              "entity_type": {
+                "const": "final_result"
+              }
+            },
+            "required": [
+              "entity_type"
+            ]
+          },
+          "legal_payload_schema": {
+            "const": "urn:w1-cip:entity-payload:0.1:final-result"
+          },
+          "legal_payload": {
+            "$ref": "urn:w1-cip:entity-payload:0.1:final-result"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "artifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "uri",
+        "artifact_version"
+      ],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "artifact_version": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "approvalRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "approval"
+            }
+          }
+        }
+      ]
+    },
+    "classificationCheckRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "enum": [
+                "verification",
+                "review"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "changeMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "change_reason",
+        "substantive_effect"
+      ],
+      "properties": {
+        "change_reason": {
+          "enum": [
+            "semantic",
+            "editorial_correction"
+          ]
+        },
+        "substantive_effect": {
+          "enum": [
+            "may_affect_dependents",
+            "none"
+          ]
+        },
+        "diff_artifact": {
+          "$ref": "#/$defs/artifactRef"
+        },
+        "classification_approval": {
+          "$ref": "#/$defs/approvalRef"
+        },
+        "classification_check": {
+          "$ref": "#/$defs/classificationCheckRef"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "substantive_effect": {
+                "const": "none"
+              }
+            },
+            "required": [
+              "substantive_effect"
+            ]
+          },
+          "then": {
+            "required": [
+              "diff_artifact",
+              "classification_approval",
+              "classification_check"
+            ],
+            "properties": {
+              "change_reason": {
+                "const": "editorial_correction"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "change_reason": {
+                "const": "semantic"
+              }
+            },
+            "required": [
+              "change_reason"
+            ]
+          },
+          "then": {
+            "properties": {
+              "substantive_effect": {
+                "const": "may_affect_dependents"
+              }
+            },
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "classification_approval"
+                  ]
+                },
+                {
+                  "required": [
+                    "classification_check"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "duplicate-criterion.json": [
+    "duplicate_review_criterion",
+    "review_required_criterion_missing"
+  ],
+  "approved-unsatisfied.json": [
+    "review_approved_with_unsatisfied_criterion"
+  ],
+  "rejected-without-critical.json": [
+    "review_rejected_without_critical_failure"
+  ],
+  "satisfied-critical.json": [
+    "review_satisfied_criterion_severity_invalid"
+  ]
+}

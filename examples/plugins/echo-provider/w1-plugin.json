@@ -1,0 +1,19 @@
+{
+  "api_version": "1.0",
+  "capabilities": [
+    "provider.adapter",
+    "lifecycle.health"
+  ],
+  "description": "Minimal governed provider plugin using the stable W1 SDK surface.",
+  "entrypoint": "plugin:EchoProviderPlugin",
+  "license": "UNLICENSED-EXAMPLE",
+  "metadata": {
+    "example": true
+  },
+  "minimum_w1_version": "0.1.0.dev39",
+  "name": "W1 Echo Provider Example",
+  "permissions": [],
+  "plugin_id": "org.w1.examples.echo-provider",
+  "schema_version": 1,
+  "version": "0.1.0"
+}

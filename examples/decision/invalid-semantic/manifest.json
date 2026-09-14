@@ -1,0 +1,4 @@
+{
+  "critical-dependency-notify-only.json": "decision_critical_dependency_notify_only",
+  "unknown-selected-option.json": "decision_selected_option_unknown"
+}

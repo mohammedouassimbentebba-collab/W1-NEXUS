@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NEXUS Frontier Benchmark — Complete Trace Ledger</title>
+<style>
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0B0F17; color: #F1F5F9; margin: 0; padding: 32px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 10px 14px; border: 1px solid #1F2937; text-align: left; }
+  th { background: #1E293B; color: #38BDF8; }
+  tr:nth-child(even) { background: #111827; }
+  .pass { color: #34D399; font-weight: bold; }
+  .fail { color: #F87171; font-weight: bold; }
+</style>
+</head>
+<body>
+  <h2>NEXUS Frontier Benchmark — Comprehensive Run Records (128 entries)</h2>
+  <table>
+    <thead><tr><th>Run ID</th><th>Benchmark</th><th>Task ID</th><th>Model</th><th>Mode</th><th>Result</th><th>Tokens</th><th>Latency (ms)</th><th>Failure Reason</th></tr></thead>
+    <tbody>
+<tr><td>nexus-bench-1788725342</td><td>AutomationBench</td><td>auto-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>516</td><td>2391.98</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AutomationBench</td><td>auto-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>444</td><td>2718.65</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AutomationBench</td><td>auto-sales-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>307</td><td>1614.38</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AutomationBench</td><td>auto-sales-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>604</td><td>3232.76</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AutomationBench</td><td>auto-mktg-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>UNKNOWN</td><td>462</td><td>1991.26</td><td>Unclassified failure: Expected '3.0' in output, got: 'click-through rate = clicks ÷ impressions × 100
+
+* clicks = 375
+* impressions = 12,500
+
+step 1: ratio
+375 / 12,500 = 0.0...'</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AutomationBench</td><td>auto-mktg-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='fail'>UNKNOWN</td><td>271</td><td>4865.93</td><td>Unclassified failure: Expected '3.0' in output, got: 'ctr = clicks / impressions × 100
+
+ctr = 375 / 12,500 × 100 = 0.03 × 100 = 3%...'</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AutomationBench</td><td>auto-ops-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>756</td><td>6739.69</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AutomationBench</td><td>auto-ops-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>794</td><td>8033.69</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AutomationBench</td><td>auto-supp-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>1721</td><td>16169.61</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AutomationBench</td><td>auto-supp-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>1872</td><td>18564.19</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AutomationBench</td><td>auto-fin-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>UNKNOWN</td><td>470</td><td>5203.43</td><td>Unclassified failure: Expected '350000' in output, got: 'net operating income is calculated as:
+
+**noi = revenue - operating expenses**
+
+verified steps:
+1. revenue = $1,200,000
+...'</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AutomationBench</td><td>auto-fin-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='fail'>UNKNOWN</td><td>289</td><td>10744.81</td><td>Unclassified failure: Expected '350000' in output, got: 'net operating income = revenue – operating expenses
+= $1,200,000 – $850,000
+= **$350,000**...'</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AutomationBench</td><td>auto-hr-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>272</td><td>4608.3</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AutomationBench</td><td>auto-hr-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>455</td><td>4173.29</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>OSWorld 2.0</td><td>osworld2-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>781</td><td>11518.16</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>OSWorld 2.0</td><td>osworld2-web-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='fail'>UNKNOWN</td><td>493</td><td>3958.97</td><td>Unclassified failure: Expected 'governed_strict' in output, got: 'i can't access internal resources like http://localhost:8080/settings. i don't have browsing capability to your local ne...'</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>OSWorld 2.0</td><td>osworld2-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>1134</td><td>20000.87</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>OSWorld 2.0</td><td>osworld2-web-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>912</td><td>8906.85</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>OSWorld 2.0</td><td>osworld2-office-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>1144</td><td>8511.72</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>OSWorld 2.0</td><td>osworld2-sys-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>256</td><td>4690.68</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>OSWorld 2.0</td><td>osworld2-office-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>1100</td><td>10414.89</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench 4.0</td><td>tb4-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>421</td><td>2815.76</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>OSWorld 2.0</td><td>osworld2-sys-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>624</td><td>5374.99</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench 4.0</td><td>tb4-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>528</td><td>3381.61</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench 4.0</td><td>tb4-sed-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>541</td><td>8820.68</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench 4.0</td><td>tb4-sed-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>654</td><td>5846.13</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench 4.0</td><td>tb4-net-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>242</td><td>2886.15</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench 4.0</td><td>tb4-net-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>371</td><td>5783.4</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench 4.0</td><td>tb4-git-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>361</td><td>3926.54</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench 4.0</td><td>tb4-git-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>447</td><td>3034.71</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench Science</td><td>tb-sci-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>491</td><td>8746.88</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench Science</td><td>tb-sci-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>599</td><td>8663.14</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench Science</td><td>tb-sci-life-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>248</td><td>4907.66</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench Science</td><td>tb-sci-life-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>478</td><td>6145.73</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench Science</td><td>tb-sci-earth-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>318</td><td>4385.77</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench Science</td><td>tb-sci-earth-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>441</td><td>7522.65</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench Science</td><td>tb-sci-math-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='fail'>UNKNOWN</td><td>276</td><td>11653.17</td><td>Unclassified failure: Expected '3x^2' in output, got: '$f'(x)=\dfrac{d}{dx}x^{3}=3x^{2}$...'</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench Science</td><td>tb-sci-math-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>UNKNOWN</td><td>608</td><td>7387.94</td><td>Unclassified failure: Expected '3x^2' in output, got: 'the derivative can be obtained with the power rule.
+
+**step 1: identify form**
+$f(x)=x^{3}=x^{n}$ with $n=3$
+
+**step 2: ...'</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench Science</td><td>tb-sci-eng-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>295</td><td>3021.49</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>Terminal-Bench Science</td><td>tb-sci-eng-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>494</td><td>4064.57</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>FrontierMath Tier 4</td><td>fm-t4-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>669</td><td>6987.41</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>FrontierMath Tier 4</td><td>fm-t4-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>923</td><td>6617.63</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>FrontierMath Tier 4</td><td>fm-t4-nt-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>687</td><td>3786.16</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>FrontierMath Tier 4</td><td>fm-t4-nt-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>866</td><td>4931.35</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>FrontierMath Tier 4</td><td>fm-t4-top-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>239</td><td>4149.82</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>FrontierMath Tier 4</td><td>fm-t4-top-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>675</td><td>4074.02</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>ExploitBench</td><td>exploit-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>560</td><td>6381.9</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>ExploitBench</td><td>exploit-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>738</td><td>5741.4</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>ExploitBench</td><td>exploit-mem-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>1100</td><td>8289.36</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>ExploitBench</td><td>exploit-crypto-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>783</td><td>7058.53</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>ExploitBench</td><td>exploit-crypto-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>936</td><td>6775.04</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>SRE-Bench</td><td>sre-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>760</td><td>6370.36</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>SRE-Bench</td><td>sre-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>1314</td><td>9109.76</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>ExploitBench</td><td>exploit-mem-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>968</td><td>54383.99</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>SRE-Bench</td><td>sre-k8s-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>850</td><td>14851.88</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>SRE-Bench</td><td>sre-disk-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>691</td><td>6388.34</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>SRE-Bench</td><td>sre-k8s-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>1125</td><td>8881.98</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>MRCR v2</td><td>mrcr-smoke-16k</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>2047</td><td>4852.38</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>SRE-Bench</td><td>sre-disk-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>1224</td><td>8295.54</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>MRCR v2</td><td>mrcr-smoke-16k</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>2116</td><td>4600.89</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>MRCR v2</td><td>mrcr-retrieval-512k</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>375</td><td>3143.3</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>MRCR v2</td><td>mrcr-retrieval-768k</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>308</td><td>3156.69</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>MRCR v2</td><td>mrcr-retrieval-512k</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>502</td><td>5323.68</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>MRCR v2</td><td>mrcr-retrieval-768k</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>545</td><td>4930.98</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>MRCR v2</td><td>mrcr-retrieval-1m</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>325</td><td>4417.67</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AA Intelligence Index</td><td>aa-index-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>332</td><td>5603.87</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>MRCR v2</td><td>mrcr-retrieval-1m</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>593</td><td>6569.7</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AA Intelligence Index</td><td>aa-index-verb-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>248</td><td>9046.54</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AA Intelligence Index</td><td>aa-index-verb-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>610</td><td>3403.38</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AA Intelligence Index</td><td>aa-index-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>729</td><td>13890.74</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AA Intelligence Index</td><td>aa-index-math-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>289</td><td>4321.9</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AA Intelligence Index</td><td>aa-index-code-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>282</td><td>6818.58</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AA Intelligence Index</td><td>aa-index-math-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>452</td><td>15471.07</td><td>-</td></tr>
+<tr><td>nexus-bench-1788725342</td><td>AA Intelligence Index</td><td>aa-index-code-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>584</td><td>6894.69</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>AutomationBench</td><td>auto-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>459</td><td>1770.94</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>AutomationBench</td><td>auto-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>603</td><td>2864.64</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>OSWorld 2.0</td><td>osworld2-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>836</td><td>3663.1</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>OSWorld 2.0</td><td>osworld2-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>858</td><td>3762.95</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>Terminal-Bench 4.0</td><td>tb4-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>392</td><td>1707.43</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>Terminal-Bench 4.0</td><td>tb4-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>477</td><td>2032.35</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>Terminal-Bench Science</td><td>tb-sci-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>552</td><td>1997.09</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>Terminal-Bench Science</td><td>tb-sci-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>672</td><td>2630.21</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>FrontierMath Tier 4</td><td>fm-t4-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>579</td><td>2437.4</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>FrontierMath Tier 4</td><td>fm-t4-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>860</td><td>6972.17</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>ExploitBench</td><td>exploit-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>603</td><td>4112.67</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>ExploitBench</td><td>exploit-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>639</td><td>2850.94</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>SRE-Bench</td><td>sre-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>848</td><td>6161.45</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>SRE-Bench</td><td>sre-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>1404</td><td>10427.67</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>MRCR v2</td><td>mrcr-smoke-16k</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>1992</td><td>4021.89</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>MRCR v2</td><td>mrcr-smoke-16k</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>2109</td><td>2587.79</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>AA Intelligence Index</td><td>aa-index-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_A_RAW_MODEL</td><td class='pass'>PASS</td><td>330</td><td>2027.49</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724759</td><td>AA Intelligence Index</td><td>aa-index-smoke-01</td><td>muse-glimmer-30b</td><td>MODE_B_NEXUS_AGENT</td><td class='pass'>PASS</td><td>928</td><td>5443.62</td><td>-</td></tr>
+<tr><td>nexus-smoke-1788724850</td><td>AutomationBench</td><td>auto-smoke-01</td><td>kimi-k3</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>30499.74</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788724850</td><td>OSWorld 2.0</td><td>osworld2-smoke-01</td><td>kimi-k3</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>31448.05</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788724850</td><td>Terminal-Bench 4.0</td><td>tb4-smoke-01</td><td>kimi-k3</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>31884.62</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788724850</td><td>Terminal-Bench Science</td><td>tb-sci-smoke-01</td><td>kimi-k3</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>30273.67</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788724850</td><td>FrontierMath Tier 4</td><td>fm-t4-smoke-01</td><td>kimi-k3</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>40278.62</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788724850</td><td>ExploitBench</td><td>exploit-smoke-01</td><td>kimi-k3</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>31561.25</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788724850</td><td>SRE-Bench</td><td>sre-smoke-01</td><td>kimi-k3</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>45974.51</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788724850</td><td>MRCR v2</td><td>mrcr-smoke-16k</td><td>kimi-k3</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>45218.44</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788724850</td><td>AA Intelligence Index</td><td>aa-index-smoke-01</td><td>kimi-k3</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>30257.15</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788725226</td><td>AutomationBench</td><td>auto-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>30618.95</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788725226</td><td>OSWorld 2.0</td><td>osworld2-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>30316.42</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788725226</td><td>Terminal-Bench 4.0</td><td>tb4-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>30346.45</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788725226</td><td>Terminal-Bench Science</td><td>tb-sci-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>31586.4</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788725226</td><td>FrontierMath Tier 4</td><td>fm-t4-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>40236.14</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788725226</td><td>ExploitBench</td><td>exploit-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>32616.76</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788725226</td><td>SRE-Bench</td><td>sre-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>46824.92</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788725226</td><td>MRCR v2</td><td>mrcr-smoke-16k</td><td>deepseek-v4-pro-0813</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>46666.93</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788725226</td><td>AA Intelligence Index</td><td>aa-index-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_A_RAW_MODEL</td><td class='fail'>TIMEOUT</td><td>0</td><td>32648.97</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>AutomationBench</td><td>auto-smoke-01</td><td>kimi-k3</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>TIMEOUT</td><td>0</td><td>16516.8</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>OSWorld 2.0</td><td>osworld2-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>TIMEOUT</td><td>0</td><td>16530.35</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>AutomationBench</td><td>auto-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>TIMEOUT</td><td>0</td><td>17313.36</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>Terminal-Bench 4.0</td><td>tb4-smoke-01</td><td>kimi-k3</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>RATE_LIMIT</td><td>0</td><td>4182.33</td><td>HTTP 429 Rate limit / quota exceeded: HTTP 429: {"status":429,"title":"Too Many Requests"}</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>Terminal-Bench Science</td><td>tb-sci-smoke-01</td><td>kimi-k3</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>RATE_LIMIT</td><td>0</td><td>4952.68</td><td>HTTP 429 Rate limit / quota exceeded: HTTP 429: {"status":429,"title":"Too Many Requests"}</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>Terminal-Bench 4.0</td><td>tb4-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>TIMEOUT</td><td>0</td><td>16679.03</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>OSWorld 2.0</td><td>osworld2-smoke-01</td><td>kimi-k3</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>TIMEOUT</td><td>0</td><td>16866.2</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>FrontierMath Tier 4</td><td>fm-t4-smoke-01</td><td>kimi-k3</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>RATE_LIMIT</td><td>0</td><td>1525.08</td><td>HTTP 429 Rate limit / quota exceeded: HTTP 429: {"status":429,"title":"Too Many Requests"}</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>Terminal-Bench Science</td><td>tb-sci-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>TIMEOUT</td><td>0</td><td>17452.54</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>ExploitBench</td><td>exploit-smoke-01</td><td>kimi-k3</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>RATE_LIMIT</td><td>0</td><td>829.7</td><td>HTTP 429 Rate limit / quota exceeded: HTTP 429: {"status":429,"title":"Too Many Requests"}</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>SRE-Bench</td><td>sre-smoke-01</td><td>kimi-k3</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>RATE_LIMIT</td><td>0</td><td>828.36</td><td>HTTP 429 Rate limit / quota exceeded: HTTP 429: {"status":429,"title":"Too Many Requests"}</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>SRE-Bench</td><td>sre-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>RATE_LIMIT</td><td>0</td><td>1188.67</td><td>HTTP 429 Rate limit / quota exceeded: HTTP 429: {"status":429,"title":"Too Many Requests"}</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>MRCR v2</td><td>mrcr-smoke-16k</td><td>deepseek-v4-pro-0813</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>RATE_LIMIT</td><td>0</td><td>2057.23</td><td>HTTP 429 Rate limit / quota exceeded: HTTP 429: {"status":429,"title":"Too Many Requests"}</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>FrontierMath Tier 4</td><td>fm-t4-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>TIMEOUT</td><td>0</td><td>16033.18</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>ExploitBench</td><td>exploit-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>TIMEOUT</td><td>0</td><td>16468.14</td><td>Execution timed out during execution: Connection error: The read operation timed out</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>MRCR v2</td><td>mrcr-smoke-16k</td><td>kimi-k3</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>RATE_LIMIT</td><td>0</td><td>2763.51</td><td>HTTP 429 Rate limit / quota exceeded: HTTP 429: {"status":429,"title":"Too Many Requests"}</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>AA Intelligence Index</td><td>aa-index-smoke-01</td><td>kimi-k3</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>RATE_LIMIT</td><td>0</td><td>1952.72</td><td>HTTP 429 Rate limit / quota exceeded: HTTP 429: {"status":429,"title":"Too Many Requests"}</td></tr>
+<tr><td>nexus-smoke-1788726779</td><td>AA Intelligence Index</td><td>aa-index-smoke-01</td><td>deepseek-v4-pro-0813</td><td>MODE_B_NEXUS_AGENT</td><td class='fail'>RATE_LIMIT</td><td>0</td><td>7428.55</td><td>HTTP 429 Rate limit / quota exceeded: HTTP 429: {"status":429,"title":"Too Many Requests"}</td></tr>
+    </tbody>
+  </table>
+</body>
+</html>

@@ -1,0 +1,305 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:entity-payload:0.1:agent-card",
+  "title": "W1-CIP AgentCard legal payload v0.1",
+  "description": "Complete legal payload declaring one session-scoped agent identity's provider, capabilities, tools, eligible roles, permissions, data policy, autonomy, cost, latency, limitations, and availability. Identity and version are supplied by the enclosing VersionedEntity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "display_name",
+    "provider",
+    "capabilities",
+    "tools",
+    "eligible_roles",
+    "prohibited_uses",
+    "permissions",
+    "data_policy",
+    "autonomy",
+    "cost",
+    "latency",
+    "limitations",
+    "status"
+  ],
+  "properties": {
+    "display_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "provider": {
+      "$ref": "#/$defs/provider"
+    },
+    "capabilities": {
+      "$ref": "#/$defs/capabilities"
+    },
+    "tools": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/identifier"
+      }
+    },
+    "eligible_roles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/agentRole"
+      }
+    },
+    "prohibited_uses": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/identifier"
+      }
+    },
+    "permissions": {
+      "$ref": "#/$defs/permissions"
+    },
+    "data_policy": {
+      "$ref": "#/$defs/dataPolicy"
+    },
+    "autonomy": {
+      "$ref": "#/$defs/autonomy"
+    },
+    "cost": {
+      "$ref": "#/$defs/cost"
+    },
+    "latency": {
+      "$ref": "#/$defs/latency"
+    },
+    "limitations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/identifier"
+      }
+    },
+    "status": {
+      "enum": [
+        "active",
+        "suspended",
+        "retired"
+      ]
+    },
+    "status_reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "active"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "status_reason"
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "status_reason"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "agentRole": {
+      "enum": [
+        "orchestrator",
+        "executor",
+        "reviewer",
+        "verifier",
+        "decision_authority",
+        "synthesizer"
+      ]
+    },
+    "provider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "model"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/identifier"
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+\\-]*$"
+        }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "domains",
+        "operations"
+      ],
+      "properties": {
+        "domains": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "operations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        }
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "data_read",
+        "data_write",
+        "actions"
+      ],
+      "properties": {
+        "data_read": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "data_write": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "actions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        }
+      }
+    },
+    "dataPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accepted_classifications",
+        "external_processing",
+        "onward_sharing"
+      ],
+      "properties": {
+        "accepted_classifications": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "public",
+              "internal",
+              "confidential",
+              "restricted"
+            ]
+          }
+        },
+        "external_processing": {
+          "type": "boolean"
+        },
+        "onward_sharing": {
+          "type": "boolean"
+        }
+      }
+    },
+    "autonomy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "human_approval_required_for"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "propose_only",
+            "execute_with_approval",
+            "bounded_autonomous"
+          ]
+        },
+        "human_approval_required_for": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        }
+      }
+    },
+    "cost": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "class",
+        "unit"
+      ],
+      "properties": {
+        "class": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "unit": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "latency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "class"
+      ],
+      "properties": {
+        "class": {
+          "enum": [
+            "fast",
+            "normal",
+            "slow",
+            "unknown"
+          ]
+        }
+      }
+    }
+  }
+}

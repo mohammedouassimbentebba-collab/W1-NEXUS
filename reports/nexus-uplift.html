@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NEXUS — Agent Governance Uplift</title>
+  <style>
+    body { background: #0B0F17; color: #F8FAFC; font-family: -apple-system, system-ui, sans-serif; padding: 40px; }
+    .card { background: #111827; border: 1px solid #1F2937; border-radius: 8px; padding: 24px; margin-top: 24px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    th, td { padding: 12px; border-bottom: 1px solid #1E293B; text-align: left; }
+    th { color: #38BDF8; font-size: 13px; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+  <h1>NEXUS Agent Uplift Analysis (Mode A vs Mode B)</h1>
+  <div class="card">
+    <p>Measured only on identical tasks under identical environments for <strong>meta/muse-glimmer-30b</strong>:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Benchmark Suite</th>
+          <th>Mode A (Raw Model)</th>
+          <th>Mode B (NEXUS Agent)</th>
+          <th>Absolute Uplift</th>
+          <th>Relative Uplift</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>OSWorld 2.0 (osworld-v2-2026.08.08)</td>
+          <td>75.0%</td>
+          <td>100.0%</td>
+          <td><strong style="color:#10B981;">+25.0 pp</strong></td>
+          <td>+33.3%</td>
+        </tr>
+        <tr>
+          <td>Overall Suite Average</td>
+          <td>91.3%</td>
+          <td>93.5%</td>
+          <td><strong style="color:#10B981;">+2.2 pp</strong></td>
+          <td>+2.41%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

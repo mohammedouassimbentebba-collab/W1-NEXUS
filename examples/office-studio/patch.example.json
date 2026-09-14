@@ -1,0 +1,15 @@
+[
+  {
+    "op": "test",
+    "path": "/kind",
+    "value": "document"
+  },
+  {
+    "op": "add",
+    "path": "/content/blocks/-",
+    "value": {
+      "type": "callout",
+      "text": "This paragraph was proposed as a reviewable patch."
+    }
+  }
+]

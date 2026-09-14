@@ -1,0 +1,12 @@
+{
+  "execution_id": "secure-demo-local",
+  "profile_id": "example-local",
+  "argv": [
+    "python",
+    "-c",
+    "from pathlib import Path; Path('artifacts').mkdir(exist_ok=True); Path('artifacts/result.txt').write_text('W1 secure execution passed', encoding='utf-8'); print('done')"
+  ],
+  "artifact_globs": ["artifacts/**"],
+  "requested_by": "human-owner",
+  "reason": "Demonstrate bounded local execution"
+}

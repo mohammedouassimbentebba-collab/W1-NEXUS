@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f7f2e9">
+  <title>W1 Nexus</title>
+  <link rel="manifest" href="/assets/manifest.webmanifest">
+  <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+<div id="app" data-bootstrap="__W1_DESKTOP_BOOTSTRAP__">
+  <svg class="icon-sprite" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.8 12 3l9 7.8v9.7a.5.5 0 0 1-.5.5h-5.7v-6.2H9.2V21H3.5a.5.5 0 0 1-.5-.5z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5.5h16v11H9l-5 4z"/><path d="M8 9h8M8 12.5h5"/></symbol>
+    <symbol id="i-team" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.5"/><path d="M2.8 20c.4-4 2.1-6 5.2-6s4.8 2 5.2 6M13 15.2c1-.9 2.1-1.3 3.5-1.3 2.7 0 4.2 1.7 4.7 5"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.4 2.5 3.6 5.5 3.6 9S14.4 18.5 12 21M12 3C9.6 5.5 8.4 8.5 8.4 12S9.6 18.5 12 21"/></symbol>
+    <symbol id="i-task" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m8 9 1.7 1.7L13 7.5M8 15h8"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M5 3h9l5 5v13H5z"/><path d="M14 3v5h5M8 13h8M8 17h6"/></symbol>
+    <symbol id="i-artifact" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h3v4H8zM13 7h3v4h-3zM8 13h3v4H8zM13 13h3v4h-3z"/></symbol>
+    <symbol id="i-computer" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m9 7-5 5 5 5M15 7l5 5-5 5M13.5 4 10.5 20"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17h12l-1.7-2.2V10a4.3 4.3 0 0 0-8.6 0v4.8zM10 20h4"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15.3A8.2 8.2 0 0 1 8.7 4a8.6 8.6 0 1 0 11.3 11.3Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.7-2.9 8.2-7 10-4.1-1.8-7-5.3-7-10V6z"/><path d="m9.2 12 1.8 1.8 3.8-4"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m3 3 18 9-18 9 4-9zM7 12h14"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.2 8.2A7 7 0 0 1 18.5 9M5.5 15A7 7 0 0 0 17.8 15.8"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-cost" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 8.5c-.7-.7-1.7-1-3-1-1.7 0-3 .8-3 2s1.2 1.8 3.2 2.2c1.9.4 2.8 1.1 2.8 2.3 0 1.3-1.2 2.3-3.2 2.3-1.4 0-2.7-.5-3.5-1.3M12 5.5v13"/></symbol>
+  </svg>
+
+  <aside class="product-sidebar" aria-label="Primary navigation">
+    <div class="brand-lockup">
+      <img src="/assets/logo.svg" alt="W1 Nexus">
+      <div><strong>W1 Nexus<sup>™</sup></strong><small>AI Orchestration</small></div>
+    </div>
+    <nav class="main-nav">
+      <button class="nav-item active" data-view="home"><svg><use href="#i-home"/></svg><span>Home</span></button>
+      <button class="nav-item" data-view="chat"><svg><use href="#i-chat"/></svg><span>Chat</span></button>
+      <button class="nav-item" data-view="teams"><svg><use href="#i-team"/></svg><span>AI Teams</span><em id="portfolio-count">0</em></button>
+      <button class="nav-item" data-view="connections"><svg><use href="#i-link"/></svg><span>Connections</span><em id="connection-count">0</em></button>
+      <button class="nav-item" data-view="tasks"><svg><use href="#i-task"/></svg><span>Tasks</span></button>
+      <button class="nav-item" data-view="files"><svg><use href="#i-file"/></svg><span>Files</span></button>
+      <button class="nav-item" data-view="artifacts"><svg><use href="#i-artifact"/></svg><span>Artifacts</span><em id="artifact-count">0</em></button>
+      <button class="nav-item" data-view="computer"><svg><use href="#i-computer"/></svg><span>Computer</span></button>
+      <button class="nav-item" data-view="developer"><svg><use href="#i-code"/></svg><span>Developer</span></button>
+      <button class="nav-item" data-view="settings"><svg><use href="#i-settings"/></svg><span>Settings</span></button>
+    </nav>
+    <div class="sidebar-spacer"></div>
+    <div class="local-card">
+      <div class="local-card-title"><span class="status-dot"></span>Local-first runtime</div>
+      <strong id="shell-backend">—</strong>
+      <small>Secrets stay in the OS-native credential vault.</small>
+    </div>
+  </aside>
+
+  <section class="product-stage">
+    <header class="topbar">
+      <div class="topbar-selectors">
+        <button class="selector-box" id="workspace-selector" type="button">
+          <span class="selector-icon"><svg><use href="#i-artifact"/></svg></span>
+          <span><small>Workspace</small><b id="workspace-name">Workspace</b></span>
+          <svg class="chev"><use href="#i-chevron"/></svg>
+        </button>
+        <button class="selector-box" id="team-selector" type="button">
+          <span class="selector-icon"><svg><use href="#i-team"/></svg></span>
+          <span><small>AI Team</small><b id="top-team-name">Adaptive routing</b></span>
+          <svg class="chev"><use href="#i-chevron"/></svg>
+        </button>
+      </div>
+      <div class="runtime-state"><small>Runtime Status</small><b><span id="connection-dot" class="status-dot"></span><span id="runtime-label">Ready</span></b></div>
+      <div class="top-actions">
+        <button class="icon-button" title="Search"><svg><use href="#i-search"/></svg></button>
+        <button class="icon-button notification-button" title="Notifications"><svg><use href="#i-bell"/></svg><i></i></button>
+        <button class="icon-button" id="refresh" title="Refresh"><svg><use href="#i-refresh"/></svg></button>
+        <button class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle light and dark theme">
+          <span class="theme-option sun"><svg><use href="#i-sun"/></svg></span>
+          <span class="theme-option moon"><svg><use href="#i-moon"/></svg></span>
+        </button>
+        <span id="mode-pill" class="mode-pill">READ ONLY</span>
+      </div>
+    </header>
+
+    <main class="product-main">
+      <section class="app-view active" data-view-page="home">
+        <div class="hero-card">
+          <div class="hero-copy"><span class="eyebrow">W1 INTELLIGENCE ORCHESTRATOR</span><h1>What should <span>W1</span> do?</h1><p>Plan the best AI team for the goal, budget, privacy and quality you choose.</p></div>
+          <div class="prompt-shell">
+            <textarea id="home-prompt" rows="2" placeholder="Ask your AI team anything…"></textarea>
+            <button id="home-plan" class="send-button" title="Plan with W1"><svg><use href="#i-send"/></svg></button>
+          </div>
+          <div class="mode-grid" id="home-mode-grid">
+            <button class="mode-card" data-home-mode="solo"><svg><use href="#i-team"/></svg><span><b>Solo</b><small>Best single model</small></span></button>
+            <button class="mode-card active" data-home-mode="team"><svg><use href="#i-team"/></svg><span><b>Team</b><small>Collaborative</small></span></button>
+            <button class="mode-card" data-home-mode="parallel"><svg><use href="#i-artifact"/></svg><span><b>Parallel</b><small>Run in parallel</small></span></button>
+            <button class="mode-card" data-home-mode="verify"><svg><use href="#i-shield"/></svg><span><b>Verify</b><small>Independent check</small></span></button>
+            <button class="mode-card" data-home-mode="challenge"><svg><use href="#i-link"/></svg><span><b>Challenge</b><small>Debate & synthesize</small></span></button>
+          </div>
+        </div>
+
+        <div class="home-layout">
+          <div class="home-center">
+            <div class="dashboard-row three">
+              <article class="dashboard-card active-intelligence-card">
+                <div class="card-head"><div><small>ACTIVE INTELLIGENCE</small><h3>Connected models</h3></div><span class="online-note"><i></i><span id="model-count">0</span> ready</span></div>
+                <div id="active-intelligence" class="model-stack"><div class="empty-state compact">Connect a provider to begin.</div></div>
+                <button class="text-button" data-go="connections">Manage connections <span>→</span></button>
+              </article>
+
+              <article class="dashboard-card dreamer-card">
+                <div class="card-head"><div><small>DREAMER MODE</small><h3>Cost & quality policy</h3></div><span id="routing-chip" class="soft-chip">Balanced</span></div>
+                <div class="slider-group">
+                  <div class="slider-label"><span>Cost optimization</span><b id="cost-policy-label">Balanced</b></div>
+                  <input id="cost-policy-slider" type="range" min="0" max="100" value="50">
+                  <div class="slider-ends"><span>Maximum free</span><span>Maximum quality</span></div>
+                </div>
+                <div class="slider-group">
+                  <div class="slider-label"><span>Quality floor</span><b id="quality-floor-label">0.75</b></div>
+                  <input id="quality-floor-slider" type="range" min="50" max="95" value="75">
+                  <div class="slider-ends"><span>Standard</span><span>Maximum</span></div>
+                </div>
+                <div class="mini-metrics">
+                  <div><small>Free/local</small><b id="free-candidate-count">0</b></div>
+                  <div><small>Quality</small><b id="quality-impact">High</b></div>
+                  <div><small>Policy</small><b id="routing-policy-short">Balanced</b></div>
+                </div>
+                <label class="dreamer-auto-discovery"><input id="auto-discover-free" type="checkbox" checked> Auto-discover local/free capacity before planning</label>
+              </article>
+
+              <article class="dashboard-card flow-card">
+                <div class="card-head"><div><small>AI TEAM FLOW</small><h3 id="flow-title">Cooperative</h3></div><span class="soft-chip cyan">Live topology</span></div>
+                <div id="team-flow" class="team-flow"><div class="empty-state compact">Create an AI team to visualize role handoffs.</div></div>
+                <div class="flow-footer"><span><svg><use href="#i-team"/></svg> Flow mode</span><b id="flow-mode-label">Cooperative</b></div>
+              </article>
+            </div>
+
+            <article class="dashboard-card connections-strip-card">
+              <div class="card-head"><div><small>CONNECTIONS</small><h3>Your intelligence sources</h3></div><button class="text-button" data-go="connections">Manage all →</button></div>
+              <div id="home-connections" class="connection-strip"><div class="empty-state compact">No providers connected yet.</div></div>
+            </article>
+          </div>
+
+          <aside class="home-insights">
+            <article class="dashboard-card insights-card">
+              <div class="card-head"><div><small>TASK INSIGHTS</small><h3>Current policy</h3></div></div>
+              <div class="insight-list">
+                <div class="insight-row"><span class="insight-icon"><svg><use href="#i-cost"/></svg></span><span><small>Estimated cost</small><b id="insight-cost">Not planned</b></span></div>
+                <div class="insight-row"><span class="insight-icon"><svg><use href="#i-shield"/></svg></span><span><small>Quality floor</small><b id="insight-quality">0.75</b></span></div>
+                <div class="insight-row"><span class="insight-icon"><svg><use href="#i-lock"/></svg></span><span><small>Privacy mode</small><b>Local-first</b></span></div>
+                <div class="insight-row"><span class="insight-icon"><svg><use href="#i-task"/></svg></span><span><small>Operations</small><b id="insight-operations">Read only</b></span></div>
+              </div>
+            </article>
+            <article class="dashboard-card activity-card">
+              <div class="card-head"><div><small>RECENT ACTIVITY</small><h3>Workspace</h3></div></div>
+              <div id="recent-activity" class="activity-list"><div class="empty-state compact">No artifact activity yet.</div></div>
+              <button class="text-button" data-go="artifacts">View artifacts →</button>
+            </article>
+          </aside>
+        </div>
+      </section>
+
+      <section class="app-view" data-view-page="chat">
+        <div class="page-heading"><div><span class="eyebrow">CONVERSATION MEMORY</span><h1>Chat history without replaying everything</h1><p>Full turns stay local. W1 builds a token-bounded context pack instead of blindly resending the entire conversation.</p></div><div class="heading-actions"><button id="chat-new" class="secondary-action"><svg><use href="#i-plus"/></svg> New conversation</button></div></div>
+        <div class="chat-layout">
+          <div class="chat-thread persistent-chat">
+            <div class="chat-toolbar"><select id="chat-conversation"></select><span id="chat-history-status" class="soft-chip">Local history</span></div>
+            <div id="chat-messages" class="chat-messages"><div class="chat-empty"><div class="chat-orb">W1</div><h2>Your full history stays local.</h2><p>Save turns here now; live team inference will consume the same efficient context pack later.</p></div></div>
+            <div class="chat-composer"><textarea id="chat-input" rows="2" placeholder="Write a message…"></textarea><button id="chat-save" class="send-button" title="Save turn"><svg><use href="#i-send"/></svg></button></div>
+          </div>
+          <aside class="dashboard-card chat-context">
+            <div class="card-head"><div><small>TEAM CONTEXT</small><h3>Orchestration</h3></div></div><div id="chat-team-context" class="context-list"></div>
+            <div class="context-divider"></div>
+            <div class="card-head"><div><small>TOKEN EFFICIENCY</small><h3>Context pack</h3></div></div>
+            <label class="dialog-label">Context budget <b id="chat-token-budget-label">2400</b> tokens</label><input id="chat-token-budget" type="range" min="512" max="12000" step="128" value="2400">
+            <button id="chat-build-context" class="secondary-action wide">Build efficient context</button>
+            <div id="chat-context-metrics" class="context-metrics"><span>Full history <b>0</b></span><span>Pack <b>0</b></span><span>Saved <b>0%</b></span></div>
+            <div class="connection-warning"><b>Memory boundary:</b> model answers are not silently promoted into long-term factual memory.</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="app-view" data-view-page="teams">
+        <div class="page-heading"><div><span class="eyebrow">MULTI-MODEL ORCHESTRATION</span><h1>AI Teams</h1><p>Compose roles manually or let Adaptive Capacity Router build the strongest affordable team.</p></div><div class="heading-actions"><button id="new-team" class="secondary-action"><svg><use href="#i-plus"/></svg> Manual team</button><button id="new-adaptive-team" class="primary-action">⚡ Adaptive / Dreamer Team</button></div></div>
+        <div class="teams-grid">
+          <article class="dashboard-card capacity-card"><div class="card-head"><div><small>CAPACITY ROUTER</small><h3>Adaptive intelligence</h3></div></div><div id="capacity-summary" class="capacity-summary">Loading capacity…</div><div id="capacity-observations" class="capacity-observations"></div></article>
+          <article class="dashboard-card teams-list-card"><div class="card-head"><div><small>SAVED TEAMS</small><h3>Orchestration portfolios</h3></div></div><div id="portfolio-list" class="portfolio-list"></div></article>
+          <article class="dashboard-card flow-card full-flow"><div class="card-head"><div><small>ROLE HANDOFF</small><h3>Selected team flow</h3></div></div><div id="team-flow-page" class="team-flow large"></div></article>
+        </div>
+      </section>
+
+      <section class="app-view" data-view-page="connections">
+        <div class="page-heading"><div><span class="eyebrow">AI CONNECTIONS</span><h1>Connect your intelligence</h1><p>Use official APIs, verified OAuth entitlements, local models or an explicitly approved custom provider.</p></div><div id="connection-summary" class="summary-pills"></div></div>
+        <div class="connection-safety"><svg><use href="#i-lock"/></svg><div><b>Credential-safe by design</b><span>Secrets are stored in the OS-native credential vault. Consumer app subscriptions are never assumed to grant API access.</span></div></div>
+        <article class="free-discovery-card">
+          <div class="free-discovery-copy"><span class="eyebrow">FREE INTELLIGENCE DISCOVERY</span><h2>Find capacity before you pay for it</h2><p>Scan local runtimes and providers you already connected. W1 never treats model visibility as proof of a free entitlement.</p></div>
+          <div class="free-discovery-actions"><label><input id="discover-third-party" type="checkbox"> Include local third-party gateways</label><label><input id="discover-connected" type="checkbox" checked> Scan connected providers</label><button id="discover-free" class="primary-action">Discover free & local capacity</button></div>
+          <div id="free-discovery-results" class="discovery-results"><div class="empty-state compact">No discovery scan yet.</div></div>
+        </article>
+        <article class="intelligence-search-card">
+          <div class="intelligence-search-copy"><span class="eyebrow">W1 INTELLIGENCE SEARCH ENGINE</span><h2>Search the AI ecosystem from this computer</h2><p>No W1 cloud is required. Your local W1 process queries selected public catalogs directly, caches only public candidate metadata locally, and never auto-routes a third-party result.</p></div>
+          <div class="intelligence-search-controls"><div class="search-composer"><input id="intelligence-query" value="free reasoning model" placeholder="Search models, free APIs, gateways…"><button id="intelligence-search" class="primary-action">Search</button></div><div class="search-source-row"><label><input id="search-openrouter" type="checkbox" checked> OpenRouter free catalog</label><label><input id="search-github" type="checkbox" checked> GitHub projects</label><label><input id="search-huggingface" type="checkbox" checked> Hugging Face models</label></div></div>
+          <div id="intelligence-search-status" class="search-status">On-demand • local cache • no W1-owned server</div>
+          <div id="intelligence-search-results" class="intelligence-results"><div class="empty-state compact">No ecosystem search yet.</div></div>
+        </article>
+        <div id="provider-catalog" class="provider-grid"></div>
+        <div class="section-heading"><div><small>CONNECTED</small><h2>Active connections</h2></div><button id="reload-ai" class="icon-button" title="Reload"><svg><use href="#i-refresh"/></svg></button></div>
+        <div id="connection-list" class="connection-list"></div>
+      </section>
+
+      <section class="app-view" data-view-page="tasks">
+        <div class="page-heading"><div><span class="eyebrow">WORKFLOWS</span><h1>Tasks</h1><p>Planned work, role assignments and future live runs will appear here.</p></div><button class="primary-action" data-go="home">New task</button></div>
+        <div class="tasks-overview"><article class="dashboard-card"><div class="card-head"><div><small>PLANNING</small><h3>Adaptive task planning</h3></div></div><p class="body-copy">Use Home to provide a goal. W1 will choose the collaboration topology, models, fallbacks and cost policy before execution.</p><button class="secondary-action" data-go="home">Open planner</button></article><article class="dashboard-card"><div class="card-head"><div><small>EXECUTION SAFETY</small><h3>Governed runtime</h3></div></div><p class="body-copy">Actions that change files or run commands remain behind explicit operations mode and Action Runtime approvals.</p><span class="soft-chip" id="task-ops-chip">Read only</span></article></div>
+      </section>
+
+      <section class="app-view" data-view-page="files">
+        <div class="page-heading compact"><div><span class="eyebrow">WORKSPACE</span><h1>Files</h1><p>Safe project explorer and versioned editing.</p></div></div>
+        <div class="studio-shell">
+          <aside class="studio-sidebar"><div class="studio-sidebar-head"><b>PROJECT EXPLORER</b><button id="collapse-all" class="icon-button">−</button></div><div id="file-tree" class="file-tree loading">Loading project…</div></aside>
+          <section class="studio-workbench">
+            <nav class="tabs"><button id="active-tab" class="tab active">Open a file to begin</button><div class="tab-actions"><span id="file-state"></span><button id="save-draft" disabled>Save version</button></div></nav>
+            <section class="editor-area"><div class="editor-toolbar"><span id="file-meta">No file selected</span><div><button id="preview-toggle">Preview</button><button id="diff-toggle">Diff</button></div></div><div id="editor-wrap" class="editor-wrap"><div id="line-numbers" class="line-numbers">1</div><textarea id="editor" spellcheck="false" disabled placeholder="Select a text file from Project Explorer"></textarea></div><div id="preview" class="preview hidden"></div></section>
+            <section class="review-dock"><div class="review-dock-head"><span>Artifact review</span><b id="active-artifact">None</b><small id="artifact-hash">—</small></div><div class="review-row"><input id="review-author" value="independent-reviewer" placeholder="Reviewer"><select id="review-outcome"><option value="approved">Approve</option><option value="changes_requested">Request changes</option><option value="rejected">Reject</option></select><input id="review-rationale" placeholder="Review rationale"><button id="submit-review">Record review</button><button id="publish-artifact">Publish</button></div><div id="review-history" class="review-history">Open an Artifact to view reviews.</div></section>
+          </section>
+        </div>
+      </section>
+
+      <section class="app-view" data-view-page="artifacts">
+        <div class="page-heading"><div><span class="eyebrow">UNIVERSAL ARTIFACT STUDIO</span><h1>Artifacts</h1><p>Immutable versions, independent review and governed publication.</p></div><button id="new-draft" class="primary-action">Create draft from open file</button></div>
+        <div class="artifact-page-grid">
+          <article class="dashboard-card"><div class="card-head"><div><small>TEXT & CODE</small><h3>Workspace artifacts</h3></div></div><div id="artifact-list" class="artifact-list"></div></article>
+          <article class="dashboard-card"><div class="card-head"><div><small>OFFICE</small><h3>Universal documents</h3></div><b id="office-count">0</b></div><button id="office-create" class="secondary-action wide">Create from open JSON model</button><div id="office-artifact-list" class="artifact-list"></div><div class="office-actions"><input id="office-reviewer" value="independent-reviewer" placeholder="Reviewer"><input id="office-rationale" value="Schema and content verified" placeholder="Review rationale"><button id="office-review" class="secondary-action wide">Approve current version</button><select id="office-format"><option>docx</option><option>xlsx</option><option>pptx</option><option>pdf</option><option>json</option></select><input id="office-output" value="exports/artifact.pdf" placeholder="exports/file.pdf"><button id="office-export" class="primary-action wide">Governed export</button></div></article>
+        </div>
+      </section>
+
+      <section class="app-view" data-view-page="computer">
+        <div class="page-heading"><div><span class="eyebrow">GOVERNED COMPUTER USE</span><h1>Computer</h1><p>Local actions remain permissioned, auditable and reversible where the runtime supports it.</p></div></div>
+        <div class="computer-grid"><article class="dashboard-card"><div class="card-head"><div><small>DESKTOP SHELL</small><h3>Local runtime</h3></div><span class="online-note"><i></i>online</span></div><div class="facts"><div><span>Backend</span><b id="computer-backend">—</b></div><div><span>Operations</span><b id="computer-operations">—</b></div><div><span>W1-owned server</span><b>No</b></div><div><span>Credential storage</span><b>OS-native vault</b></div></div></article><article class="dashboard-card"><div class="card-head"><div><small>GOVERNANCE</small><h3>Safety contract</h3></div></div><div class="safety-list"><span><svg><use href="#i-shield"/></svg> Project changes go through Action Runtime.</span><span><svg><use href="#i-lock"/></svg> Provider secrets are not exposed to the UI state.</span><span><svg><use href="#i-computer"/></svg> Desktop server binds to loopback only.</span></div></article></div>
+      </section>
+
+      <section class="app-view" data-view-page="developer">
+        <div class="page-heading"><div><span class="eyebrow">DEVELOPER WORKSPACE</span><h1>Developer</h1><p>Terminal, Git diff and lower-level diagnostics are here instead of dominating the main product experience.</p></div></div>
+        <div class="developer-grid">
+          <article class="dashboard-card terminal-card"><div class="card-head"><div><small>ACTION RUNTIME</small><h3>Governed terminal</h3></div><span class="soft-chip">Approval-aware</span></div><div class="terminal-row"><span>w1&gt;</span><input id="terminal-input" placeholder="python -m pytest -q"><button id="terminal-plan">Plan</button><button id="terminal-run" class="primary-action">Run</button></div><pre id="terminal-output">Commands are not executed through an unrestricted shell.</pre></article>
+          <article class="dashboard-card git-card"><div class="card-head"><div><small>GIT</small><h3>Workspace diff</h3></div><button id="load-diff" class="secondary-action">Load diff</button></div><pre id="git-diff" class="mini-code">No diff loaded.</pre></article>
+        </div>
+      </section>
+
+      <section class="app-view" data-view-page="settings">
+        <div class="page-heading"><div><span class="eyebrow">PREFERENCES</span><h1>Settings</h1><p>Product appearance and local runtime preferences.</p></div></div>
+        <div class="settings-grid"><article class="dashboard-card"><div class="card-head"><div><small>APPEARANCE</small><h3>Theme</h3></div></div><div class="theme-choice-grid"><button class="theme-choice" data-set-theme="light"><span class="theme-preview light-preview"></span><b>Warm Light</b><small>Ivory / beige with cyan accents</small></button><button class="theme-choice" data-set-theme="dark"><span class="theme-preview dark-preview"></span><b>Dark</b><small>Graphite with cyan accents</small></button><button class="theme-choice" data-set-theme="system"><span class="theme-preview system-preview"></span><b>System</b><small>Follow Windows preference</small></button></div></article><article class="dashboard-card"><div class="card-head"><div><small>ABOUT</small><h3>W1 Nexus</h3></div></div><div class="facts"><div><span>Desktop version</span><b id="settings-version">—</b></div><div><span>Architecture</span><b>Local-first</b></div><div><span>Default language</span><b>English</b></div><div><span>Brand</span><b>W1 Nexus™</b></div></div></article></div>
+      </section>
+    </main>
+  </section>
+
+  <div id="dialog" class="dialog hidden"><div class="dialog-card"><div class="dialog-title-row"><div><span class="eyebrow">W1 NEXUS</span><h3 id="dialog-title">W1 Nexus</h3></div><button id="dialog-cancel" class="icon-button" aria-label="Close">×</button></div><div id="dialog-body"></div><div class="dialog-actions"><button id="dialog-confirm" class="primary-action">Confirm</button></div></div></div>
+  <div id="toast" class="toast hidden"></div>
+</div>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>

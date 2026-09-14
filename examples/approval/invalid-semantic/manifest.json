@@ -1,0 +1,12 @@
+{
+  "invalid-validity-window.json": [
+    "approval_invalid_validity_interval"
+  ],
+  "governance-delegation.json": [
+    "approval_governance_delegation_forbidden",
+    "approval_authorization_operation_mismatch"
+  ],
+  "target-mismatch.json": [
+    "approval_authorization_target_mismatch"
+  ]
+}

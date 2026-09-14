@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NEXUS — Provider Infrastructure Health</title>
+  <style>
+    body { background: #0B0F17; color: #F8FAFC; font-family: -apple-system, system-ui, sans-serif; padding: 40px; }
+    .card { background: #111827; border: 1px solid #1F2937; border-radius: 8px; padding: 24px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <h1>NEXUS Provider Health & Telemetry</h1>
+  <div class="card">
+    <h3>NVIDIA NIM Endpoint Diagnostic Summary</h3>
+    <p>Target Base URL: <code>https://integrate.api.nvidia.com/v1</code></p>
+    <ul style="margin: 16px 0 0 20px; line-height: 1.8;">
+      <li><strong>meta/muse-glimmer-30b</strong>: Fully reachable, responsive, native reasoning extraction in <code>choice.message.reasoning_content</code>, median latency 5,324 ms.</li>
+      <li><strong>moonshotai/kimi-k3</strong>: Intermittent <code>HTTP 429 Too Many Requests</code> or connection socket read timeout (>18s). Classified as <code>PROVIDER_ERROR / TIMEOUT</code>.</li>
+      <li><strong>deepseek-ai/deepseek-v4-pro-0813</strong>: Gateway queue saturation; synchronous socket read timeout (>18s). Classified as <code>PROVIDER_ERROR / TIMEOUT</code>.</li>
+    </ul>
+  </div>
+</body>
+</html>

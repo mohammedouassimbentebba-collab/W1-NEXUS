@@ -1,0 +1,71 @@
+{
+  "entity": {
+    "entity_type": "evidence",
+    "entity_id": "candidate-b-peak-spec-001",
+    "entity_version": 1
+  },
+  "created_by_event_id": "evt-evidence-candidate-b-spec-001",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:evidence",
+  "legal_payload": {
+    "goal": {
+      "entity_type": "goal_contract",
+      "entity_id": "goal-pump-driver-001",
+      "entity_version": 1
+    },
+    "team_plan": {
+      "entity_type": "team_plan",
+      "entity_id": "team-plan-pump-001",
+      "entity_version": 1
+    },
+    "task": {
+      "entity_type": "task",
+      "entity_id": "task-startup-evidence-001",
+      "entity_version": 4
+    },
+    "registered_by_role_assignment": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-verifier-001",
+      "entity_version": 1
+    },
+    "evidence_type": "document_source",
+    "relation": "supports",
+    "targets": [
+      {
+        "entity_type": "contribution",
+        "entity_id": "claim-candidate-b-startup-001",
+        "entity_version": 1
+      }
+    ],
+    "summary": "The pinned synthetic candidate-b fixture declares a 20 A one-second peak capability, covering the required 18 A for 0.8 s.",
+    "source": {
+      "uri": "artifact://fixtures/candidate-b-spec.json",
+      "source_version": 1,
+      "description": "Pinned synthetic candidate-b specification from the reference fixture.",
+      "classification": "internal",
+      "capture": {
+        "kind": "document_lookup",
+        "performed_by": {
+          "principal_type": "agent",
+          "principal_id": "agent-verifier-01"
+        },
+        "performed_at": "2026-08-04T15:28:00Z"
+      }
+    },
+    "collected_at": "2026-08-04T15:28:00Z",
+    "integrity": {
+      "status": "verified",
+      "basis": "fixture artifact version matches the immutable session record",
+      "assessed_by_role_assignment": {
+        "entity_type": "role_assignment",
+        "entity_id": "role-assignment-verifier-001",
+        "entity_version": 1
+      },
+      "assessed_at": "2026-08-04T15:28:01Z"
+    },
+    "classification": "internal",
+    "status": "active",
+    "limitations": [
+      "synthetic fixture only"
+    ]
+  }
+}

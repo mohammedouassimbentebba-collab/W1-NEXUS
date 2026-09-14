@@ -1,0 +1,17 @@
+{
+  "subject": {
+    "principal_type": "agent",
+    "principal_id": "agent-electronics-01"
+  },
+  "role": "executor",
+  "authority_scope": {
+    "operations": [
+      "contribution.create",
+      "contribution.next_version"
+    ]
+  },
+  "status": "active",
+  "valid_from": "2026-08-04T15:02:00Z",
+  "valid_until": "2026-08-04T17:00:00Z",
+  "assignment_reason": "prepare the component-selection proposal"
+}

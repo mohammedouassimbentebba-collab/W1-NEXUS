@@ -1,0 +1,50 @@
+[
+  {
+    "trial_idx": 1,
+    "model": "deepseek-ai/deepseek-v4-pro-0813",
+    "total_latency_ms": 300266.86,
+    "ttft_ms": null,
+    "time_to_first_chunk_ms": null,
+    "provider_timeout": true,
+    "http_status": null,
+    "retry_after": null,
+    "response_chunk_count": 0,
+    "content_length": 0,
+    "content_preview": "",
+    "usage": {},
+    "error": "The read operation timed out",
+    "root_cause_diagnosis": "PROVIDER_QUEUE"
+  },
+  {
+    "trial_idx": 2,
+    "model": "deepseek-ai/deepseek-v4-pro-0813",
+    "total_latency_ms": 300361.46,
+    "ttft_ms": null,
+    "time_to_first_chunk_ms": null,
+    "provider_timeout": true,
+    "http_status": null,
+    "retry_after": null,
+    "response_chunk_count": 0,
+    "content_length": 0,
+    "content_preview": "",
+    "usage": {},
+    "error": "The read operation timed out",
+    "root_cause_diagnosis": "PROVIDER_QUEUE"
+  },
+  {
+    "trial_idx": 3,
+    "model": "deepseek-ai/deepseek-v4-pro-0813",
+    "total_latency_ms": 290100.41,
+    "ttft_ms": 282570.86,
+    "time_to_first_chunk_ms": 282570.86,
+    "provider_timeout": false,
+    "http_status": 200,
+    "retry_after": null,
+    "response_chunk_count": 24,
+    "content_length": 305,
+    "content_preview": "According to Einstein\u2019s mass\u2013energy equivalence \\(E = mc^2\\), the speed of light \\(c\\) is approximately:\n\n\\[\nc \\approx 3 \\times 10^8 \\ \\text{m/s}\n\\]\n\n",
+    "usage": {},
+    "error": null,
+    "root_cause_diagnosis": "SUCCESS"
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "run_id": "parallel-example",
+  "target_branch": "main",
+  "policy": {
+    "max_workers": 2,
+    "fail_fast": false,
+    "lock_wait_seconds": 120,
+    "require_clean_repository": true,
+    "keep_worktrees": true,
+    "auto_commit": true
+  },
+  "jobs": [
+    {
+      "job_id": "write-alpha",
+      "agent_id": "alpha-agent",
+      "branch": "w1/alpha-agent",
+      "argv": [
+        "python",
+        "-c",
+        "from pathlib import Path; Path('alpha.txt').write_text('alpha\\n', encoding='utf-8')"
+      ],
+      "dependencies": [],
+      "resource_paths": ["alpha.txt"],
+      "timeout_seconds": 60,
+      "expected_outputs": ["alpha.txt"],
+      "commit_message": "w1(alpha): add alpha output"
+    },
+    {
+      "job_id": "write-beta",
+      "agent_id": "beta-agent",
+      "branch": "w1/beta-agent",
+      "argv": [
+        "python",
+        "-c",
+        "from pathlib import Path; Path('beta.txt').write_text('beta\\n', encoding='utf-8')"
+      ],
+      "dependencies": [],
+      "resource_paths": ["beta.txt"],
+      "timeout_seconds": 60,
+      "expected_outputs": ["beta.txt"],
+      "commit_message": "w1(beta): add beta output"
+    }
+  ]
+}

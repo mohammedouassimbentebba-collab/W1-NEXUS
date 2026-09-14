@@ -1,0 +1,74 @@
+{
+  "entity": {
+    "entity_type": "task",
+    "entity_id": "task-final-result-001",
+    "entity_version": 5
+  },
+  "created_by_event_id": "evt-task-final-result-005",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:task",
+  "legal_payload": {
+    "goal": {
+      "entity_type": "goal_contract",
+      "entity_id": "goal-pump-driver-001",
+      "entity_version": 1
+    },
+    "team_plan": {
+      "entity_type": "team_plan",
+      "entity_id": "team-plan-pump-001",
+      "entity_version": 2
+    },
+    "title": "Publish the traceable final result",
+    "description": "Synthesize accepted records into a final result while disclosing limitations, model routing, and unresolved uncertainty.",
+    "phase": "synthesis",
+    "assigned_role_assignment": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-synthesizer-001",
+      "entity_version": 1
+    },
+    "dependencies": [
+      {
+        "task": {
+          "entity_type": "task",
+          "entity_id": "task-select-driver-decision-001",
+          "entity_version": 5
+        },
+        "required_status": "completed"
+      }
+    ],
+    "required_outputs": [
+      {
+        "output_id": "session-final-result",
+        "entity_type": "final_result",
+        "description": "A published traceable final result covering all goal deliverables and criteria.",
+        "required": true
+      }
+    ],
+    "budget_allocation": {
+      "max_model_calls": 1,
+      "max_tool_calls": 0,
+      "max_elapsed_seconds": 300
+    },
+    "required_context_fields": [],
+    "status": "completed",
+    "produced_outputs": [
+      {
+        "output_id": "session-final-result",
+        "entity": {
+          "entity_type": "final_result",
+          "entity_id": "final-result-pump-001",
+          "entity_version": 1
+        }
+      }
+    ],
+    "completion_summary": "The final result was published with decision, verification, challenge, resource-routing, and log provenance."
+  },
+  "previous_version": {
+    "entity_type": "task",
+    "entity_id": "task-final-result-001",
+    "entity_version": 4
+  },
+  "change_metadata": {
+    "change_reason": "semantic",
+    "substantive_effect": "may_affect_dependents"
+  }
+}

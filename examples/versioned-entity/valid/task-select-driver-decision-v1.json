@@ -1,0 +1,55 @@
+{
+  "entity": {
+    "entity_type": "task",
+    "entity_id": "task-select-driver-decision-001",
+    "entity_version": 1
+  },
+  "created_by_event_id": "evt-task-decision-created-001",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:task",
+  "legal_payload": {
+    "goal": {
+      "entity_type": "goal_contract",
+      "entity_id": "goal-pump-driver-001",
+      "entity_version": 1
+    },
+    "team_plan": {
+      "entity_type": "team_plan",
+      "entity_id": "team-plan-pump-001",
+      "entity_version": 1
+    },
+    "title": "Issue the motor-driver selection decision",
+    "description": "Evaluate the approved candidate-b package and issue the bounded selection decision.",
+    "phase": "approval",
+    "assigned_role_assignment": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-decision-001",
+      "entity_version": 1
+    },
+    "dependencies": [
+      {
+        "task": {
+          "entity_type": "task",
+          "entity_id": "task-review-startup-001",
+          "entity_version": 5
+        },
+        "required_status": "completed"
+      }
+    ],
+    "required_outputs": [
+      {
+        "output_id": "driver-selection-decision",
+        "entity_type": "decision",
+        "description": "An accepted motor-driver selection decision.",
+        "required": true,
+        "goal_deliverable_id": "driver-selection-decision"
+      }
+    ],
+    "budget_allocation": {
+      "max_model_calls": 1,
+      "max_tool_calls": 0,
+      "max_elapsed_seconds": 300
+    },
+    "required_context_fields": [],
+    "status": "created"
+  }
+}

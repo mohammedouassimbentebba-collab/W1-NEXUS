@@ -1,0 +1,25 @@
+{
+  "profile_id": "example-local",
+  "backend": "local",
+  "root_read_only": false,
+  "workspace_mode": "rw",
+  "network": {"mode": "inherit"},
+  "limits": {
+    "wall_seconds": 30,
+    "cpu_seconds": 15,
+    "cpu_cores": 1.0,
+    "memory_mb": 1024,
+    "pids": 128,
+    "open_files": 256,
+    "file_size_mb": 64,
+    "output_bytes": 200000,
+    "tmpfs_mb": 64,
+    "artifact_bytes": 10000000
+  },
+  "allowed_commands": ["python", "python3", "pytest"],
+  "environment_allowlist": ["PATH", "LANG", "PYTHONPATH"],
+  "artifact_globs": ["artifacts/**"],
+  "mount_source_roots": ["."],
+  "secret_names": [],
+  "require_hard_isolation": false
+}

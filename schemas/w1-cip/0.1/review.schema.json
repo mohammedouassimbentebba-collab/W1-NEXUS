@@ -1,0 +1,473 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:entity-payload:0.1:review",
+  "title": "W1-CIP Review legal payload v0.1",
+  "description": "A task-bound holistic assessment of a pinned solution package or task output against the GoalContract, requirements, consistency, risk, evidence, verification, and challenge handling. A Review does not replace claim-level Verification.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "goal",
+    "team_plan",
+    "task",
+    "reviewed_by_role_assignment",
+    "reviewed_at",
+    "scope",
+    "criteria_assessments",
+    "evidence",
+    "verifications",
+    "challenges",
+    "result",
+    "summary",
+    "required_actions",
+    "classification",
+    "status",
+    "limitations"
+  ],
+  "properties": {
+    "goal": {
+      "$ref": "#/$defs/goalRef"
+    },
+    "team_plan": {
+      "$ref": "#/$defs/teamPlanRef"
+    },
+    "task": {
+      "$ref": "#/$defs/taskRef"
+    },
+    "reviewed_by_role_assignment": {
+      "$ref": "#/$defs/roleAssignmentRef"
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scope": {
+      "$ref": "#/$defs/reviewScope"
+    },
+    "criteria_assessments": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "$ref": "#/$defs/criterionAssessment"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/evidenceRef"
+      }
+    },
+    "verifications": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/verificationRef"
+      }
+    },
+    "challenges": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/challengeRef"
+      }
+    },
+    "result": {
+      "enum": [
+        "approved",
+        "revision_required",
+        "rejected",
+        "escalation_required"
+      ]
+    },
+    "summary": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "required_actions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/requiredAction"
+      }
+    },
+    "escalation": {
+      "$ref": "#/$defs/escalation"
+    },
+    "classification": {
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    },
+    "status": {
+      "enum": [
+        "active",
+        "withdrawn"
+      ]
+    },
+    "withdrawal_reason": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "limitations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/nonEmptyText"
+      }
+    },
+    "fulfills_output_id": {
+      "$ref": "#/$defs/identifier"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "active"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "withdrawal_reason"
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "withdrawal_reason"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "approved"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "then": {
+        "properties": {
+          "required_actions": {
+            "maxItems": 0
+          }
+        },
+        "not": {
+          "required": [
+            "escalation"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "revision_required"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "then": {
+        "properties": {
+          "required_actions": {
+            "minItems": 1
+          }
+        },
+        "not": {
+          "required": [
+            "escalation"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "rejected"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "escalation"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "escalation_required"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "then": {
+        "required": [
+          "escalation"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "nonEmptyText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000,
+      "pattern": "\\S"
+    },
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "goalRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "goal_contract"
+            }
+          }
+        }
+      ]
+    },
+    "teamPlanRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "team_plan"
+            }
+          }
+        }
+      ]
+    },
+    "taskRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "task"
+            }
+          }
+        }
+      ]
+    },
+    "roleAssignmentRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "role_assignment"
+            }
+          }
+        }
+      ]
+    },
+    "evidenceRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "evidence"
+            }
+          }
+        }
+      ]
+    },
+    "verificationRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "verification"
+            }
+          }
+        }
+      ]
+    },
+    "challengeRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "challenge"
+            }
+          }
+        }
+      ]
+    },
+    "reviewScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "targets"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "task_output",
+            "solution_package",
+            "entity_set"
+          ]
+        },
+        "targets": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+          }
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      }
+    },
+    "criterionAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "criterion",
+        "outcome",
+        "severity",
+        "rationale",
+        "related_refs"
+      ],
+      "properties": {
+        "criterion": {
+          "enum": [
+            "goal_alignment",
+            "requirement_coverage",
+            "internal_consistency",
+            "risk_and_limitations",
+            "evidence_sufficiency",
+            "verification_sufficiency"
+          ]
+        },
+        "outcome": {
+          "enum": [
+            "satisfied",
+            "partially_satisfied",
+            "not_satisfied",
+            "not_applicable"
+          ]
+        },
+        "severity": {
+          "enum": [
+            "informational",
+            "minor",
+            "major",
+            "critical"
+          ]
+        },
+        "rationale": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "related_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+          }
+        }
+      }
+    },
+    "requiredAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action_code",
+        "description",
+        "targets"
+      ],
+      "properties": {
+        "action_code": {
+          "$ref": "#/$defs/identifier"
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "targets": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+          }
+        }
+      }
+    },
+    "escalation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason",
+        "required_role"
+      ],
+      "properties": {
+        "reason": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "required_role": {
+          "enum": [
+            "decision_authority",
+            "human_owner"
+          ]
+        },
+        "basis_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+          }
+        }
+      }
+    }
+  }
+}

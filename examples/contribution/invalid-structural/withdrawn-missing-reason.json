@@ -1,0 +1,55 @@
+{
+  "goal": {
+    "entity_type": "goal_contract",
+    "entity_id": "goal-pump-driver-001",
+    "entity_version": 1
+  },
+  "team_plan": {
+    "entity_type": "team_plan",
+    "entity_id": "team-plan-pump-001",
+    "entity_version": 1
+  },
+  "task": {
+    "entity_type": "task",
+    "entity_id": "task-driver-selection-001",
+    "entity_version": 4
+  },
+  "authored_by_role_assignment": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-executor-001",
+    "entity_version": 1
+  },
+  "status": "withdrawn",
+  "limitations": [
+    "synthetic fixture only"
+  ],
+  "confidence": {
+    "level": "high",
+    "basis": "bounded comparison over the supplied fixture",
+    "calibrated": false
+  },
+  "contribution_type": "proposal",
+  "fulfills_output_id": "candidate-proposal",
+  "content": {
+    "subject": "Select candidate-b",
+    "description": "Select candidate-b because candidate-a does not satisfy the supplied startup-current constraint.",
+    "rationale": "Candidate-b is the only supplied option whose stated peak capability covers 18 A for 0.8 s.",
+    "alternatives_considered": [
+      "candidate-a"
+    ]
+  },
+  "context_usage": [
+    {
+      "grant": {
+        "entity_type": "context_grant",
+        "entity_id": "context-grant-executor-001",
+        "entity_version": 1
+      },
+      "fields_used": [
+        "available_supply_voltage"
+      ],
+      "purpose_code": "adapt_component_explanation"
+    }
+  ],
+  "classification": "internal"
+}

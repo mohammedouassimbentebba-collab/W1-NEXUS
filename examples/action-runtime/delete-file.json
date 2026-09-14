@@ -1,0 +1,9 @@
+{
+  "action_id": "delete-temporary-output",
+  "kind": "file.delete",
+  "parameters": {
+    "path": "outputs/temporary.txt"
+  },
+  "requested_by": "executor-agent",
+  "reason": "Remove a temporary file after explicit human approval."
+}

@@ -1,0 +1,959 @@
+{
+  "adaptive_capacity_router_benchmark": {
+    "metrics": {
+      "consumer_subscription_entitlements_assumed": 0,
+      "models_considered": 6,
+      "provider_network_calls": 0,
+      "roles_routed": 3
+    },
+    "passed": true,
+    "plan": {
+      "estimated_cost_usd": 0.017,
+      "plan_id": "dreamer-challenge",
+      "policy": {
+        "allow_local": true,
+        "allow_paid": true,
+        "allow_promotional": true,
+        "allow_subscription_entitlement": true,
+        "allow_third_party_free": false,
+        "estimated_input_tokens": 2500,
+        "estimated_output_tokens": 1500,
+        "fallback_per_role": 0,
+        "max_task_cost_usd": 0.1,
+        "mode": "maximum_free",
+        "prefer_provider_diversity": true,
+        "producer_count": 1,
+        "quality_floor": 0.7,
+        "require_known_terms": true,
+        "reserve_tokens": 512
+      },
+      "portfolio": {
+        "display_name": "Dreamer Challenge",
+        "max_parallel": 1,
+        "members": [
+          {
+            "capability_overrides": {},
+            "model_id": "free-google",
+            "priority": 100,
+            "required": true,
+            "role": "producer"
+          },
+          {
+            "capability_overrides": {},
+            "model_id": "free-other",
+            "priority": 100,
+            "required": true,
+            "role": "challenger"
+          },
+          {
+            "capability_overrides": {},
+            "model_id": "paid-synth",
+            "priority": 100,
+            "required": true,
+            "role": "synthesizer"
+          }
+        ],
+        "metadata": {
+          "adaptive_capacity_router": "1.0",
+          "adaptive_primary_counts": {
+            "challenger": 1,
+            "producer": 1,
+            "synthesizer": 1
+          },
+          "consumer_subscription_api_access_assumed": false,
+          "estimated_cost_usd": 0.017,
+          "provider_diversity_preferred": true,
+          "quality_floor": 0.7,
+          "routing_mode": "maximum_free"
+        },
+        "minimum_successful_producers": 1,
+        "portfolio_id": "dreamer-challenge",
+        "require_independent_verifier": false,
+        "strategy": "challenge_synthesis"
+      },
+      "roles": [
+        {
+          "rejected": [
+            {
+              "model_id": "weak-free",
+              "reason": "quality_floor_not_met"
+            },
+            {
+              "model_id": "third-party",
+              "reason": "terms_unknown"
+            },
+            {
+              "model_id": "subscription-unverified",
+              "reason": "subscription_does_not_prove_api_entitlement"
+            }
+          ],
+          "role": "producer",
+          "selected": [
+            {
+              "capacity_source": "official_free",
+              "estimated_cost_usd": 0.0,
+              "model_id": "free-google",
+              "provider_id": "google",
+              "quality": 1.0,
+              "quota_state": "available",
+              "reasons": [
+                "quality=1.000",
+                "source=official_free",
+                "zero_direct_cost",
+                "quota_available",
+                "official_terms"
+              ],
+              "role": "producer",
+              "route_score": 146.0
+            }
+          ]
+        },
+        {
+          "rejected": [
+            {
+              "model_id": "weak-free",
+              "reason": "quality_floor_not_met"
+            },
+            {
+              "model_id": "third-party",
+              "reason": "terms_unknown"
+            },
+            {
+              "model_id": "subscription-unverified",
+              "reason": "subscription_does_not_prove_api_entitlement"
+            }
+          ],
+          "role": "challenger",
+          "selected": [
+            {
+              "capacity_source": "official_free",
+              "estimated_cost_usd": 0.0,
+              "model_id": "free-other",
+              "provider_id": "other",
+              "quality": 1.0,
+              "quota_state": "available",
+              "reasons": [
+                "quality=1.000",
+                "source=official_free",
+                "zero_direct_cost",
+                "quota_available",
+                "official_terms",
+                "provider_diversity"
+              ],
+              "role": "challenger",
+              "route_score": 155.0
+            }
+          ]
+        },
+        {
+          "rejected": [
+            {
+              "model_id": "weak-free",
+              "reason": "quality_floor_not_met"
+            },
+            {
+              "model_id": "third-party",
+              "reason": "terms_unknown"
+            },
+            {
+              "model_id": "subscription-unverified",
+              "reason": "subscription_does_not_prove_api_entitlement"
+            }
+          ],
+          "role": "synthesizer",
+          "selected": [
+            {
+              "capacity_source": "paid",
+              "estimated_cost_usd": 0.017,
+              "model_id": "paid-synth",
+              "provider_id": "premium",
+              "quality": 1.0,
+              "quota_state": "available",
+              "reasons": [
+                "quality=1.000",
+                "source=paid",
+                "quota_available",
+                "official_terms"
+              ],
+              "role": "synthesizer",
+              "route_score": 71.3
+            }
+          ]
+        }
+      ],
+      "team_mode": "challenge",
+      "warnings": []
+    },
+    "probes": {
+      "adaptive_quota_refresh": true,
+      "budget_respected": true,
+      "collaboration_preserved": true,
+      "consumer_subscription_not_assumed_api": true,
+      "free_models_used_when_adequate": true,
+      "premium_model_allowed_for_quality_floor": true,
+      "provider_diversity_present": true,
+      "unknown_third_party_not_auto_routed": true,
+      "weak_free_rejected": true
+    }
+  },
+  "ai_connections_benchmark": {
+    "metrics": {
+      "live_provider_calls": 0,
+      "probes": 15,
+      "providers_in_catalog": 7,
+      "team_modes": [
+        "challenge",
+        "fallback",
+        "parallel",
+        "solo",
+        "verify"
+      ],
+      "w1_owned_cloud_calls": 0
+    },
+    "passed": true,
+    "probes": {
+      "api_key_stored_by_reference": true,
+      "audit_hash_chain_valid": true,
+      "built_in_provider_endpoint_host_locked": true,
+      "catalog_has_major_and_custom_providers": true,
+      "challenge_compiles_to_runtime_strategy": true,
+      "challenge_roles_preserved": true,
+      "connection_inventory_redacted": true,
+      "custom_no_auth_endpoint_supported_over_https": true,
+      "multi_company_models_registered": true,
+      "no_w1_owned_cloud_required": true,
+      "provider_subscriptions_not_assumed_api_access": true,
+      "raw_anthropic_secret_not_in_connections_db": true,
+      "raw_openai_secret_not_in_connections_db": true,
+      "rejected_endpoint_did_not_store_secret": true,
+      "team_persisted": true
+    },
+    "version": "1.0"
+  },
+  "artifact_studio_benchmark": {
+    "metrics": {
+      "comments": 1,
+      "publications": 1,
+      "reviews": 1,
+      "versions": 2
+    },
+    "passed": true,
+    "probes": {
+      "artifact_history_integrity": true,
+      "code_preview_available": true,
+      "governed_publish_completed": true,
+      "immutable_version_created": true,
+      "independent_review_enforced": true,
+      "no_w1_server_required": true,
+      "project_tree_available": true,
+      "workspace_updated": true
+    }
+  },
+  "brand_identity": {
+    "blockers": [],
+    "brand_identity_version": "1.0",
+    "checks": {
+      "apache_2_text_is_official_copy": true,
+      "app_id_is_stable": true,
+      "brand_policy_present": true,
+      "display_name_is_w1_nexus_tm": true,
+      "license_declared_apache_2": true,
+      "license_file_present": true,
+      "master_concept_hash_declared": true,
+      "master_concept_hash_matches": true,
+      "master_concept_present": true,
+      "notice_file_present": true,
+      "registered_mark_not_claimed": true,
+      "required_native_brand_assets_hash_match": true,
+      "required_native_brand_assets_present": true,
+      "schema_supported": true
+    },
+    "identity": {
+      "application_id": "com.w1.nexus",
+      "display_name": "W1 Nexus™",
+      "license_spdx": "Apache-2.0",
+      "master_concept_sha256": "8031d4e3e37cccca1ff5c9268f0e03011f5d0fbddf9c9e57175fcce5bd8b5cd2",
+      "product_name": "W1 Nexus",
+      "trademark_status": "unregistered-project-mark"
+    },
+    "passed": true,
+    "production_ready": true,
+    "source_context": true,
+    "warnings": []
+  },
+  "collaboration_benchmark": {
+    "metrics": {
+      "accepted_sync_events": 2,
+      "audit_events": 12,
+      "open_conflicts_after_resolution": 0,
+      "protocol_version": "1.0",
+      "team_members": 2,
+      "w1_owned_cloud_calls": 0
+    },
+    "passed": true,
+    "probes": {
+      "access_token_not_stored_plaintext": true,
+      "append_only_pull_cursor": true,
+      "client_rejects_remote_plain_http": true,
+      "conflict_requires_explicit_resolution": true,
+      "federated_audit_hash_chain_valid": true,
+      "idempotent_mutation_replay": true,
+      "invitation_secret_not_stored_plaintext": true,
+      "loopback_self_hosted_api_authenticated": true,
+      "non_loopback_transport_requires_tls": true,
+      "optimistic_mutation_applied": true,
+      "self_hosted_without_w1_cloud": true,
+      "stale_write_becomes_explicit_conflict": true,
+      "tenant_membership_and_project_acl": true
+    }
+  },
+  "computer_use_benchmark": {
+    "driver_benchmark": {
+      "metrics": {
+        "element_count": 3,
+        "event_count": 5,
+        "screenshot_bytes": 618
+      },
+      "passed": true,
+      "probes": {
+        "bounded_click_available": true,
+        "bounded_scroll_available": true,
+        "ephemeral_text_driver_available": true,
+        "final_cursor_observable": true,
+        "free_text_key_denied": true,
+        "navigation_key_available": true,
+        "observation_available": true,
+        "pointer_move_available": true,
+        "screenshot_png_available": true,
+        "selector_fingerprint_available": true,
+        "stale_fingerprint_denied": true,
+        "ui_elements_available": true
+      },
+      "scope": "deterministic virtual perception/input benchmark; host desktop is not modified"
+    },
+    "metrics": {
+      "audited_actions": 6,
+      "ui_elements": 3,
+      "virtual_events": 3
+    },
+    "passed": true,
+    "probes": {
+      "computer_actions_audited": true,
+      "ephemeral_text_executes": true,
+      "ephemeral_text_not_persisted": true,
+      "free_text_key_path_still_denied": true,
+      "host_desktop_not_modified_by_benchmark": true,
+      "observation_runs_without_approval": true,
+      "screenshot_is_png_and_hashed": true,
+      "screenshot_requires_approval": true,
+      "selector_bound_click_executes": true,
+      "selector_input_requires_digest_bound_approval": true,
+      "stale_target_fingerprint_denied": true,
+      "ui_elements_returned_ephemerally": true,
+      "virtual_driver_passed": true
+    }
+  },
+  "credential_broker_benchmark": {
+    "metrics": {
+      "accounts": 2,
+      "audit_events": 8,
+      "network_requests_simulated": 4,
+      "providers": 1
+    },
+    "passed": true,
+    "probes": {
+      "api_key_resolves_from_vault": true,
+      "authorization_code_exchange": true,
+      "multi_account_store": true,
+      "native_vault_contract_has_no_file_fallback": true,
+      "no_cookie_or_session_import": true,
+      "no_w1_owned_server_required": true,
+      "pkce_s256": true,
+      "provider_discovery": true,
+      "redacted_audit_chain": true,
+      "refresh_token_lifecycle": true,
+      "secrets_absent_from_sqlite": true,
+      "state_hash_only_in_sqlite": true
+    }
+  },
+  "evaluation_type": "executable_weighted_scorecard",
+  "full_product_completeness_percent": 94.5,
+  "generated_at": "2026-08-12T15:11:17Z",
+  "interpretation": {
+    "backend": "Implemented and executable backend capability, excluding missing desktop/cloud surfaces.",
+    "full_product": "Progress toward the complete W1 Nexus product vision.",
+    "not_a_competitor_intelligence_benchmark": true
+  },
+  "items": [
+    {
+      "achieved": 1.0,
+      "evidence": [
+        "20 canonical schemas detected",
+        "versioned validation and authority rules implemented"
+      ],
+      "item_id": "protocol-governance",
+      "label": "W1-CIP protocol and governance",
+      "limitations": [],
+      "score": 10.0,
+      "weight": 10
+    },
+    {
+      "achieved": 1.0,
+      "evidence": [
+        "session store",
+        "deterministic replay",
+        "quota-aware orchestrator"
+      ],
+      "item_id": "orchestration-persistence",
+      "label": "Orchestration and persistent replay",
+      "limitations": [],
+      "score": 10.0,
+      "weight": 10
+    },
+    {
+      "achieved": 1.0,
+      "evidence": [
+        "multiple_models_registered",
+        "parallel_models_completed",
+        "parallel_speedup_observed",
+        "fallback_used",
+        "no_model_count_winner",
+        "independent_verifier_used",
+        "local_control_api_authenticated",
+        "no_w1_server_required",
+        "capacity:collaboration_preserved",
+        "capacity:free_models_used_when_adequate",
+        "capacity:premium_model_allowed_for_quality_floor",
+        "capacity:provider_diversity_present",
+        "capacity:weak_free_rejected",
+        "capacity:unknown_third_party_not_auto_routed",
+        "capacity:consumer_subscription_not_assumed_api",
+        "capacity:budget_respected",
+        "capacity:adaptive_quota_refresh"
+      ],
+      "item_id": "multi-model-access",
+      "label": "Multi-model portfolios and routing",
+      "limitations": [
+        "Adaptive routing estimates cost/quality from declared observations; real provider quotas require live observation or provider telemetry."
+      ],
+      "score": 12.0,
+      "weight": 12
+    },
+    {
+      "achieved": 1.0,
+      "evidence": [
+        "BYOK references",
+        "local endpoints",
+        "external application connector",
+        "loopback control API",
+        "stable Python SDK",
+        "governed managed plugin provider adapter",
+        "provider_discovery",
+        "pkce_s256",
+        "state_hash_only_in_sqlite",
+        "api_key_resolves_from_vault",
+        "authorization_code_exchange",
+        "refresh_token_lifecycle",
+        "multi_account_store",
+        "secrets_absent_from_sqlite",
+        "redacted_audit_chain",
+        "no_cookie_or_session_import",
+        "no_w1_owned_server_required",
+        "native_vault_contract_has_no_file_fallback",
+        "manifest_validated",
+        "local_install_copied_and_locked",
+        "disabled_permission_escalation_denied",
+        "conformance_suite_passed",
+        "provider_adapter_integrated",
+        "source_mutation_does_not_change_installed_copy",
+        "installed_tamper_denied",
+        "plugin_crash_isolated",
+        "stable_sdk_surface_present",
+        "no_secret_environment_contract"
+      ],
+      "item_id": "provider-independent-embedding",
+      "label": "Local-first provider independence and embedding",
+      "limitations": [
+        "native OS vault backends are not live-tested on every supported desktop platform in the build environment",
+        "plugin permissions govern W1 host capabilities but subprocess hosting is not an OS security sandbox for hostile third-party Python code"
+      ],
+      "score": 10.0,
+      "weight": 10
+    },
+    {
+      "achieved": 0.75,
+      "evidence": [
+        "resource limits",
+        "approval-bound actions",
+        "artifact attestations",
+        "secret redaction"
+      ],
+      "item_id": "secure-execution",
+      "label": "Secure execution and action governance",
+      "limitations": [
+        "OCI was not live-tested in the build environment",
+        "not a full hostile-code VM on every platform"
+      ],
+      "score": 9.0,
+      "weight": 12
+    },
+    {
+      "achieved": 1.0,
+      "evidence": [
+        "isolated worktrees",
+        "resource locks",
+        "independent merge review"
+      ],
+      "item_id": "parallel-agents",
+      "label": "Parallel agents and governed merge",
+      "limitations": [],
+      "score": 8.0,
+      "weight": 8
+    },
+    {
+      "achieved": 1.0,
+      "evidence": [
+        "provenance memory",
+        "conflict handling",
+        "preregistration",
+        "reproducibility packages"
+      ],
+      "item_id": "memory-science",
+      "label": "Long-term memory and scientific loop",
+      "limitations": [],
+      "score": 8.0,
+      "weight": 8
+    },
+    {
+      "achieved": 0.875,
+      "evidence": [
+        "MCP client/server",
+        "tool registry",
+        "one-time approvals"
+      ],
+      "item_id": "mcp-integrations",
+      "label": "MCP and unified tool integrations",
+      "limitations": [
+        "MCP-specific OAuth authorization integration and long-lived MCP tasks remain incomplete"
+      ],
+      "score": 7.0,
+      "weight": 8
+    },
+    {
+      "achieved": 0.95,
+      "evidence": [
+        "document_model_valid",
+        "document_docx_export_valid",
+        "document_pdf_export_valid",
+        "document_json_export_valid",
+        "spreadsheet_model_valid",
+        "spreadsheet_xlsx_export_valid",
+        "spreadsheet_pdf_export_valid",
+        "spreadsheet_json_export_valid",
+        "presentation_model_valid",
+        "presentation_pptx_export_valid",
+        "presentation_pdf_export_valid",
+        "presentation_json_export_valid",
+        "reviewable_patch_applied",
+        "identity_patch_rejected"
+      ],
+      "item_id": "office-artifacts",
+      "label": "Universal office artifact engine",
+      "limitations": [
+        "advanced collaborative editing and full-fidelity round-trip import remain incomplete"
+      ],
+      "score": 4.75,
+      "weight": 5
+    },
+    {
+      "achieved": 1.0,
+      "evidence": [
+        "live dashboards",
+        "SSE",
+        "local token security",
+        "project explorer",
+        "offline desktop workbench",
+        "office artifact surface",
+        "AI Connections provider onboarding",
+        "multi-model AI Team Studio",
+        "catalog_has_major_and_custom_providers",
+        "api_key_stored_by_reference",
+        "raw_openai_secret_not_in_connections_db",
+        "raw_anthropic_secret_not_in_connections_db",
+        "connection_inventory_redacted",
+        "multi_company_models_registered",
+        "challenge_compiles_to_runtime_strategy",
+        "challenge_roles_preserved",
+        "team_persisted",
+        "audit_hash_chain_valid",
+        "no_w1_owned_cloud_required",
+        "provider_subscriptions_not_assumed_api_access",
+        "built_in_provider_endpoint_host_locked",
+        "rejected_endpoint_did_not_store_secret",
+        "custom_no_auth_endpoint_supported_over_https",
+        "stable_app_identity",
+        "safe_deep_link_parsed",
+        "command_deep_link_rejected",
+        "traversal_deep_link_rejected",
+        "project_descriptor_round_trip",
+        "update_hash_and_size_verified",
+        "tampered_update_rejected",
+        "windows_installer_sources_generated",
+        "per_user_associations_only",
+        "protocol_and_project_associations_present",
+        "installer_requires_native_signature_before_publication",
+        "service_process_identity_bound",
+        "service_state_private",
+        "service_lifecycle_controlled",
+        "build_environment_truthful",
+        "generated_sources_have_no_embedded_secret"
+      ],
+      "item_id": "workspace",
+      "label": "Visual operations workspace",
+      "limitations": [
+        "native Windows installer compilation/signing is not certified on this Linux build host; macOS/Linux packaging remains pending",
+        "provider app subscriptions are not treated as API credentials; provider authentication capabilities remain provider-defined"
+      ],
+      "score": 7.0,
+      "weight": 7
+    },
+    {
+      "achieved": 0.95,
+      "evidence": [
+        "project_tree_available",
+        "code_preview_available",
+        "immutable_version_created",
+        "independent_review_enforced",
+        "governed_publish_completed",
+        "workspace_updated",
+        "artifact_history_integrity",
+        "no_w1_server_required",
+        "native packaging build sources",
+        "safe file/protocol associations"
+      ],
+      "item_id": "artifact-desktop",
+      "label": "Artifact studio and native desktop shell",
+      "limitations": [
+        "native installer signing/notarization requires platform build infrastructure",
+        "advanced media editing remains incomplete"
+      ],
+      "score": 2.85,
+      "weight": 3
+    },
+    {
+      "achieved": 0.95,
+      "evidence": [
+        "virtual_driver_passed",
+        "observation_runs_without_approval",
+        "screenshot_requires_approval",
+        "screenshot_is_png_and_hashed",
+        "ui_elements_returned_ephemerally",
+        "selector_input_requires_digest_bound_approval",
+        "selector_bound_click_executes",
+        "stale_target_fingerprint_denied",
+        "ephemeral_text_executes",
+        "ephemeral_text_not_persisted",
+        "free_text_key_path_still_denied",
+        "computer_actions_audited",
+        "host_desktop_not_modified_by_benchmark"
+      ],
+      "item_id": "computer-use",
+      "label": "Governed computer use",
+      "limitations": [
+        "Windows element discovery is an accessibility-lite Win32 surface rather than complete Microsoft UI Automation",
+        "macOS/Linux native adapters and visual-model redaction policies remain incomplete"
+      ],
+      "score": 2.85,
+      "weight": 3
+    },
+    {
+      "achieved": 0.75,
+      "evidence": [
+        "invitation_secret_not_stored_plaintext",
+        "access_token_not_stored_plaintext",
+        "optimistic_mutation_applied",
+        "idempotent_mutation_replay",
+        "stale_write_becomes_explicit_conflict",
+        "conflict_requires_explicit_resolution",
+        "append_only_pull_cursor",
+        "federated_audit_hash_chain_valid",
+        "tenant_membership_and_project_acl",
+        "self_hosted_without_w1_cloud",
+        "loopback_self_hosted_api_authenticated",
+        "non_loopback_transport_requires_tls",
+        "client_rejects_remote_plain_http"
+      ],
+      "item_id": "team-cloud",
+      "label": "Self-hosted collaboration and optional cloud",
+      "limitations": [
+        "no W1-owned hosted collaboration service is deployed; self-hosted team tenancy and sync do not require one",
+        "cross-region managed hosting, automatic relay/NAT traversal, and end-to-end content encryption with external KMS remain incomplete"
+      ],
+      "score": 3.0,
+      "weight": 4
+    }
+  ],
+  "maximum_score": 100,
+  "model_access_benchmark": {
+    "invocation_summary": {
+      "by_status": {
+        "completed": {
+          "average_latency_seconds": 0.18765755612508883,
+          "count": 8
+        },
+        "failed": {
+          "average_latency_seconds": 1.658499991208373e-05,
+          "count": 1
+        }
+      },
+      "total": 9
+    },
+    "metrics": {
+      "estimated_sequential_seconds": 0.5,
+      "local_control_api_models": 4,
+      "observed_parallel_speedup": 1.939,
+      "parallel_elapsed_seconds": 0.257908,
+      "portfolio_strategies_tested": 3,
+      "registered_models": 4
+    },
+    "passed": true,
+    "probes": {
+      "fallback_used": true,
+      "independent_verifier_used": true,
+      "local_control_api_authenticated": true,
+      "multiple_models_registered": true,
+      "no_model_count_winner": true,
+      "no_w1_server_required": true,
+      "parallel_models_completed": true,
+      "parallel_speedup_observed": true
+    }
+  },
+  "native_packaging_benchmark": {
+    "limitations": [
+      "Windows EXE/installer compilation requires a Windows build host with PyInstaller and Inno Setup.",
+      "Authenticode signing requires a user/company signing identity and native signtool verification.",
+      "macOS notarization and Linux package generation share the contract but are not generated in this step."
+    ],
+    "metrics": {
+      "native_installer_compiled_in_benchmark": false,
+      "native_signature_verified_in_benchmark": false,
+      "probe_count": 16,
+      "windows_packaging_source_files": 6
+    },
+    "passed": true,
+    "probes": {
+      "build_environment_truthful": true,
+      "command_deep_link_rejected": true,
+      "generated_sources_have_no_embedded_secret": true,
+      "installer_requires_native_signature_before_publication": true,
+      "per_user_associations_only": true,
+      "project_descriptor_round_trip": true,
+      "protocol_and_project_associations_present": true,
+      "safe_deep_link_parsed": true,
+      "service_lifecycle_controlled": true,
+      "service_process_identity_bound": true,
+      "service_state_private": true,
+      "stable_app_identity": true,
+      "tampered_update_rejected": true,
+      "traversal_deep_link_rejected": true,
+      "update_hash_and_size_verified": true,
+      "windows_installer_sources_generated": true
+    }
+  },
+  "plugin_adoption_benchmark": {
+    "metrics": {
+      "conformance_probes": 8,
+      "plugin_api_version": "1.0",
+      "sdk_version": "1.2.0",
+      "supported_permissions": 10
+    },
+    "passed": true,
+    "probes": {
+      "conformance_suite_passed": true,
+      "disabled_permission_escalation_denied": true,
+      "installed_tamper_denied": true,
+      "local_install_copied_and_locked": true,
+      "manifest_validated": true,
+      "no_secret_environment_contract": true,
+      "plugin_crash_isolated": true,
+      "provider_adapter_integrated": true,
+      "source_mutation_does_not_change_installed_copy": true,
+      "stable_sdk_surface_present": true
+    }
+  },
+  "provider_certification_benchmark": {
+    "boundary": "This benchmark validates the certification harness locally. It does not certify any real provider account/model. Real certification requires explicit --live and user-owned credentials; billable probes require separate acknowledgement.",
+    "metrics": {
+      "live_provider_calls": 0,
+      "probes": 13,
+      "provider_contracts": 6,
+      "w1_owned_cloud_calls": 0
+    },
+    "passed": true,
+    "probes": {
+      "auth_header_used_only_in_transport": true,
+      "billable_ack_fail_closed": true,
+      "full_certification_contract": true,
+      "gemini_prefers_interactions": true,
+      "immutable_evidence_roundtrip": true,
+      "live_call_accounting": true,
+      "live_flag_fail_closed": true,
+      "plan_is_live_and_bounded": true,
+      "provider_contract_catalog_present": true,
+      "raw_provider_output_not_persisted": true,
+      "runtime_request_uses_guarded_host": true,
+      "secret_not_in_certification_db": true,
+      "xai_prefers_responses": true
+    },
+    "version": "1.0"
+  },
+  "release_hardening_benchmark": {
+    "collaboration_load_recovery": {
+      "audit_tamper_detected": true,
+      "audit_valid_after_restart": true,
+      "audit_valid_before_restart": true,
+      "elapsed_seconds": 1.2884,
+      "mutations": 350,
+      "mutations_per_second": 271.65,
+      "passed": true,
+      "state_keys_after_restart": 350,
+      "state_keys_before_restart": 350
+    },
+    "descriptor_fuzz": {
+      "cases": 200,
+      "failures": [],
+      "passed": true,
+      "safe_accepted": 100,
+      "seed": 41002,
+      "traversal_denied": 100
+    },
+    "hardening_version": "1.0",
+    "limitations": [
+      "The deterministic fuzz suite is seeded and local; it does not replace long-running coverage-guided fuzzing.",
+      "Dependency inventory does not query an online vulnerability database.",
+      "External benchmark catalog entries are NOT_RUN until upstream harnesses are executed and evidence is recorded.",
+      "Native signing/notarization and target-platform installer execution require real release hosts and signing identities."
+    ],
+    "metrics": {
+      "external_benchmark_families_registered": 5,
+      "external_benchmark_scores_claimed": 0,
+      "fuzz_cases": 600,
+      "load_mutations": 350,
+      "load_mutations_per_second": 271.65,
+      "network_calls": 0,
+      "probe_count": 10,
+      "source_checkout_context": true,
+      "source_tree_sha256": "343d0762af9f96eaaa75db66044cc6e128d5455bb9dfc813fc478ca944ad9dd1"
+    },
+    "parser_fuzz": {
+      "cases": 400,
+      "failures": [],
+      "passed": true,
+      "safe_cases_accepted": 200,
+      "seed": 41001,
+      "sensitive_cases_denied": 200
+    },
+    "passed": true,
+    "probes": {
+      "audit_tamper_detection_passed": true,
+      "brand_release_identity_verified": true,
+      "collaboration_load_restart_recovery_passed": true,
+      "deep_link_property_fuzz_passed": true,
+      "direct_dependency_ranges_are_bounded": true,
+      "external_benchmark_catalog_has_no_synthetic_scores": true,
+      "obvious_private_key_material_absent": true,
+      "project_descriptor_property_fuzz_passed": true,
+      "security_and_release_docs_present": true,
+      "source_manifest_is_deterministic": true
+    }
+  },
+  "release_readiness": {
+    "adaptive_capacity_router_passed": true,
+    "brand_identity_verified": true,
+    "development_hardening_passed": true,
+    "external_benchmarks_executed_by_internal_scorecard": 0,
+    "live_provider_certifications_executed_by_scorecard": 0,
+    "native_brand_assets_ready": true,
+    "provider_certification_harness_passed": true,
+    "public_license_selected_by_scorecard": true
+  },
+  "universal_artifact_benchmark": {
+    "outputs": {
+      "document": {
+        "docx": {
+          "format": "docx",
+          "package_entries": 17,
+          "sha256": "d292dd24bbac585097b03e92e7112260f020bfd49bc2868f05a2cd41260a3582",
+          "size_bytes": 36989
+        },
+        "json": {
+          "format": "json",
+          "sha256": "337fe21318090c1791398f8d9580fa85787bb79c6340e6c5dfe7592d5be879da",
+          "size_bytes": 928
+        },
+        "pdf": {
+          "format": "pdf",
+          "pdf_header": "%PDF-1.4",
+          "sha256": "1b88b64cd2c484126bea5ab32fbcc4448d3668121a496221f4e881178f5964fd",
+          "size_bytes": 23113
+        }
+      },
+      "presentation": {
+        "json": {
+          "format": "json",
+          "sha256": "2669ad8986702158e8e9d03093012ab2884819c41bf8648ce1b7553963486f23",
+          "size_bytes": 1198
+        },
+        "pdf": {
+          "format": "pdf",
+          "pdf_header": "%PDF-1.4",
+          "sha256": "32635832a22007e603b4a83f60136e2263ce325aa5ab013e0c73125ad9b22d74",
+          "size_bytes": 23543
+        },
+        "pptx": {
+          "format": "pptx",
+          "package_entries": 40,
+          "sha256": "45a66ff91391161c7df504e8c7d22d68c01e38c53eaa146c63faabda3e0e1587",
+          "size_bytes": 29801
+        }
+      },
+      "spreadsheet": {
+        "json": {
+          "format": "json",
+          "sha256": "34c50ce4da51bb0b82ac4f68e88c70fe15555a041bad16e372220953842706ca",
+          "size_bytes": 1160
+        },
+        "pdf": {
+          "format": "pdf",
+          "pdf_header": "%PDF-1.4",
+          "sha256": "740d56fb7ab80ae4c39aa50106129995e9de46e1282d8bf8b547ce5df8e73062",
+          "size_bytes": 23004
+        },
+        "xlsx": {
+          "format": "xlsx",
+          "package_entries": 13,
+          "sha256": "02ef481e4ce822f516d36f2520a1b515c90e3cb4b53fefcd3c430fe1cc827f72",
+          "size_bytes": 6549
+        }
+      }
+    },
+    "passed": true,
+    "probes": {
+      "document_docx_export_valid": true,
+      "document_json_export_valid": true,
+      "document_model_valid": true,
+      "document_pdf_export_valid": true,
+      "identity_patch_rejected": true,
+      "presentation_json_export_valid": true,
+      "presentation_model_valid": true,
+      "presentation_pdf_export_valid": true,
+      "presentation_pptx_export_valid": true,
+      "reviewable_patch_applied": true,
+      "spreadsheet_json_export_valid": true,
+      "spreadsheet_model_valid": true,
+      "spreadsheet_pdf_export_valid": true,
+      "spreadsheet_xlsx_export_valid": true
+    }
+  },
+  "verified_backend_capability_percent": 94.9
+}

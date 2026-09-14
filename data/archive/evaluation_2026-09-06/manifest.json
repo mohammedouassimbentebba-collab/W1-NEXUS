@@ -1,0 +1,11 @@
+{
+  "archive_id": "evaluation_2026-09-06",
+  "evaluation_status": "HISTORICAL_PRELIMINARY",
+  "archive_timestamp": "2026-09-06T22:25:00Z",
+  "raw_files_archived": 4,
+  "report_files_archived": 9,
+  "reason": "Asymmetric model coverage due to upstream provider-level NIM gateway timeouts on Kimi K3 and DeepSeek V4 Pro",
+  "muse_evaluation_status": "Muse preliminary local evaluation \u2014 NOT a valid cross-model leaderboard result until Kimi K3 and DeepSeek V4 Pro complete equivalent evaluation coverage.",
+  "kimi_evaluation_status": "PROVIDER_TIMEOUT / PROVIDER_UNAVAILABLE",
+  "deepseek_evaluation_status": "PROVIDER_TIMEOUT / PROVIDER_UNAVAILABLE"
+}

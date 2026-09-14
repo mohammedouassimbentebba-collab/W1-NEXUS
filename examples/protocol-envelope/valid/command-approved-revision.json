@@ -1,0 +1,33 @@
+{
+  "protocol": "w1-cip",
+  "protocol_version": "0.1",
+  "message_id": "msg-proposal-revise-002",
+  "session_id": "session-demo-001",
+  "kind": "command",
+  "type": "contribution.next_version",
+  "actor": {
+    "principal_type": "agent",
+    "principal_id": "agent-electronics-01"
+  },
+  "authorized_by": {
+    "entity_type": "approval",
+    "entity_id": "approval-proposal-revision-001",
+    "entity_version": 1
+  },
+  "occurred_at": "2026-08-04T15:27:00Z",
+  "correlation_id": "run-demo-001",
+  "related_events": [],
+  "precondition": {
+    "mode": "next_version",
+    "expected_entity_version": 1,
+    "target": {
+      "entity_type": "contribution",
+      "entity_id": "proposal-driver-selection-001",
+      "entity_version": 1
+    }
+  },
+  "payload_schema": "urn:w1-cip:payload:0.1:contribution-next-version-request",
+  "payload": {
+    "requested_change": "Replace candidate-a with the compatible candidate."
+  }
+}

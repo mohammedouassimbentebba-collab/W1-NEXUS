@@ -1,0 +1,325 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:entity-payload:0.1:protocol-event",
+  "title": "W1-CIP ProtocolEvent legal payload v0.1",
+  "description": "Immutable normative state-effect event. ProtocolEvent records operational obligations or disables a prior event effect without deleting history.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_type",
+    "subject",
+    "reason",
+    "classification",
+    "propagation",
+    "blocking"
+  ],
+  "properties": {
+    "event_type": {
+      "enum": [
+        "reassessment_required",
+        "invalidation_required",
+        "execution_blocked",
+        "authority_disabled",
+        "context_access_disabled",
+        "compensation_recorded"
+      ]
+    },
+    "subject": {
+      "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+    },
+    "trigger_refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+      }
+    },
+    "reason": {
+      "$ref": "#/$defs/reason"
+    },
+    "classification": {
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    },
+    "propagation": {
+      "enum": [
+        "none",
+        "declared_dependents"
+      ]
+    },
+    "blocking": {
+      "type": "boolean"
+    },
+    "required_follow_up": {
+      "$ref": "#/$defs/followUp"
+    },
+    "compensation": {
+      "$ref": "#/$defs/compensation"
+    },
+    "extensions": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+      },
+      "additionalProperties": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "compensation_recorded"
+          }
+        },
+        "required": [
+          "event_type"
+        ]
+      },
+      "then": {
+        "required": [
+          "compensation"
+        ],
+        "properties": {
+          "subject": {
+            "allOf": [
+              {
+                "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+              },
+              {
+                "properties": {
+                  "entity_type": {
+                    "const": "protocol_event"
+                  }
+                }
+              }
+            ]
+          },
+          "propagation": {
+            "const": "none"
+          },
+          "blocking": {
+            "const": false
+          }
+        },
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "required_follow_up"
+              ]
+            },
+            {
+              "required": [
+                "trigger_refs"
+              ]
+            }
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "trigger_refs",
+          "required_follow_up"
+        ],
+        "properties": {
+          "blocking": {
+            "const": true
+          }
+        },
+        "not": {
+          "required": [
+            "compensation"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "authority_disabled"
+          }
+        },
+        "required": [
+          "event_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "subject": {
+            "allOf": [
+              {
+                "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+              },
+              {
+                "properties": {
+                  "entity_type": {
+                    "enum": [
+                      "role_assignment",
+                      "approval"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "propagation": {
+            "const": "none"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "context_access_disabled"
+          }
+        },
+        "required": [
+          "event_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "subject": {
+            "allOf": [
+              {
+                "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+              },
+              {
+                "properties": {
+                  "entity_type": {
+                    "const": "context_grant"
+                  }
+                }
+              }
+            ]
+          },
+          "propagation": {
+            "const": "none"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": [
+              "execution_blocked",
+              "authority_disabled",
+              "context_access_disabled"
+            ]
+          }
+        },
+        "required": [
+          "event_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "propagation": {
+            "const": "none"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "typeName": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 160,
+      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*(?:\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*)+$"
+    },
+    "reason": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "description"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/identifier"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    },
+    "followUp": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation"
+      ],
+      "properties": {
+        "operation": {
+          "$ref": "#/$defs/typeName"
+        },
+        "must_complete_before": {
+          "$ref": "#/$defs/typeName"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        }
+      }
+    },
+    "protocolEventRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "protocol_event"
+            },
+            "entity_version": {
+              "const": 1
+            }
+          }
+        }
+      ]
+    },
+    "compensation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "compensates_event",
+        "reason"
+      ],
+      "properties": {
+        "compensates_event": {
+          "$ref": "#/$defs/protocolEventRef"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "replacement_event": {
+          "$ref": "#/$defs/protocolEventRef"
+        }
+      }
+    }
+  }
+}

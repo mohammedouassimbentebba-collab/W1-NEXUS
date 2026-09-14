@@ -1,0 +1,100 @@
+{
+  "title": "Select a compatible motor driver for the reference pump fixture",
+  "scope": {
+    "in_scope": [
+      "Evaluate only the synthetic candidates and measurements supplied in the fixture.",
+      "Compare continuous and startup-current limits."
+    ],
+    "out_of_scope": [
+      "Real product certification.",
+      "Physical installation or procurement."
+    ]
+  },
+  "deliverables": [
+    {
+      "deliverable_id": "driver-selection-decision",
+      "description": "An approved selection decision naming the compatible candidate.",
+      "kind": "decision",
+      "required": true,
+      "decision_subject": "motor_driver_selection"
+    },
+    {
+      "deliverable_id": "verification-summary",
+      "description": "A summary of the startup-current verification and relevant limitations.",
+      "kind": "report",
+      "required": true
+    }
+  ],
+  "constraints": [
+    {
+      "constraint_id": "supply-voltage",
+      "statement": "The selected candidate must support the supplied 12 V fixture.",
+      "criticality": "required",
+      "verifiability": "deterministic"
+    },
+    {
+      "constraint_id": "startup-current",
+      "statement": "The selected candidate peak-current capability must cover 18 A for 0.8 s.",
+      "criticality": "critical",
+      "verifiability": "deterministic"
+    }
+  ],
+  "success_criteria": [
+    {
+      "criterion_id": "compatible-driver-selected",
+      "statement": "The approved decision selects a candidate that passes both voltage and startup-current checks.",
+      "applies_to": [
+        "driver-selection-decision"
+      ],
+      "verifiability": "deterministic",
+      "acceptance_effect": "required_for_completion",
+      "method_hint": "Evaluate the pinned candidate data with the validated fixture rules.",
+      "verifies_constraints": [
+        "supply-voltage",
+        "startup-current"
+      ]
+    },
+    {
+      "criterion_id": "verification-disclosed",
+      "statement": "The result reports the verification method, evidence, and limitations.",
+      "applies_to": [
+        "verification-summary"
+      ],
+      "verifiability": "source_based",
+      "acceptance_effect": "required_for_completion"
+    }
+  ],
+  "prohibitions": [
+    {
+      "prohibition_id": "no-real-product-claim",
+      "statement": "Do not present the synthetic fixture result as certification or advice for a real product."
+    },
+    {
+      "prohibition_id": "no-external-action",
+      "statement": "Do not purchase, install, or operate hardware."
+    }
+  ],
+  "risk_policy": {
+    "risk_level": "medium",
+    "error_cost": "material",
+    "autonomy_mode": "human_approval_required",
+    "risk_acceptance": {
+      "allowed": false,
+      "max_unresolved_challenge_severity": "none"
+    }
+  },
+  "decision_policy": [
+    {
+      "decision_subject": "motor_driver_selection",
+      "authority": {
+        "mode": "team_plan",
+        "required_role": "decision_authority"
+      },
+      "human_approval_required": false,
+      "independent_from_roles": [
+        "executor"
+      ]
+    }
+  ],
+  "status": "active"
+}

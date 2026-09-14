@@ -1,0 +1,32 @@
+{
+  "entity": {
+    "entity_type": "claim",
+    "entity_id": "claim-21",
+    "entity_version": 3
+  },
+  "created_by_event_id": "evt-claim-versioned-003",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:claim",
+  "legal_payload": {
+    "statement": "candidate-a does not support the required start-up current",
+    "verifiability": "deterministic"
+  },
+  "previous_version": {
+    "entity_type": "claim",
+    "entity_id": "claim-21",
+    "entity_version": 2
+  },
+  "change_metadata": {
+    "change_reason": "editorial_correction",
+    "substantive_effect": "none",
+    "classification_approval": {
+      "entity_type": "approval",
+      "entity_id": "approval-editorial-003",
+      "entity_version": 1
+    },
+    "classification_check": {
+      "entity_type": "review",
+      "entity_id": "review-editorial-003",
+      "entity_version": 1
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "profile_id": "example-oci",
+  "backend": "auto",
+  "image": "python:3.13-slim",
+  "root_read_only": true,
+  "workspace_mode": "rw",
+  "run_as_user": "host",
+  "network": {"mode": "none"},
+  "limits": {
+    "wall_seconds": 120,
+    "cpu_seconds": 60,
+    "cpu_cores": 1.0,
+    "memory_mb": 1024,
+    "pids": 64,
+    "open_files": 256,
+    "file_size_mb": 128,
+    "output_bytes": 500000,
+    "tmpfs_mb": 64,
+    "artifact_bytes": 25000000
+  },
+  "allowed_commands": ["python", "python3", "pytest"],
+  "environment_allowlist": ["PATH", "LANG", "PYTHONPATH"],
+  "artifact_globs": ["artifacts/**", "reports/**"],
+  "mount_source_roots": ["."],
+  "secret_names": ["MODEL_TOKEN"],
+  "require_hard_isolation": true,
+  "capabilities_drop": ["ALL"]
+}

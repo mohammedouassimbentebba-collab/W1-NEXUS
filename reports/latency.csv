@@ -1,0 +1,7 @@
+model,mode,median_latency_ms,mean_latency_ms,p95_latency_ms
+meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,5783.4,6413.24,13890.74
+meta/muse-glimmer-30b,MODE_A_RAW_MODEL,4690.68,6856.66,16169.61
+moonshotai/kimi-k3,MODE_A_RAW_MODEL,31561.25,35266.23,45974.51
+deepseek-ai/deepseek-v4-pro-0813,MODE_A_RAW_MODEL,32616.76,35762.44,46824.92
+moonshotai/kimi-k3,MODE_B_NEXUS_AGENT,2763.51,5601.93,16866.2
+deepseek-ai/deepseek-v4-pro-0813,MODE_B_NEXUS_AGENT,16468.14,12350.12,17452.54

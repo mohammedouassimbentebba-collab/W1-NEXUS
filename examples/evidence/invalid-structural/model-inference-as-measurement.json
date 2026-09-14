@@ -1,0 +1,56 @@
+{
+  "goal": {
+    "entity_type": "goal_contract",
+    "entity_id": "goal-pump-driver-001",
+    "entity_version": 1
+  },
+  "team_plan": {
+    "entity_type": "team_plan",
+    "entity_id": "team-plan-pump-001",
+    "entity_version": 1
+  },
+  "task": {
+    "entity_type": "task",
+    "entity_id": "task-startup-evidence-001",
+    "entity_version": 4
+  },
+  "registered_by_role_assignment": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-verifier-001",
+    "entity_version": 1
+  },
+  "evidence_type": "model_inference",
+  "relation": "contextualizes",
+  "targets": [
+    {
+      "entity_type": "contribution",
+      "entity_id": "claim-candidate-a-startup-001",
+      "entity_version": 1
+    }
+  ],
+  "summary": "A model inference highlights a possible mismatch but does not constitute a measurement.",
+  "source": {
+    "uri": "artifact://model-runs/inference-17.json",
+    "source_version": "run-17",
+    "description": "Pinned model inference output.",
+    "classification": "internal",
+    "capture": {
+      "kind": "measurement",
+      "performed_by": {
+        "principal_type": "agent",
+        "principal_id": "agent-verifier-01"
+      },
+      "performed_at": "2026-08-04T15:20:00Z",
+      "model_identifier": "example-provider/verification-model"
+    }
+  },
+  "collected_at": "2026-08-04T15:20:00Z",
+  "integrity": {
+    "status": "unverified"
+  },
+  "classification": "internal",
+  "status": "active",
+  "limitations": [
+    "model inference is not a measured or computed result"
+  ]
+}

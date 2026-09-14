@@ -1,0 +1,490 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:schema:0.1:protocol-envelope",
+  "title": "W1-CIP ProtocolEnvelope v0.1",
+  "description": "Envelope for state-changing commands and recorded events in W1-CIP v0.1.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol",
+    "protocol_version",
+    "message_id",
+    "session_id",
+    "kind",
+    "type",
+    "actor",
+    "correlation_id",
+    "payload_schema",
+    "payload"
+  ],
+  "properties": {
+    "protocol": {
+      "const": "w1-cip"
+    },
+    "protocol_version": {
+      "const": "0.1"
+    },
+    "message_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "session_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "kind": {
+      "enum": [
+        "command",
+        "event"
+      ]
+    },
+    "event_class": {
+      "enum": [
+        "protocol_event",
+        "operational_event",
+        "security_event"
+      ]
+    },
+    "type": {
+      "$ref": "#/$defs/typeName"
+    },
+    "actor": {
+      "$ref": "urn:w1-cip:schema:0.1:principal-ref"
+    },
+    "on_behalf_of": {
+      "$ref": "urn:w1-cip:schema:0.1:principal-ref"
+    },
+    "authorized_by": {
+      "$ref": "#/$defs/authorityRef"
+    },
+    "bootstrap": {
+      "$ref": "#/$defs/sessionBootstrap"
+    },
+    "recorded_by": {
+      "$ref": "#/$defs/runtimePrincipalRef"
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "received_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "correlation_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "causation_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "related_events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/identifier"
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "entity": {
+      "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+    },
+    "precondition": {
+      "$ref": "#/$defs/precondition"
+    },
+    "payload_schema": {
+      "type": "string",
+      "format": "uri"
+    },
+    "payload": {
+      "type": "object"
+    },
+    "extensions": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+      },
+      "additionalProperties": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "command"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "then": {
+        "required": [
+          "precondition",
+          "authorized_by"
+        ],
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "event_class"
+              ]
+            },
+            {
+              "required": [
+                "sequence"
+              ]
+            },
+            {
+              "required": [
+                "received_at"
+              ]
+            },
+            {
+              "required": [
+                "recorded_at"
+              ]
+            },
+            {
+              "required": [
+                "recorded_by"
+              ]
+            },
+            {
+              "required": [
+                "entity"
+              ]
+            },
+            {
+              "required": [
+                "bootstrap"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "const": "session.bootstrap.completed"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "then": {
+        "required": [
+          "bootstrap",
+          "related_events"
+        ],
+        "properties": {
+          "kind": {
+            "const": "event"
+          },
+          "event_class": {
+            "const": "protocol_event"
+          },
+          "sequence": {
+            "const": 1
+          },
+          "bootstrap": {
+            "$ref": "#/$defs/sessionBootstrap"
+          },
+          "related_events": {
+            "maxItems": 0
+          },
+          "entity": {
+            "allOf": [
+              {
+                "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+              },
+              {
+                "properties": {
+                  "entity_type": {
+                    "const": "role_assignment"
+                  },
+                  "entity_version": {
+                    "const": 1
+                  }
+                }
+              }
+            ]
+          },
+          "precondition": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/precondition"
+              },
+              {
+                "properties": {
+                  "mode": {
+                    "const": "create"
+                  },
+                  "target_identity": {
+                    "properties": {
+                      "entity_type": {
+                        "const": "role_assignment"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "actor": {
+            "$ref": "#/$defs/runtimePrincipalRef"
+          }
+        },
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "authorized_by"
+              ]
+            },
+            {
+              "required": [
+                "causation_id"
+              ]
+            },
+            {
+              "required": [
+                "on_behalf_of"
+              ]
+            }
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "authorized_by"
+        ],
+        "not": {
+          "required": [
+            "bootstrap"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "event"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "then": {
+        "required": [
+          "event_class",
+          "sequence",
+          "received_at",
+          "recorded_at",
+          "recorded_by"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "event"
+          },
+          "event_class": {
+            "const": "protocol_event"
+          }
+        },
+        "required": [
+          "kind",
+          "event_class"
+        ]
+      },
+      "then": {
+        "required": [
+          "entity",
+          "precondition"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "event"
+          },
+          "event_class": {
+            "enum": [
+              "operational_event",
+              "security_event"
+            ]
+          }
+        },
+        "required": [
+          "kind",
+          "event_class"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "precondition"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload_schema": {
+            "const": "urn:w1-cip:schema:0.1:versioned-entity"
+          }
+        },
+        "required": [
+          "payload_schema"
+        ]
+      },
+      "then": {
+        "properties": {
+          "kind": {
+            "const": "event"
+          },
+          "event_class": {
+            "const": "protocol_event"
+          },
+          "payload": {
+            "$ref": "urn:w1-cip:schema:0.1:versioned-entity"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "typeName": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 160,
+      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*(?:\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*)+$"
+    },
+    "sessionBootstrap": {
+      "description": "Single-use local root authority for the first session event. It is not an EntityRef and cannot authorize ordinary envelopes.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "bootstrap_id",
+        "scope"
+      ],
+      "properties": {
+        "mode": {
+          "const": "local_runtime"
+        },
+        "bootstrap_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "scope": {
+          "const": "create_initial_role_assignment"
+        }
+      }
+    },
+    "createPrecondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "expected_absent",
+        "target_identity"
+      ],
+      "properties": {
+        "mode": {
+          "const": "create"
+        },
+        "expected_absent": {
+          "const": true
+        },
+        "target_identity": {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref#entity-identity"
+        }
+      }
+    },
+    "nextVersionPrecondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "expected_entity_version",
+        "target"
+      ],
+      "properties": {
+        "mode": {
+          "const": "next_version"
+        },
+        "expected_entity_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "target": {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        }
+      }
+    },
+    "precondition": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/createPrecondition"
+        },
+        {
+          "$ref": "#/$defs/nextVersionPrecondition"
+        }
+      ]
+    },
+    "runtimePrincipalRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:principal-ref"
+        },
+        {
+          "properties": {
+            "principal_type": {
+              "const": "runtime"
+            }
+          }
+        }
+      ]
+    },
+    "authorityRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "enum": [
+                "role_assignment",
+                "approval"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

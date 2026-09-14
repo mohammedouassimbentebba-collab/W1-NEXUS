@@ -1,0 +1,11 @@
+model,mode,failure_type,count,primary_reasons
+meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,UNKNOWN,3,"Unclassified failure: Expected '3.0' in output, got: 'click-through rate = clicks ÷ impressions × 10"
+meta/muse-glimmer-30b,MODE_A_RAW_MODEL,UNKNOWN,4,"Unclassified failure: Expected '3.0' in output, got: 'ctr = clicks / impressions × 100
+
+ctr = 375 / "
+moonshotai/kimi-k3,MODE_A_RAW_MODEL,TIMEOUT,9,Execution timed out during execution: Connection error: The read operation timed out
+deepseek-ai/deepseek-v4-pro-0813,MODE_A_RAW_MODEL,TIMEOUT,9,Execution timed out during execution: Connection error: The read operation timed out
+moonshotai/kimi-k3,MODE_B_NEXUS_AGENT,TIMEOUT,2,Execution timed out during execution: Connection error: The read operation timed out
+deepseek-ai/deepseek-v4-pro-0813,MODE_B_NEXUS_AGENT,TIMEOUT,6,Execution timed out during execution: Connection error: The read operation timed out
+moonshotai/kimi-k3,MODE_B_NEXUS_AGENT,RATE_LIMIT,7,"HTTP 429 Rate limit / quota exceeded: HTTP 429: {""status"":429,""title"":""Too Many Requests""}"
+deepseek-ai/deepseek-v4-pro-0813,MODE_B_NEXUS_AGENT,RATE_LIMIT,3,"HTTP 429 Rate limit / quota exceeded: HTTP 429: {""status"":429,""title"":""Too Many Requests""}"

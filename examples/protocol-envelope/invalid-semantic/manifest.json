@@ -1,0 +1,48 @@
+{
+  "recorded-before-received.json": [
+    "recorded_before_received"
+  ],
+  "causation-also-related.json": [
+    "causation_listed_as_related"
+  ],
+  "result-version-gap.json": [
+    "result_version_not_next",
+    "previous_version_not_immediate"
+  ],
+  "target-version-mismatch.json": [
+    "precondition_target_version_mismatch",
+    "result_version_not_next"
+  ],
+  "actor-also-on-behalf-of.json": [
+    "actor_same_as_on_behalf_of"
+  ],
+  "bootstrap-actor-recorder-mismatch.json": [
+    "bootstrap_actor_recorder_mismatch"
+  ],
+  "versioned-creator-event-mismatch.json": [
+    "versioned_entity_creator_event_mismatch"
+  ],
+  "versioned-result-mismatch.json": [
+    "versioned_entity_result_mismatch",
+    "versioned_entity_previous_mismatch"
+  ],
+  "versioned-previous-mismatch.json": [
+    "versioned_entity_previous_mismatch",
+    "previous_version_not_immediate"
+  ],
+  "bootstrap-scope-not-minimal.json": [
+    "bootstrap_authority_scope_not_minimal"
+  ],
+  "bootstrap-start-mismatch.json": [
+    "bootstrap_authority_start_mismatch"
+  ],
+  "bootstrap-with-expiry.json": [
+    "bootstrap_authority_must_not_expire"
+  ],
+  "command-type-target-mismatch.json": [
+    "command_type_precondition_mismatch"
+  ],
+  "role-assignment-backdated.json": [
+    "role_assignment_backdated"
+  ]
+}

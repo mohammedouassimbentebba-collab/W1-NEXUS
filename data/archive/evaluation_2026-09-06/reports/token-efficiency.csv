@@ -1,0 +1,5 @@
+model,mode,total_tasks,total_tokens,input_tokens,output_tokens,reasoning_tokens,score_per_1M_tokens
+meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,46,36792,8513,28279,0,25.4072
+meta/muse-glimmer-30b,MODE_A_RAW_MODEL,46,27284,7317,19967,0,33.4644
+moonshotai/kimi-k3,MODE_A_RAW_MODEL,9,0,0,0,0,0.0
+deepseek-ai/deepseek-v4-pro-0813,MODE_A_RAW_MODEL,9,0,0,0,0,0.0

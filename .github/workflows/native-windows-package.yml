@@ -1,0 +1,65 @@
+name: Native Windows Package
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install build dependencies
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip build pyinstaller
+          python -m pip install ".[desktop,office]"
+          if (-not (Get-Command iscc -ErrorAction SilentlyContinue)) {
+            choco install innosetup --no-progress -y
+          }
+
+      - name: Run native packaging tests
+        shell: pwsh
+        run: |
+          python -m unittest -v tests.test_native_packaging tests.test_native_packaging_cli
+          python -m w1cip --version
+
+      - name: Build executable and installer sources
+        shell: pwsh
+        run: |
+          pyinstaller --noconfirm packaging/windows/w1-nexus.spec
+          $inno = (Get-Command iscc -ErrorAction SilentlyContinue).Source
+          if (-not $inno) { $inno = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" }
+          & $inno packaging/windows/installer.iss
+          if ($LASTEXITCODE -ne 0) { throw "Inno Setup compilation failed." }
+
+      - name: Record unsigned build evidence
+        shell: pwsh
+        run: |
+          $exe = "dist\W1 Nexus\W1 Nexus.exe"
+          $installer = "packaging\windows\out\W1-Nexus-0.1.0-dev45-windows-x64.exe"
+          Get-FileHash -Algorithm SHA256 $exe | Format-List | Out-File native-windows-build.txt
+          Get-FileHash -Algorithm SHA256 $installer | Format-List | Out-File -Append native-windows-build.txt
+          Get-AuthenticodeSignature $exe | Format-List Status,StatusMessage,SignerCertificate | Out-File -Append native-windows-build.txt
+          Get-AuthenticodeSignature $installer | Format-List Status,StatusMessage,SignerCertificate | Out-File -Append native-windows-build.txt
+          Add-Content native-windows-build.txt "CI_ARTIFACT_IS_UNSIGNED_AND_NOT_A_TRUSTED_PUBLIC_RELEASE=true"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: W1-Nexus-Windows-UNSIGNED-NOT-FOR-PUBLICATION
+          if-no-files-found: error
+          path: |
+            dist/W1 Nexus/**
+            packaging/windows/out/*.exe
+            native-windows-build.txt

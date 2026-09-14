@@ -1,0 +1,63 @@
+{
+  "goal": {
+    "entity_type": "goal_contract",
+    "entity_id": "goal-pump-driver-001",
+    "entity_version": 1
+  },
+  "team_plan": {
+    "entity_type": "team_plan",
+    "entity_id": "team-plan-pump-001",
+    "entity_version": 1
+  },
+  "task": {
+    "entity_type": "task",
+    "entity_id": "task-startup-evidence-001",
+    "entity_version": 4
+  },
+  "registered_by_role_assignment": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-verifier-001",
+    "entity_version": 1
+  },
+  "evidence_type": "measured_result",
+  "relation": "refutes",
+  "targets": [
+    {
+      "entity_type": "contribution",
+      "entity_id": "claim-candidate-a-startup-001",
+      "entity_version": 1
+    }
+  ],
+  "summary": "The pinned capture reports an 18 A startup peak for 0.8 s, exceeding candidate-a's declared 15 A one-second peak limit.",
+  "source": {
+    "uri": "artifact://fixtures/startup-current-capture.csv",
+    "source_version": 1,
+    "description": "Synthetic startup-current capture for the reference scenario.",
+    "classification": "internal",
+    "capture": {
+      "kind": "measurement",
+      "performed_by": {
+        "principal_type": "tool",
+        "principal_id": "test-bench-01"
+      },
+      "performed_at": "2026-08-04T15:20:00Z",
+      "procedure_ref": "fixture://procedures/startup-current-v1"
+    }
+  },
+  "collected_at": "2026-08-04T15:20:00Z",
+  "integrity": {
+    "status": "verified",
+    "basis": "artifact version matches the immutable session fixture record",
+    "assessed_by_role_assignment": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-verifier-001",
+      "entity_version": 1
+    },
+    "assessed_at": "2026-08-04T15:20:01Z"
+  },
+  "classification": "internal",
+  "status": "active",
+  "limitations": [
+    "single synthetic capture"
+  ]
+}

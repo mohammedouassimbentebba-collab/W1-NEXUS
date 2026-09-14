@@ -1,0 +1,159 @@
+{
+  "goal": {
+    "entity_type": "goal_contract",
+    "entity_id": "goal-pump-driver-001",
+    "entity_version": 1
+  },
+  "team_plan": {
+    "entity_type": "team_plan",
+    "entity_id": "team-plan-pump-001",
+    "entity_version": 1
+  },
+  "task": {
+    "entity_type": "task",
+    "entity_id": "task-review-startup-001",
+    "entity_version": 4
+  },
+  "reviewed_by_role_assignment": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-reviewer-001",
+    "entity_version": 1
+  },
+  "reviewed_at": "2026-08-04T15:21:30Z",
+  "scope": {
+    "kind": "solution_package",
+    "targets": [
+      {
+        "entity_type": "contribution",
+        "entity_id": "proposal-driver-selection-001",
+        "entity_version": 1
+      },
+      {
+        "entity_type": "contribution",
+        "entity_id": "claim-candidate-a-startup-001",
+        "entity_version": 1
+      }
+    ],
+    "description": "Review the candidate-a proposal package against the pinned goal, evidence, verification, and challenge."
+  },
+  "criteria_assessments": [
+    {
+      "criterion": "goal_alignment",
+      "outcome": "partially_satisfied",
+      "severity": "major",
+      "rationale": "The proposal addresses the requested selection but chooses a candidate that violates a critical goal constraint.",
+      "related_refs": [
+        {
+          "entity_type": "contribution",
+          "entity_id": "proposal-driver-selection-001",
+          "entity_version": 1
+        }
+      ]
+    },
+    {
+      "criterion": "requirement_coverage",
+      "outcome": "partially_satisfied",
+      "severity": "major",
+      "rationale": "The startup-current requirement is not satisfied by candidate-a.",
+      "related_refs": [
+        {
+          "entity_type": "contribution",
+          "entity_id": "claim-candidate-a-startup-001",
+          "entity_version": 1
+        },
+        {
+          "entity_type": "verification",
+          "entity_id": "verification-startup-current-001",
+          "entity_version": 1
+        }
+      ]
+    },
+    {
+      "criterion": "internal_consistency",
+      "outcome": "partially_satisfied",
+      "severity": "major",
+      "rationale": "The proposal rationale conflicts with the conclusive failed verification of its startup-current claim.",
+      "related_refs": [
+        {
+          "entity_type": "contribution",
+          "entity_id": "proposal-driver-selection-001",
+          "entity_version": 1
+        },
+        {
+          "entity_type": "verification",
+          "entity_id": "verification-startup-current-001",
+          "entity_version": 1
+        }
+      ]
+    },
+    {
+      "criterion": "risk_and_limitations",
+      "outcome": "partially_satisfied",
+      "severity": "major",
+      "rationale": "The synthetic-fixture limitation is disclosed, but accepting candidate-a would retain material compatibility risk.",
+      "related_refs": [
+        {
+          "entity_type": "challenge",
+          "entity_id": "challenge-startup-current-001",
+          "entity_version": 1
+        }
+      ]
+    },
+    {
+      "criterion": "evidence_sufficiency",
+      "outcome": "satisfied",
+      "severity": "informational",
+      "rationale": "The pinned measured evidence is sufficient to evaluate the startup-current claim within the fixture scope.",
+      "related_refs": [
+        {
+          "entity_type": "evidence",
+          "entity_id": "startup-current-capture-001",
+          "entity_version": 1
+        }
+      ]
+    },
+    {
+      "criterion": "verification_sufficiency",
+      "outcome": "satisfied",
+      "severity": "informational",
+      "rationale": "A validated deterministic rule produced a conclusive failed result for the claim.",
+      "related_refs": [
+        {
+          "entity_type": "verification",
+          "entity_id": "verification-startup-current-001",
+          "entity_version": 1
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "entity_type": "evidence",
+      "entity_id": "startup-current-capture-001",
+      "entity_version": 1
+    }
+  ],
+  "verifications": [
+    {
+      "entity_type": "verification",
+      "entity_id": "verification-startup-current-001",
+      "entity_version": 1
+    }
+  ],
+  "challenges": [
+    {
+      "entity_type": "challenge",
+      "entity_id": "challenge-startup-current-001",
+      "entity_version": 1
+    }
+  ],
+  "result": "rejected",
+  "summary": "Candidate-a must not be approved. The proposal requires revision to select a candidate that satisfies the critical startup-current constraint.",
+  "required_actions": [],
+  "classification": "internal",
+  "status": "active",
+  "limitations": [
+    "synthetic fixture only"
+  ],
+  "fulfills_output_id": "startup-current-review"
+}

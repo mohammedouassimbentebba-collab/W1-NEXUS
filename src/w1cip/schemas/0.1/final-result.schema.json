@@ -1,0 +1,854 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:entity-payload:0.1:final-result",
+  "title": "W1-CIP FinalResult legal payload v0.1",
+  "description": "Published session result summarizing completion against the GoalContract, pinned decisions and evidence, unresolved uncertainty, resource-routing disclosures, and the trusted replay anchor. Identity and version are supplied by VersionedEntity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "goal",
+    "team_plan",
+    "task",
+    "generated_by_role_assignment",
+    "generated_at",
+    "result_status",
+    "summary",
+    "deliverable_assessments",
+    "success_criteria_assessments",
+    "accepted_decisions",
+    "verified_claims",
+    "refuted_claims",
+    "unverified_claims",
+    "evidence",
+    "verifications",
+    "reviews",
+    "resolved_challenges",
+    "unresolved_challenges",
+    "approvals",
+    "limitations",
+    "resource_summary",
+    "log_anchor",
+    "classification",
+    "lifecycle_status"
+  ],
+  "properties": {
+    "goal": {
+      "$ref": "#/$defs/goalRef"
+    },
+    "team_plan": {
+      "$ref": "#/$defs/teamPlanRef"
+    },
+    "task": {
+      "$ref": "#/$defs/taskRef"
+    },
+    "generated_by_role_assignment": {
+      "$ref": "#/$defs/roleAssignmentRef"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "result_status": {
+      "enum": [
+        "succeeded",
+        "partially_succeeded",
+        "failed",
+        "blocked",
+        "cancelled"
+      ]
+    },
+    "summary": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "deliverable_assessments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/deliverableAssessment"
+      }
+    },
+    "success_criteria_assessments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/criterionAssessment"
+      }
+    },
+    "accepted_decisions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/decisionRef"
+      }
+    },
+    "verified_claims": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/contributionRef"
+      }
+    },
+    "refuted_claims": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/contributionRef"
+      }
+    },
+    "unverified_claims": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unverifiedClaim"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/evidenceRef"
+      }
+    },
+    "verifications": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/verificationRef"
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/reviewRef"
+      }
+    },
+    "resolved_challenges": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/challengeRef"
+      }
+    },
+    "unresolved_challenges": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/challengeRef"
+      }
+    },
+    "approvals": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/approvalRef"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/nonEmptyText"
+      }
+    },
+    "resource_summary": {
+      "$ref": "#/$defs/resourceSummary"
+    },
+    "log_anchor": {
+      "$ref": "#/$defs/logAnchor"
+    },
+    "classification": {
+      "$ref": "#/$defs/classification"
+    },
+    "fulfills_output_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "lifecycle_status": {
+      "enum": [
+        "published",
+        "reassessment_required",
+        "superseded",
+        "withdrawn"
+      ]
+    },
+    "reassessment": {
+      "$ref": "#/$defs/reassessment"
+    },
+    "superseded_by": {
+      "$ref": "#/$defs/finalResultRef"
+    },
+    "withdrawal_reason": {
+      "$ref": "#/$defs/nonEmptyText"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "result_status": {
+            "const": "succeeded"
+          }
+        },
+        "required": [
+          "result_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "unresolved_challenges": {
+            "maxItems": 0
+          },
+          "unverified_claims": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result_status": {
+            "enum": [
+              "blocked",
+              "cancelled"
+            ]
+          }
+        },
+        "required": [
+          "result_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "accepted_decisions": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "lifecycle_status": {
+            "const": "published"
+          }
+        },
+        "required": [
+          "lifecycle_status"
+        ]
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "reassessment"
+              ]
+            },
+            {
+              "required": [
+                "superseded_by"
+              ]
+            },
+            {
+              "required": [
+                "withdrawal_reason"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "lifecycle_status": {
+            "const": "reassessment_required"
+          }
+        },
+        "required": [
+          "lifecycle_status"
+        ]
+      },
+      "then": {
+        "required": [
+          "reassessment"
+        ],
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "superseded_by"
+              ]
+            },
+            {
+              "required": [
+                "withdrawal_reason"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "lifecycle_status": {
+            "const": "superseded"
+          }
+        },
+        "required": [
+          "lifecycle_status"
+        ]
+      },
+      "then": {
+        "required": [
+          "superseded_by"
+        ],
+        "not": {
+          "required": [
+            "withdrawal_reason"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "lifecycle_status": {
+            "const": "withdrawn"
+          }
+        },
+        "required": [
+          "lifecycle_status"
+        ]
+      },
+      "then": {
+        "required": [
+          "withdrawal_reason"
+        ],
+        "not": {
+          "required": [
+            "superseded_by"
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "nonEmptyText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "classification": {
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    },
+    "goalRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "goal_contract"
+            }
+          }
+        }
+      ]
+    },
+    "teamPlanRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "team_plan"
+            }
+          }
+        }
+      ]
+    },
+    "taskRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "task"
+            }
+          }
+        }
+      ]
+    },
+    "roleAssignmentRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "role_assignment"
+            }
+          }
+        }
+      ]
+    },
+    "decisionRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "decision"
+            }
+          }
+        }
+      ]
+    },
+    "contributionRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "contribution"
+            }
+          }
+        }
+      ]
+    },
+    "evidenceRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "evidence"
+            }
+          }
+        }
+      ]
+    },
+    "verificationRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "verification"
+            }
+          }
+        }
+      ]
+    },
+    "reviewRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "review"
+            }
+          }
+        }
+      ]
+    },
+    "challengeRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "challenge"
+            }
+          }
+        }
+      ]
+    },
+    "approvalRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "approval"
+            }
+          }
+        }
+      ]
+    },
+    "executionResourcePlanRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "execution_resource_plan"
+            }
+          }
+        }
+      ]
+    },
+    "protocolEventRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "protocol_event"
+            }
+          }
+        }
+      ]
+    },
+    "finalResultRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "final_result"
+            }
+          }
+        }
+      ]
+    },
+    "deliverableAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deliverable_id",
+        "outcome",
+        "rationale",
+        "output_refs"
+      ],
+      "properties": {
+        "deliverable_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "outcome": {
+          "enum": [
+            "satisfied",
+            "partially_satisfied",
+            "unsatisfied",
+            "not_produced",
+            "not_applicable"
+          ]
+        },
+        "rationale": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "output_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+          }
+        }
+      }
+    },
+    "criterionAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "criterion_id",
+        "outcome",
+        "rationale",
+        "verification_refs"
+      ],
+      "properties": {
+        "criterion_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "outcome": {
+          "enum": [
+            "satisfied",
+            "partially_satisfied",
+            "not_satisfied",
+            "not_evaluated"
+          ]
+        },
+        "rationale": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "verification_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/verificationRef"
+          }
+        }
+      }
+    },
+    "unverifiedClaim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim",
+        "reason_code",
+        "description"
+      ],
+      "properties": {
+        "claim": {
+          "$ref": "#/$defs/contributionRef"
+        },
+        "reason_code": {
+          "enum": [
+            "missing_evidence",
+            "inconclusive_verification",
+            "failed_verification",
+            "not_currently_verifiable",
+            "resource_unavailable",
+            "outside_scope"
+          ]
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      }
+    },
+    "resourceOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resource_id",
+        "used",
+        "final_quota_status"
+      ],
+      "properties": {
+        "resource_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "used": {
+          "type": "boolean"
+        },
+        "final_quota_status": {
+          "enum": [
+            "available",
+            "low",
+            "exhausted",
+            "unknown"
+          ]
+        },
+        "roles_performed": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "orchestrator",
+              "executor",
+              "reviewer",
+              "verifier",
+              "decision_authority",
+              "synthesizer"
+            ]
+          }
+        },
+        "notes": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      }
+    },
+    "routingDisclosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "selected_resource_id",
+        "activation_reason",
+        "additional_review_required"
+      ],
+      "properties": {
+        "rule_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "selected_resource_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "fallback_from_resource_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "activation_reason": {
+          "enum": [
+            "initial_selection",
+            "quota_low",
+            "quota_exhausted",
+            "provider_unavailable",
+            "quality_floor",
+            "manual_override"
+          ]
+        },
+        "additional_review_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "resourceSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "execution_resource_plan",
+        "resource_outcomes",
+        "routing_disclosures",
+        "all_required_work_completed"
+      ],
+      "properties": {
+        "execution_resource_plan": {
+          "$ref": "#/$defs/executionResourcePlanRef"
+        },
+        "resource_outcomes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/resourceOutcome"
+          }
+        },
+        "routing_disclosures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/routingDisclosure"
+          }
+        },
+        "all_required_work_completed": {
+          "type": "boolean"
+        },
+        "unfinished_reason": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "all_required_work_completed": {
+                "const": false
+              }
+            },
+            "required": [
+              "all_required_work_completed"
+            ]
+          },
+          "then": {
+            "required": [
+              "unfinished_reason"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "unfinished_reason"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "logAnchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "last_sequence",
+        "last_event_id",
+        "event_count"
+      ],
+      "properties": {
+        "last_sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "last_event_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "event_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "projection_digest": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "algorithm",
+            "value"
+          ],
+          "properties": {
+            "algorithm": {
+              "const": "sha256"
+            },
+            "value": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        }
+      }
+    },
+    "reassessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason",
+        "trigger_refs",
+        "marked_at",
+        "marked_by_role_assignment"
+      ],
+      "properties": {
+        "reason": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "trigger_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+          }
+        },
+        "marked_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "marked_by_role_assignment": {
+          "$ref": "#/$defs/roleAssignmentRef"
+        }
+      }
+    }
+  }
+}

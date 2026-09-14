@@ -1,0 +1,61 @@
+{
+  "display_name": "Lite scenario executor",
+  "provider": {
+    "name": "scenario-google",
+    "model": "gemini-3.5-lite"
+  },
+  "capabilities": {
+    "domains": [
+      "electronics",
+      "general_reasoning"
+    ],
+    "operations": [
+      "reasoning",
+      "structured_output"
+    ]
+  },
+  "tools": [
+    "calculator"
+  ],
+  "eligible_roles": [
+    "executor"
+  ],
+  "prohibited_uses": [
+    "final_decision_authority"
+  ],
+  "permissions": {
+    "data_read": [
+      "task_input",
+      "granted_context"
+    ],
+    "data_write": [
+      "contribution"
+    ],
+    "actions": []
+  },
+  "data_policy": {
+    "accepted_classifications": [
+      "public",
+      "internal"
+    ],
+    "external_processing": true,
+    "onward_sharing": false
+  },
+  "autonomy": {
+    "level": "propose_only",
+    "human_approval_required_for": [
+      "external_action"
+    ]
+  },
+  "cost": {
+    "class": "low",
+    "unit": "model_call"
+  },
+  "latency": {
+    "class": "fast"
+  },
+  "limitations": [
+    "scenario_assessment_not_universal_benchmark"
+  ],
+  "status": "active"
+}

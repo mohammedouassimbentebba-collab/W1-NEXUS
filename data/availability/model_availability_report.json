@@ -1,0 +1,88 @@
+[
+  {
+    "model": "moonshotai/kimi-k3",
+    "display_name": "Kimi K3",
+    "key_masked": "nvapi-Fk...IQdi",
+    "entitlement": "AUTHORIZED",
+    "availability": true,
+    "http_status": 200,
+    "latency_ms": 15683.1,
+    "streaming": true,
+    "tool_calling": true,
+    "structured_output": true,
+    "rate_limited": false,
+    "provider_error": null,
+    "rate_limit_headers": {},
+    "details": {
+      "catalog_presence": true,
+      "catalog_message": "Model present in NVIDIA catalog",
+      "verified_capabilities": {
+        "text_generation": "PASS (status 200, latency 15.6s, exact token accounting)",
+        "streaming_sse": "PASS (TTFT 17.8s, full event stream decoded)",
+        "tool_calling": "PASS (function calling lookup_metric successful)",
+        "structured_output": "PASS (valid json_object parsed)",
+        "multimodal_vision": "PASS (image_url example1b.jpg completed)"
+      },
+      "operational_parameters": {
+        "required_top_p": 0.95,
+        "recommended_stream": true,
+        "recommended_min_tokens": 4096,
+        "recommended_timeout_s": 60.0
+      }
+    }
+  },
+  {
+    "model": "meta/muse-glimmer-30b",
+    "display_name": "Muse Glimmer 30B",
+    "key_masked": "nvapi-fk...ifdv",
+    "entitlement": "AUTHORIZED",
+    "availability": true,
+    "http_status": 200,
+    "latency_ms": 2175.1,
+    "streaming": true,
+    "tool_calling": true,
+    "structured_output": true,
+    "rate_limited": false,
+    "provider_error": null,
+    "rate_limit_headers": {},
+    "details": {
+      "catalog_presence": true,
+      "catalog_message": "Model present in NVIDIA catalog"
+    }
+  },
+  {
+    "model": "deepseek-ai/deepseek-v4-pro-0813",
+    "display_name": "DeepSeek V4 Pro",
+    "key_masked": "nvapi-fk...ifdv",
+    "entitlement": "AUTHORIZED",
+    "availability": true,
+    "http_status": 200,
+    "latency_ms": 113960.0,
+    "streaming": true,
+    "tool_calling": true,
+    "structured_output": true,
+    "rate_limited": false,
+    "provider_error": null,
+    "rate_limit_headers": {},
+    "details": {
+      "catalog_presence": true,
+      "catalog_message": "Model present in NVIDIA catalog",
+      "verified_capabilities": {
+        "text_generation": "PASS (status 200, latency 113.96s, TTFT 86.40s, exact token accounting, stream=True)",
+        "streaming_sse": "PASS (TTFT 86.40s, 23 chunks streamed, full poem decoded)",
+        "tool_calling": "PASS (function calling lookup_metric successful, args: '{\"metric_name\":\"cpu_idle\"}')",
+        "structured_output": "PASS (valid JSON parsed: {\"status\": \"ready\"})"
+      },
+      "operational_parameters": {
+        "required_stream": true,
+        "required_timeout_s": 180.0,
+        "chat_template_kwargs": {
+          "thinking": false
+        },
+        "top_p": 0.95,
+        "temperature": 1.0,
+        "max_tokens": 16384
+      }
+    }
+  }
+]

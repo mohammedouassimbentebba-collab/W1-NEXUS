@@ -1,0 +1,40 @@
+{
+  "entity": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-owner-001",
+    "entity_version": 3
+  },
+  "created_by_event_id": "evt-owner-authority-expanded-003",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:role-assignment",
+  "legal_payload": {
+    "subject": {
+      "principal_type": "human",
+      "principal_id": "human-owner-001"
+    },
+    "role": "human_owner",
+    "authority_scope": {
+      "operations": [
+        "role_assignment.create",
+        "role_assignment.next_version",
+        "goal_contract.create",
+        "goal_contract.next_version",
+        "context_grant.create",
+        "context_grant.next_version",
+        "task.create",
+        "task.next_version"
+      ]
+    },
+    "status": "active",
+    "valid_from": "2026-08-04T15:00:00Z",
+    "assignment_reason": "manage session roles, the goal contract, and explicit context grants"
+  },
+  "previous_version": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-owner-001",
+    "entity_version": 2
+  },
+  "change_metadata": {
+    "change_reason": "semantic",
+    "substantive_effect": "may_affect_dependents"
+  }
+}

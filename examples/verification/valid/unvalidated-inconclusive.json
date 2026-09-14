@@ -1,0 +1,61 @@
+{
+  "goal": {
+    "entity_type": "goal_contract",
+    "entity_id": "goal-pump-driver-001",
+    "entity_version": 1
+  },
+  "team_plan": {
+    "entity_type": "team_plan",
+    "entity_id": "team-plan-pump-001",
+    "entity_version": 1
+  },
+  "task": {
+    "entity_type": "task",
+    "entity_id": "task-verify-startup-001",
+    "entity_version": 4
+  },
+  "performed_by_role_assignment": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-verifier-001",
+    "entity_version": 1
+  },
+  "target_claims": [
+    {
+      "entity_type": "contribution",
+      "entity_id": "claim-candidate-a-startup-001",
+      "entity_version": 1
+    }
+  ],
+  "method": {
+    "type": "deterministic_rule",
+    "method_id": "peak-current-comparison",
+    "method_version": 1,
+    "procedure_source": "fixture://rules/peak-current-v1",
+    "validation": {
+      "status": "unvalidated",
+      "scope": "Experimental comparison rule for the supplied fixture."
+    }
+  },
+  "evidence": [
+    {
+      "entity_type": "evidence",
+      "entity_id": "startup-current-capture-001",
+      "entity_version": 1
+    }
+  ],
+  "input_assumptions": [
+    "current values use amperes",
+    "duration values use seconds"
+  ],
+  "result": "inconclusive",
+  "conclusion_status": "qualified",
+  "summary": "The comparison suggests incompatibility, but the method has not yet been validated for a conclusive result.",
+  "performed_at": "2026-08-04T15:20:03Z",
+  "classification": "internal",
+  "status": "active",
+  "limitations": [
+    "synthetic fixture only",
+    "single pinned startup-current capture",
+    "method validation pending"
+  ]
+}

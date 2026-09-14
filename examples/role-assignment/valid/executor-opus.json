@@ -1,0 +1,29 @@
+{
+  "subject": {
+    "principal_type": "agent",
+    "principal_id": "agent-opus-01"
+  },
+  "role": "executor",
+  "authority_scope": {
+    "operations": [
+      "contribution.create",
+      "contribution.next_version"
+    ]
+  },
+  "status": "active",
+  "valid_from": "2026-08-05T15:00:00Z",
+  "valid_until": "2026-08-06T15:00:00Z",
+  "assignment_reason": "provide the opus scenario execution resource",
+  "basis": [
+    {
+      "entity_type": "agent_card",
+      "entity_id": "agent-opus-01",
+      "entity_version": 1
+    },
+    {
+      "entity_type": "team_plan",
+      "entity_id": "team-plan-pump-001",
+      "entity_version": 2
+    }
+  ]
+}

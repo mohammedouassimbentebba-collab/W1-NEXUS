@@ -1,0 +1,41 @@
+{
+  "goal": {
+    "entity_type": "goal_contract",
+    "entity_id": "goal-pump-driver-001",
+    "entity_version": 1
+  },
+  "team_plan": {
+    "entity_type": "team_plan",
+    "entity_id": "team-plan-pump-001",
+    "entity_version": 1
+  },
+  "title": "Prepare the motor-driver selection proposal",
+  "description": "Evaluate the supplied candidates against the electrical constraints and produce one structured proposal.",
+  "phase": "execution",
+  "status": "completed",
+  "assigned_role_assignment": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-executor-001",
+    "entity_version": 1
+  },
+  "dependencies": [],
+  "required_outputs": [
+    {
+      "output_id": "candidate-proposal",
+      "entity_type": "contribution",
+      "description": "A structured candidate-selection proposal.",
+      "required": true
+    }
+  ],
+  "budget_allocation": {
+    "max_model_calls": 2,
+    "max_tool_calls": 2,
+    "max_elapsed_seconds": 600
+  },
+  "required_context_fields": [
+    "available_supply_voltage",
+    "user_skill_level"
+  ],
+  "produced_outputs": [],
+  "completion_summary": "The proposal was produced and linked to the task."
+}

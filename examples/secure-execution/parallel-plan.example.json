@@ -1,0 +1,27 @@
+{
+  "run_id": "secure-parallel-example",
+  "policy": {
+    "max_workers": 2,
+    "fail_fast": true
+  },
+  "jobs": [
+    {
+      "job_id": "secure-agent-a",
+      "agent_id": "agent-a",
+      "branch": "w1/secure-agent-a",
+      "argv": ["python", "scripts/agent_a.py"],
+      "resource_paths": ["src/agent-a"],
+      "sandbox_profile": "example-oci",
+      "sandbox_artifact_globs": ["reports/**"]
+    },
+    {
+      "job_id": "secure-agent-b",
+      "agent_id": "agent-b",
+      "branch": "w1/secure-agent-b",
+      "argv": ["python", "scripts/agent_b.py"],
+      "resource_paths": ["src/agent-b"],
+      "sandbox_profile": "example-oci",
+      "sandbox_artifact_globs": ["reports/**"]
+    }
+  ]
+}

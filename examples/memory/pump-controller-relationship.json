@@ -1,0 +1,22 @@
+{
+  "memory_id": "mem-pump-controller-relationship",
+  "kind": "relationship",
+  "subject": "battery pack",
+  "predicate": "powers",
+  "value": "pump controller",
+  "object_entity": "pump controller",
+  "text": "The battery pack powers the pump controller.",
+  "confidence": 0.95,
+  "sensitivity": "internal",
+  "visibility": "team",
+  "team_id": "workspace-team",
+  "tags": ["pump", "power-system"],
+  "source": {
+    "source_type": "protocol_entity",
+    "source_ref": {
+      "entity_type": "decision",
+      "entity_id": "decision-motor-driver-001",
+      "entity_version": 3
+    }
+  }
+}

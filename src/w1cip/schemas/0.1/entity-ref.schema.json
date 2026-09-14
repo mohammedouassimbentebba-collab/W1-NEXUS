@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:schema:0.1:entity-ref",
+  "title": "W1-CIP EntityRef v0.1",
+  "description": "Session-scoped pinned reference to one immutable version of a W1-CIP entity. The enclosing envelope or entity supplies session context.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "entity_type",
+    "entity_id",
+    "entity_version"
+  ],
+  "properties": {
+    "entity_type": {
+      "$ref": "#/$defs/entityType"
+    },
+    "entity_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "entity_version": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "entityType": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "entityIdentity": {
+      "$anchor": "entity-identity",
+      "description": "Unversioned session-scoped identity used only where a new entity is expected to be absent.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entity_type",
+        "entity_id"
+      ],
+      "properties": {
+        "entity_type": {
+          "$ref": "#/$defs/entityType"
+        },
+        "entity_id": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    }
+  }
+}

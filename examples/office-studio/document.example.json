@@ -1,0 +1,48 @@
+{
+  "schema_version": "w1-artifact-0.1",
+  "artifact_id": "reference-document",
+  "kind": "document",
+  "title": "W1 Nexus Verification Note",
+  "locale": "en",
+  "metadata": {
+    "purpose": "reference-demo"
+  },
+  "content": {
+    "blocks": [
+      {
+        "type": "heading",
+        "level": 1,
+        "text": "Verified workflow"
+      },
+      {
+        "type": "paragraph",
+        "text": "This document was generated from the canonical W1 artifact model."
+      },
+      {
+        "type": "bullet_list",
+        "items": [
+          "Immutable revisions",
+          "Independent review",
+          "Governed export"
+        ]
+      },
+      {
+        "type": "table",
+        "rows": [
+          [
+            "Capability",
+            "Status"
+          ],
+          [
+            "DOCX",
+            "Passed"
+          ],
+          [
+            "PDF",
+            "Passed"
+          ]
+        ]
+      }
+    ]
+  }
+}

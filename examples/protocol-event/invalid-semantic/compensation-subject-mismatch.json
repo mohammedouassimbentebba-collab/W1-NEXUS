@@ -1,0 +1,23 @@
+{
+  "event_type": "compensation_recorded",
+  "subject": {
+    "entity_type": "protocol_event",
+    "entity_id": "different-event",
+    "entity_version": 1
+  },
+  "reason": {
+    "code": "challenge_reopen_reversed",
+    "description": "The reopening record was invalidated by an independently verified procedural correction."
+  },
+  "classification": "internal",
+  "propagation": "none",
+  "blocking": false,
+  "compensation": {
+    "compensates_event": {
+      "entity_type": "protocol_event",
+      "entity_id": "evt-decision-reassessment-required-001",
+      "entity_version": 1
+    },
+    "reason": "Disable only the operational effect; preserve both events in the immutable history."
+  }
+}

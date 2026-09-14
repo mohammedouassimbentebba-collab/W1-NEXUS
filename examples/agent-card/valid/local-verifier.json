@@ -1,0 +1,57 @@
+{
+  "display_name": "Local Deterministic Verifier",
+  "provider": {
+    "name": "w1-local",
+    "model": "W1/Deterministic-Verifier:01"
+  },
+  "capabilities": {
+    "domains": [
+      "verification"
+    ],
+    "operations": [
+      "calculation",
+      "structured_output"
+    ]
+  },
+  "tools": [
+    "calculator"
+  ],
+  "eligible_roles": [
+    "verifier"
+  ],
+  "prohibited_uses": [],
+  "permissions": {
+    "data_read": [
+      "task_input",
+      "granted_context"
+    ],
+    "data_write": [
+      "verification"
+    ],
+    "actions": []
+  },
+  "data_policy": {
+    "accepted_classifications": [
+      "public",
+      "internal",
+      "confidential"
+    ],
+    "external_processing": false,
+    "onward_sharing": false
+  },
+  "autonomy": {
+    "level": "bounded_autonomous",
+    "human_approval_required_for": []
+  },
+  "cost": {
+    "class": "low",
+    "unit": "local_run"
+  },
+  "latency": {
+    "class": "fast"
+  },
+  "limitations": [
+    "deterministic_methods_only"
+  ],
+  "status": "active"
+}

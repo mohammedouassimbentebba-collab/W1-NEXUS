@@ -1,0 +1,17 @@
+{
+  "entity": {
+    "entity_type": "claim",
+    "entity_id": "claim-21",
+    "entity_version": 1
+  },
+  "created_by_event_id": "evt-claim-created-001",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:claim",
+  "legal_payload": {
+    "statement": "candidate-a supports the required startup current",
+    "verifiability": "deterministic"
+  },
+  "change_metadata": {
+    "change_reason": "semantic",
+    "substantive_effect": "may_affect_dependents"
+  }
+}

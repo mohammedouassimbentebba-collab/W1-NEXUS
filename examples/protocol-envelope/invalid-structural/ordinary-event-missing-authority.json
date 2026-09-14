@@ -1,0 +1,34 @@
+{
+  "protocol": "w1-cip",
+  "protocol_version": "0.1",
+  "message_id": "evt-security-009",
+  "session_id": "session-demo-001",
+  "kind": "event",
+  "event_class": "security_event",
+  "type": "security.unauthorized_context_access_detected",
+  "actor": {
+    "principal_type": "service",
+    "principal_id": "security-monitor-01"
+  },
+  "recorded_by": {
+    "principal_type": "runtime",
+    "principal_id": "orchestrator-runtime-01"
+  },
+  "occurred_at": "2026-08-02T18:25:00Z",
+  "received_at": "2026-08-02T18:25:01Z",
+  "recorded_at": "2026-08-02T18:25:01Z",
+  "sequence": 9,
+  "correlation_id": "security-case-001",
+  "related_events": [],
+  "entity": {
+    "entity_type": "context_grant",
+    "entity_id": "context-grant-01",
+    "entity_version": 1
+  },
+  "payload_schema": "urn:w1-cip:payload:0.1:security-detection",
+  "payload": {
+    "content_status": "redacted",
+    "content_classification": "sensitive",
+    "original_content_available": false
+  }
+}

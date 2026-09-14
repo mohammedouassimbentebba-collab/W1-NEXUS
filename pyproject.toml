@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "w1-nexus"
+version = "0.1.0.dev52"
+description = "Governed multi-model orchestration and W1-CIP reference runtime"
+readme = "README.md"
+license = {text = "MPL-2.0"}
+requires-python = ">=3.11"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Software Development :: Testing",
+]
+dependencies = [
+  "jsonschema[format]>=4.23,<5",
+  "python-docx>=1.2,<2",
+  "python-pptx>=1.0,<2",
+  "reportlab>=4.4,<6",
+]
+
+[project.optional-dependencies]
+office = [
+  "python-docx>=1.2,<2",
+  "python-pptx>=1.0,<2",
+  "reportlab>=4.4,<6",
+]
+desktop = ["pywebview>=5,<6"]
+
+[project.scripts]
+w1 = "w1cip.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"w1cip.brand_assets" = ["*.json", "*.svg", "*.png", "*.ico", "*.icns"]
+w1cip = ["schemas/0.1/*.json", "workspace_assets/*.html", "workspace_assets/*.css", "workspace_assets/*.js", "workspace_assets/*.svg", "workspace_assets/*.png", "desktop_assets/*.html", "desktop_assets/*.css", "desktop_assets/*.js", "desktop_assets/*.svg", "desktop_assets/*.png", "desktop_assets/*.webmanifest"]

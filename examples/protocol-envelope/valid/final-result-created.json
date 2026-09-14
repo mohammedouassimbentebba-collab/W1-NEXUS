@@ -1,0 +1,272 @@
+{
+  "protocol": "w1-cip",
+  "protocol_version": "0.1",
+  "message_id": "evt-final-result-pump-001",
+  "session_id": "session-demo-001",
+  "kind": "event",
+  "event_class": "protocol_event",
+  "type": "entity.version.created",
+  "actor": {
+    "principal_type": "agent",
+    "principal_id": "agent-synthesizer-01"
+  },
+  "authorized_by": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-synthesizer-001",
+    "entity_version": 1
+  },
+  "recorded_by": {
+    "principal_type": "runtime",
+    "principal_id": "orchestrator-runtime-01"
+  },
+  "occurred_at": "2026-08-05T16:00:00Z",
+  "received_at": "2026-08-05T16:00:00Z",
+  "recorded_at": "2026-08-05T16:00:01Z",
+  "sequence": 41,
+  "correlation_id": "run-demo-001",
+  "causation_id": "evt-execution-resource-plan-fallback-002",
+  "related_events": [
+    "evt-decision-accepted-003"
+  ],
+  "entity": {
+    "entity_type": "final_result",
+    "entity_id": "final-result-pump-001",
+    "entity_version": 1
+  },
+  "precondition": {
+    "mode": "create",
+    "expected_absent": true,
+    "target_identity": {
+      "entity_type": "final_result",
+      "entity_id": "final-result-pump-001"
+    }
+  },
+  "payload_schema": "urn:w1-cip:schema:0.1:versioned-entity",
+  "payload": {
+    "entity": {
+      "entity_type": "final_result",
+      "entity_id": "final-result-pump-001",
+      "entity_version": 1
+    },
+    "created_by_event_id": "evt-final-result-pump-001",
+    "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:final-result",
+    "legal_payload": {
+      "goal": {
+        "entity_type": "goal_contract",
+        "entity_id": "goal-pump-driver-001",
+        "entity_version": 1
+      },
+      "team_plan": {
+        "entity_type": "team_plan",
+        "entity_id": "team-plan-pump-001",
+        "entity_version": 2
+      },
+      "task": {
+        "entity_type": "task",
+        "entity_id": "task-final-result-001",
+        "entity_version": 4
+      },
+      "generated_by_role_assignment": {
+        "entity_type": "role_assignment",
+        "entity_id": "role-assignment-synthesizer-001",
+        "entity_version": 1
+      },
+      "generated_at": "2026-08-05T16:00:00Z",
+      "result_status": "succeeded",
+      "summary": "Candidate-b is the accepted synthetic-fixture motor-driver choice. It passed the pinned startup-current check, candidate-a was conclusively refuted for the same requirement, the critical challenge was resolved, and the result does not claim real-product certification.",
+      "deliverable_assessments": [
+        {
+          "deliverable_id": "driver-selection-decision",
+          "outcome": "satisfied",
+          "rationale": "The accepted decision selects candidate-b.",
+          "output_refs": [
+            {
+              "entity_type": "decision",
+              "entity_id": "decision-motor-driver-001",
+              "entity_version": 3
+            }
+          ]
+        },
+        {
+          "deliverable_id": "verification-summary",
+          "outcome": "satisfied",
+          "rationale": "The result includes the validated method, supporting and refuting checks, evidence, and limitations.",
+          "output_refs": [
+            {
+              "entity_type": "verification",
+              "entity_id": "verification-candidate-b-startup-001",
+              "entity_version": 1
+            },
+            {
+              "entity_type": "verification",
+              "entity_id": "verification-startup-current-001",
+              "entity_version": 1
+            }
+          ]
+        }
+      ],
+      "success_criteria_assessments": [
+        {
+          "criterion_id": "compatible-driver-selected",
+          "outcome": "satisfied",
+          "rationale": "Candidate-b passed the deterministic startup-current comparison and is the accepted option.",
+          "verification_refs": [
+            {
+              "entity_type": "verification",
+              "entity_id": "verification-candidate-b-startup-001",
+              "entity_version": 1
+            }
+          ]
+        },
+        {
+          "criterion_id": "verification-disclosed",
+          "outcome": "satisfied",
+          "rationale": "The result pins both verification records and their evidence while preserving the synthetic-fixture limitation.",
+          "verification_refs": [
+            {
+              "entity_type": "verification",
+              "entity_id": "verification-candidate-b-startup-001",
+              "entity_version": 1
+            },
+            {
+              "entity_type": "verification",
+              "entity_id": "verification-startup-current-001",
+              "entity_version": 1
+            }
+          ]
+        }
+      ],
+      "accepted_decisions": [
+        {
+          "entity_type": "decision",
+          "entity_id": "decision-motor-driver-001",
+          "entity_version": 3
+        }
+      ],
+      "verified_claims": [
+        {
+          "entity_type": "contribution",
+          "entity_id": "claim-candidate-b-startup-001",
+          "entity_version": 1
+        }
+      ],
+      "refuted_claims": [
+        {
+          "entity_type": "contribution",
+          "entity_id": "claim-candidate-a-startup-001",
+          "entity_version": 1
+        }
+      ],
+      "unverified_claims": [],
+      "evidence": [
+        {
+          "entity_type": "evidence",
+          "entity_id": "candidate-b-peak-spec-001",
+          "entity_version": 1
+        },
+        {
+          "entity_type": "evidence",
+          "entity_id": "startup-current-capture-001",
+          "entity_version": 1
+        }
+      ],
+      "verifications": [
+        {
+          "entity_type": "verification",
+          "entity_id": "verification-candidate-b-startup-001",
+          "entity_version": 1
+        },
+        {
+          "entity_type": "verification",
+          "entity_id": "verification-startup-current-001",
+          "entity_version": 1
+        }
+      ],
+      "reviews": [
+        {
+          "entity_type": "review",
+          "entity_id": "review-candidate-b-package-001",
+          "entity_version": 1
+        }
+      ],
+      "resolved_challenges": [
+        {
+          "entity_type": "challenge",
+          "entity_id": "challenge-startup-current-001",
+          "entity_version": 4
+        }
+      ],
+      "unresolved_challenges": [],
+      "approvals": [],
+      "limitations": [
+        "Synthetic fixture only; this is not real-product certification.",
+        "Provider quota observations are snapshots and may change after publication.",
+        "The final result summarizes accepted records but does not replace their detailed legal payloads."
+      ],
+      "resource_summary": {
+        "execution_resource_plan": {
+          "entity_type": "execution_resource_plan",
+          "entity_id": "execution-resource-plan-pump-001",
+          "entity_version": 2
+        },
+        "resource_outcomes": [
+          {
+            "resource_id": "opus-resource",
+            "used": false,
+            "final_quota_status": "exhausted",
+            "roles_performed": [
+              "executor"
+            ],
+            "notes": "Primary scenario resource became unavailable because its user-account quota was exhausted."
+          },
+          {
+            "resource_id": "sol-resource",
+            "used": true,
+            "final_quota_status": "available",
+            "roles_performed": [
+              "executor"
+            ],
+            "notes": "Activated as the declared material-work fallback with additional independent review."
+          },
+          {
+            "resource_id": "lite-resource",
+            "used": false,
+            "final_quota_status": "available",
+            "roles_performed": [
+              "executor"
+            ],
+            "notes": "Retained for low-risk bounded work and not used for the material-risk decision path."
+          }
+        ],
+        "routing_disclosures": [
+          {
+            "rule_id": "material-execution-routing",
+            "selected_resource_id": "sol-resource",
+            "fallback_from_resource_id": "opus-resource",
+            "activation_reason": "quota_exhausted",
+            "additional_review_required": true
+          },
+          {
+            "rule_id": "low-risk-bounded-routing",
+            "selected_resource_id": "lite-resource",
+            "activation_reason": "initial_selection",
+            "additional_review_required": false
+          }
+        ],
+        "all_required_work_completed": true
+      },
+      "log_anchor": {
+        "last_sequence": 40,
+        "last_event_id": "evt-execution-resource-plan-fallback-002",
+        "event_count": 40,
+        "projection_digest": {
+          "algorithm": "sha256",
+          "value": "13b7eed7655a72a07bd6c078451784f14f5d519611ed1fc20cda333752905a5b"
+        }
+      },
+      "classification": "internal",
+      "fulfills_output_id": "session-final-result",
+      "lifecycle_status": "published"
+    }
+  }
+}

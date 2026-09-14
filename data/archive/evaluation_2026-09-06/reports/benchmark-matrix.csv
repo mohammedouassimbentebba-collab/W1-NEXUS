@@ -1,0 +1,111 @@
+run_id,benchmark,task_id,model,mode,attempt,success,score,total_tokens,latency_ms,failure_type
+nexus-bench-1788725342,AutomationBench,auto-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,516,2391.98,
+nexus-bench-1788725342,AutomationBench,auto-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,444,2718.65,
+nexus-bench-1788725342,AutomationBench,auto-sales-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,307,1614.38,
+nexus-bench-1788725342,AutomationBench,auto-sales-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,604,3232.76,
+nexus-bench-1788725342,AutomationBench,auto-mktg-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,False,0.0,462,1991.26,UNKNOWN
+nexus-bench-1788725342,AutomationBench,auto-mktg-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,False,0.0,271,4865.93,UNKNOWN
+nexus-bench-1788725342,AutomationBench,auto-ops-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,756,6739.69,
+nexus-bench-1788725342,AutomationBench,auto-ops-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,794,8033.69,
+nexus-bench-1788725342,AutomationBench,auto-supp-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,1721,16169.61,
+nexus-bench-1788725342,AutomationBench,auto-supp-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,1872,18564.19,
+nexus-bench-1788725342,AutomationBench,auto-fin-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,False,0.0,470,5203.43,UNKNOWN
+nexus-bench-1788725342,AutomationBench,auto-fin-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,False,0.0,289,10744.81,UNKNOWN
+nexus-bench-1788725342,AutomationBench,auto-hr-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,272,4608.3,
+nexus-bench-1788725342,AutomationBench,auto-hr-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,455,4173.29,
+nexus-bench-1788725342,OSWorld 2.0,osworld2-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,781,11518.16,
+nexus-bench-1788725342,OSWorld 2.0,osworld2-web-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,False,0.0,493,3958.97,UNKNOWN
+nexus-bench-1788725342,OSWorld 2.0,osworld2-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,1134,20000.87,
+nexus-bench-1788725342,OSWorld 2.0,osworld2-web-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,912,8906.85,
+nexus-bench-1788725342,OSWorld 2.0,osworld2-office-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,1144,8511.72,
+nexus-bench-1788725342,OSWorld 2.0,osworld2-sys-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,256,4690.68,
+nexus-bench-1788725342,OSWorld 2.0,osworld2-office-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,1100,10414.89,
+nexus-bench-1788725342,Terminal-Bench 4.0,tb4-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,421,2815.76,
+nexus-bench-1788725342,OSWorld 2.0,osworld2-sys-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,624,5374.99,
+nexus-bench-1788725342,Terminal-Bench 4.0,tb4-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,528,3381.61,
+nexus-bench-1788725342,Terminal-Bench 4.0,tb4-sed-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,541,8820.68,
+nexus-bench-1788725342,Terminal-Bench 4.0,tb4-sed-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,654,5846.13,
+nexus-bench-1788725342,Terminal-Bench 4.0,tb4-net-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,242,2886.15,
+nexus-bench-1788725342,Terminal-Bench 4.0,tb4-net-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,371,5783.4,
+nexus-bench-1788725342,Terminal-Bench 4.0,tb4-git-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,361,3926.54,
+nexus-bench-1788725342,Terminal-Bench 4.0,tb4-git-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,447,3034.71,
+nexus-bench-1788725342,Terminal-Bench Science,tb-sci-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,491,8746.88,
+nexus-bench-1788725342,Terminal-Bench Science,tb-sci-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,599,8663.14,
+nexus-bench-1788725342,Terminal-Bench Science,tb-sci-life-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,248,4907.66,
+nexus-bench-1788725342,Terminal-Bench Science,tb-sci-life-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,478,6145.73,
+nexus-bench-1788725342,Terminal-Bench Science,tb-sci-earth-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,318,4385.77,
+nexus-bench-1788725342,Terminal-Bench Science,tb-sci-earth-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,441,7522.65,
+nexus-bench-1788725342,Terminal-Bench Science,tb-sci-math-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,False,0.0,276,11653.17,UNKNOWN
+nexus-bench-1788725342,Terminal-Bench Science,tb-sci-math-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,False,0.0,608,7387.94,UNKNOWN
+nexus-bench-1788725342,Terminal-Bench Science,tb-sci-eng-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,295,3021.49,
+nexus-bench-1788725342,Terminal-Bench Science,tb-sci-eng-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,494,4064.57,
+nexus-bench-1788725342,FrontierMath Tier 4,fm-t4-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,669,6987.41,
+nexus-bench-1788725342,FrontierMath Tier 4,fm-t4-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,923,6617.63,
+nexus-bench-1788725342,FrontierMath Tier 4,fm-t4-nt-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,687,3786.16,
+nexus-bench-1788725342,FrontierMath Tier 4,fm-t4-nt-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,866,4931.35,
+nexus-bench-1788725342,FrontierMath Tier 4,fm-t4-top-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,239,4149.82,
+nexus-bench-1788725342,FrontierMath Tier 4,fm-t4-top-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,675,4074.02,
+nexus-bench-1788725342,ExploitBench,exploit-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,560,6381.9,
+nexus-bench-1788725342,ExploitBench,exploit-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,738,5741.4,
+nexus-bench-1788725342,ExploitBench,exploit-mem-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,1100,8289.36,
+nexus-bench-1788725342,ExploitBench,exploit-crypto-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,783,7058.53,
+nexus-bench-1788725342,ExploitBench,exploit-crypto-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,936,6775.04,
+nexus-bench-1788725342,SRE-Bench,sre-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,760,6370.36,
+nexus-bench-1788725342,SRE-Bench,sre-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,1314,9109.76,
+nexus-bench-1788725342,ExploitBench,exploit-mem-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,968,54383.99,
+nexus-bench-1788725342,SRE-Bench,sre-k8s-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,850,14851.88,
+nexus-bench-1788725342,SRE-Bench,sre-disk-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,691,6388.34,
+nexus-bench-1788725342,SRE-Bench,sre-k8s-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,1125,8881.98,
+nexus-bench-1788725342,MRCR v2,mrcr-smoke-16k,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,2047,4852.38,
+nexus-bench-1788725342,SRE-Bench,sre-disk-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,1224,8295.54,
+nexus-bench-1788725342,MRCR v2,mrcr-smoke-16k,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,2116,4600.89,
+nexus-bench-1788725342,MRCR v2,mrcr-retrieval-512k,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,375,3143.3,
+nexus-bench-1788725342,MRCR v2,mrcr-retrieval-768k,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,308,3156.69,
+nexus-bench-1788725342,MRCR v2,mrcr-retrieval-512k,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,502,5323.68,
+nexus-bench-1788725342,MRCR v2,mrcr-retrieval-768k,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,545,4930.98,
+nexus-bench-1788725342,MRCR v2,mrcr-retrieval-1m,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,325,4417.67,
+nexus-bench-1788725342,AA Intelligence Index,aa-index-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,332,5603.87,
+nexus-bench-1788725342,MRCR v2,mrcr-retrieval-1m,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,593,6569.7,
+nexus-bench-1788725342,AA Intelligence Index,aa-index-verb-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,248,9046.54,
+nexus-bench-1788725342,AA Intelligence Index,aa-index-verb-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,610,3403.38,
+nexus-bench-1788725342,AA Intelligence Index,aa-index-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,729,13890.74,
+nexus-bench-1788725342,AA Intelligence Index,aa-index-math-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,289,4321.9,
+nexus-bench-1788725342,AA Intelligence Index,aa-index-code-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,282,6818.58,
+nexus-bench-1788725342,AA Intelligence Index,aa-index-math-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,452,15471.07,
+nexus-bench-1788725342,AA Intelligence Index,aa-index-code-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,584,6894.69,
+nexus-smoke-1788724759,AutomationBench,auto-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,459,1770.94,
+nexus-smoke-1788724759,AutomationBench,auto-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,603,2864.64,
+nexus-smoke-1788724759,OSWorld 2.0,osworld2-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,836,3663.1,
+nexus-smoke-1788724759,OSWorld 2.0,osworld2-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,858,3762.95,
+nexus-smoke-1788724759,Terminal-Bench 4.0,tb4-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,392,1707.43,
+nexus-smoke-1788724759,Terminal-Bench 4.0,tb4-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,477,2032.35,
+nexus-smoke-1788724759,Terminal-Bench Science,tb-sci-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,552,1997.09,
+nexus-smoke-1788724759,Terminal-Bench Science,tb-sci-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,672,2630.21,
+nexus-smoke-1788724759,FrontierMath Tier 4,fm-t4-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,579,2437.4,
+nexus-smoke-1788724759,FrontierMath Tier 4,fm-t4-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,860,6972.17,
+nexus-smoke-1788724759,ExploitBench,exploit-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,603,4112.67,
+nexus-smoke-1788724759,ExploitBench,exploit-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,639,2850.94,
+nexus-smoke-1788724759,SRE-Bench,sre-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,848,6161.45,
+nexus-smoke-1788724759,SRE-Bench,sre-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,1404,10427.67,
+nexus-smoke-1788724759,MRCR v2,mrcr-smoke-16k,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,1992,4021.89,
+nexus-smoke-1788724759,MRCR v2,mrcr-smoke-16k,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,2109,2587.79,
+nexus-smoke-1788724759,AA Intelligence Index,aa-index-smoke-01,meta/muse-glimmer-30b,MODE_A_RAW_MODEL,1,True,1.0,330,2027.49,
+nexus-smoke-1788724759,AA Intelligence Index,aa-index-smoke-01,meta/muse-glimmer-30b,MODE_B_NEXUS_AGENT,1,True,1.0,928,5443.62,
+nexus-smoke-1788724850,AutomationBench,auto-smoke-01,moonshotai/kimi-k3,MODE_A_RAW_MODEL,1,False,0.0,0,30499.74,TIMEOUT
+nexus-smoke-1788724850,OSWorld 2.0,osworld2-smoke-01,moonshotai/kimi-k3,MODE_A_RAW_MODEL,1,False,0.0,0,31448.05,TIMEOUT
+nexus-smoke-1788724850,Terminal-Bench 4.0,tb4-smoke-01,moonshotai/kimi-k3,MODE_A_RAW_MODEL,1,False,0.0,0,31884.62,TIMEOUT
+nexus-smoke-1788724850,Terminal-Bench Science,tb-sci-smoke-01,moonshotai/kimi-k3,MODE_A_RAW_MODEL,1,False,0.0,0,30273.67,TIMEOUT
+nexus-smoke-1788724850,FrontierMath Tier 4,fm-t4-smoke-01,moonshotai/kimi-k3,MODE_A_RAW_MODEL,1,False,0.0,0,40278.62,TIMEOUT
+nexus-smoke-1788724850,ExploitBench,exploit-smoke-01,moonshotai/kimi-k3,MODE_A_RAW_MODEL,1,False,0.0,0,31561.25,TIMEOUT
+nexus-smoke-1788724850,SRE-Bench,sre-smoke-01,moonshotai/kimi-k3,MODE_A_RAW_MODEL,1,False,0.0,0,45974.51,TIMEOUT
+nexus-smoke-1788724850,MRCR v2,mrcr-smoke-16k,moonshotai/kimi-k3,MODE_A_RAW_MODEL,1,False,0.0,0,45218.44,TIMEOUT
+nexus-smoke-1788724850,AA Intelligence Index,aa-index-smoke-01,moonshotai/kimi-k3,MODE_A_RAW_MODEL,1,False,0.0,0,30257.15,TIMEOUT
+nexus-smoke-1788725226,AutomationBench,auto-smoke-01,deepseek-ai/deepseek-v4-pro-0813,MODE_A_RAW_MODEL,1,False,0.0,0,30618.95,TIMEOUT
+nexus-smoke-1788725226,OSWorld 2.0,osworld2-smoke-01,deepseek-ai/deepseek-v4-pro-0813,MODE_A_RAW_MODEL,1,False,0.0,0,30316.42,TIMEOUT
+nexus-smoke-1788725226,Terminal-Bench 4.0,tb4-smoke-01,deepseek-ai/deepseek-v4-pro-0813,MODE_A_RAW_MODEL,1,False,0.0,0,30346.45,TIMEOUT
+nexus-smoke-1788725226,Terminal-Bench Science,tb-sci-smoke-01,deepseek-ai/deepseek-v4-pro-0813,MODE_A_RAW_MODEL,1,False,0.0,0,31586.4,TIMEOUT
+nexus-smoke-1788725226,FrontierMath Tier 4,fm-t4-smoke-01,deepseek-ai/deepseek-v4-pro-0813,MODE_A_RAW_MODEL,1,False,0.0,0,40236.14,TIMEOUT
+nexus-smoke-1788725226,ExploitBench,exploit-smoke-01,deepseek-ai/deepseek-v4-pro-0813,MODE_A_RAW_MODEL,1,False,0.0,0,32616.76,TIMEOUT
+nexus-smoke-1788725226,SRE-Bench,sre-smoke-01,deepseek-ai/deepseek-v4-pro-0813,MODE_A_RAW_MODEL,1,False,0.0,0,46824.92,TIMEOUT
+nexus-smoke-1788725226,MRCR v2,mrcr-smoke-16k,deepseek-ai/deepseek-v4-pro-0813,MODE_A_RAW_MODEL,1,False,0.0,0,46666.93,TIMEOUT
+nexus-smoke-1788725226,AA Intelligence Index,aa-index-smoke-01,deepseek-ai/deepseek-v4-pro-0813,MODE_A_RAW_MODEL,1,False,0.0,0,32648.97,TIMEOUT

@@ -1,0 +1,8 @@
+[
+  {"observation_id": "a-one", "candidate": "candidate-a", "peak-current": 20.0},
+  {"observation_id": "a-two", "candidate": "candidate-a", "peak-current": 21.0},
+  {"observation_id": "a-three", "candidate": "candidate-a", "peak-current": 19.5},
+  {"observation_id": "b-one", "candidate": "candidate-b", "peak-current": 15.0},
+  {"observation_id": "b-two", "candidate": "candidate-b", "peak-current": 14.5},
+  {"observation_id": "b-three", "candidate": "candidate-b", "peak-current": 15.5}
+]

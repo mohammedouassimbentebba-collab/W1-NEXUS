@@ -1,0 +1,129 @@
+{
+  "entity": {
+    "entity_type": "decision",
+    "entity_id": "decision-motor-driver-001",
+    "entity_version": 2
+  },
+  "created_by_event_id": "evt-decision-under-review-002",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:decision",
+  "legal_payload": {
+    "goal": {
+      "entity_type": "goal_contract",
+      "entity_id": "goal-pump-driver-001",
+      "entity_version": 1
+    },
+    "team_plan": {
+      "entity_type": "team_plan",
+      "entity_id": "team-plan-pump-001",
+      "entity_version": 1
+    },
+    "task": {
+      "entity_type": "task",
+      "entity_id": "task-select-driver-decision-001",
+      "entity_version": 4
+    },
+    "subject": "motor_driver_selection",
+    "proposed_by_role_assignment": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-decision-001",
+      "entity_version": 1
+    },
+    "proposed_at": "2026-08-04T15:30:00Z",
+    "last_transition_by_role_assignment": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-decision-001",
+      "entity_version": 1
+    },
+    "options_considered": [
+      {
+        "option_id": "candidate-a",
+        "description": "Synthetic candidate-a with a 15 A one-second peak limit."
+      },
+      {
+        "option_id": "candidate-b",
+        "description": "Synthetic candidate-b with a 20 A one-second peak limit."
+      }
+    ],
+    "selected_option": "candidate-b",
+    "based_on_contributions": [
+      {
+        "entity_type": "contribution",
+        "entity_id": "proposal-driver-001",
+        "entity_version": 1
+      },
+      {
+        "entity_type": "contribution",
+        "entity_id": "claim-candidate-b-startup-001",
+        "entity_version": 1
+      }
+    ],
+    "supporting_evidence": [
+      {
+        "entity_type": "evidence",
+        "entity_id": "candidate-b-peak-spec-001",
+        "entity_version": 1
+      },
+      {
+        "entity_type": "evidence",
+        "entity_id": "startup-current-capture-001",
+        "entity_version": 1
+      }
+    ],
+    "verifications": [
+      {
+        "entity_type": "verification",
+        "entity_id": "verification-candidate-b-startup-001",
+        "entity_version": 1
+      },
+      {
+        "entity_type": "verification",
+        "entity_id": "verification-startup-current-001",
+        "entity_version": 1
+      }
+    ],
+    "reviews": [
+      {
+        "entity_type": "review",
+        "entity_id": "review-candidate-b-package-001",
+        "entity_version": 1
+      }
+    ],
+    "addressed_challenges": [
+      {
+        "entity_type": "challenge",
+        "entity_id": "challenge-startup-current-001",
+        "entity_version": 4
+      }
+    ],
+    "unresolved_challenges": [],
+    "approvals": [],
+    "depends_on_decisions": [],
+    "rationale": "Candidate-b is selected because its pinned 20 A peak capability passes the 18 A startup-current requirement, while candidate-a failed the same conclusive check.",
+    "confidence": {
+      "level": "high",
+      "basis": "validated deterministic checks over pinned synthetic fixture records",
+      "calibrated": false
+    },
+    "reversibility": {
+      "reversible": true,
+      "rollback_action": "Issue a superseding decision selecting another supplied candidate after fresh verification."
+    },
+    "classification": "internal",
+    "limitations": [
+      "synthetic fixture only"
+    ],
+    "fulfills_output_id": "driver-selection-decision",
+    "status": "under_review",
+    "last_transition_at": "2026-08-04T15:30:30Z",
+    "status_reason": "The bounded evidence, verification, review, and challenge resolution are being checked by the decision authority."
+  },
+  "previous_version": {
+    "entity_type": "decision",
+    "entity_id": "decision-motor-driver-001",
+    "entity_version": 1
+  },
+  "change_metadata": {
+    "change_reason": "semantic",
+    "substantive_effect": "may_affect_dependents"
+  }
+}

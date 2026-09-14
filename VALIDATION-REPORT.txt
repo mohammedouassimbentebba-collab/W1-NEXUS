@@ -1,0 +1,95 @@
+W1 Nexus 0.1.0.dev50 — Step 50: Verified Intelligence Activation Bridge
+Date: 2026-08-12
+
+INPUT INTEGRITY
+- Step 49 source ZIP SHA-256: c23a37c654902d64ca0a50756c07d933ffc8d3eccbf1d8aed1b8be37d7e379e8 (matched documented dev49 handoff)
+- Step 49 wheel SHA-256: 703feb1256d2b6b687d392ea47a047c2d5b2e9a790af50bb259b898b3bc6eb87 (matched documented dev49 handoff)
+- Packaging defect found in dev49 source handoff: root VALIDATION-REPORT.txt and SHA256SUMS.txt still described dev45. Step 50 replaces those stale delivery records.
+
+STEP 50 SCOPE
+- Add a local Verified Intelligence Activation Bridge between Intelligence Search candidates and Model Access / Adaptive Capacity Router.
+- Add OpenRouter as a first-class API-key/OpenAI-compatible provider in AI Connections.
+- Require an enabled OpenRouter connection plus an exact persisted discovered_models match before a free OpenRouter candidate can become activation_ready.
+- Keep GitHub repositories non-activatable as model capacity.
+- Keep Hugging Face repositories non-activatable until a real local runtime/deployment exists.
+- Add workspace-local activation state and SHA-256 hash-chained review/activation audit records.
+- Persist no raw provider credentials in Intelligence Search/Activation storage.
+- Activate eligible models conservatively as third_party_free, quota_state=unknown, entitlement_verified=false.
+- Preserve Adaptive Router fail-closed default: third-party-free routing still requires explicit user opt-in.
+- Add Desktop assessment/activation controls and CLI assess/review/activate/activations/activation-benchmark commands.
+
+NEW STEP 50 TESTS
+- test_intelligence_activation.py: 8/8 PASS
+- test_intelligence_activation_cli.py: 2/2 PASS
+- test_intelligence_activation_desktop.py: 1/1 PASS
+- New Step 50 tests total: 11/11 PASS
+
+AFFECTED / CURRENT-VERSION REGRESSION
+- Intelligence Search: 9 tests PASS
+- AI Connections: 13 tests PASS
+- Adaptive Capacity Router: 7 tests PASS
+- Desktop Shell: 14 tests PASS
+- Core CLI: 17 tests PASS
+- Workspace Console: 10 tests PASS
+- Native Packaging: 17 tests PASS
+- Plugin System + CLI: 11 tests PASS
+- MCP Tool Registry: 8 tests PASS
+- Collaboration Fabric + CLI: 16 tests PASS
+- Secure Execution Fabric: 12 tests PASS
+- Together with Step 50 tests: 145 tests across 20 affected/current-version modules PASS when run in isolated module processes.
+
+FULL SUITE DISCOVERY
+- Test modules present: 65
+- Test functions discovered statically: 554
+- A long sequential all-module closing run was attempted but the host reproduced the project's known resource-lifetime/hanging behavior after multiple CLI/HTTP modules.
+- No assertion failure was observed in the completed modules; the 65/65 full-module claim is NOT made for this closing host.
+- The affected/current-version module set above was therefore rerun individually and passed.
+
+STATIC VALIDATION
+- JSON documents: 457 valid
+- W1-CIP Draft 2020-12 schemas: 20/20 valid
+- Python source/test files compiled: 109
+- Markdown files: 140, broken local links: 0
+- JavaScript syntax: 3/3 PASS
+
+DETERMINISTIC / SOURCE-SIDE BENCHMARKS
+- Intelligence Search Engine: 8/8 PASS
+- Verified Intelligence Activation: 10/10 PASS, 0 live network calls in benchmark
+- AI Connections: 15/15 PASS
+- Adaptive Capacity Router: 9/9 PASS
+- Native Packaging: 16/16 PASS
+- Plugin Adoption: 10/10 PASS
+- Collaboration Fabric: 13/13 PASS
+- Provider Certification Harness: 13/13 PASS
+- Release Hardening: 10/10 PASS
+- Windows source RC check: PASS after deterministic packaging-source regeneration
+
+INSTALLED WHEEL VALIDATION
+- Wheel: w1_nexus-0.1.0.dev50-py3-none-any.whl
+- SHA-256: a79773a2e1b17c9bd52db7dc86b718f6335fd8a628f17ee5ba20f3369e279257
+- Installed metadata version: 0.1.0.dev50
+- Installed Intelligence Search benchmark: PASS
+- Installed Intelligence Activation benchmark: PASS
+- Installed OpenRouter provider contract: PASS
+- Installed AI Connections benchmark: 15/15 PASS
+- Installed Adaptive Capacity Router benchmark: 9/9 PASS
+- Installed Native Packaging benchmark: 16/16 PASS
+- Installed Provider Certification benchmark: 13/13 PASS
+- Installed Release Hardening benchmark: 10/10 PASS
+
+REPRODUCIBILITY
+- Two wheel builds with the same SOURCE_DATE_EPOCH and toolchain are byte-identical.
+- Reproducible wheel SHA-256: a79773a2e1b17c9bd52db7dc86b718f6335fd8a628f17ee5ba20f3369e279257
+
+EXECUTABLE SCORECARD
+- Verified Backend Capability: 94.9%
+- Full W1 Nexus Completeness: 94.5%
+- Scores intentionally remain unchanged: Step 50 closes a safety/integration gap but does not justify inflating the global score before external/live benchmark evidence.
+
+EXPLICIT LIMITS
+- No W1-owned cloud/server is introduced by Step 50.
+- Search free markers still do not prove user entitlement or quota.
+- Activation itself performs no hidden provider network call; it relies on persisted model-discovery evidence.
+- No live OpenRouter paid/billable invocation was executed on this closing host.
+- No Windows EXE or Inno Setup installer was compiled on this Linux closing host.
+- No Authenticode signature was produced or verified here.

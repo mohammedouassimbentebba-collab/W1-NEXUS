@@ -1,0 +1,15 @@
+{
+  "duplicate-output-id.json": [
+    "duplicate_task_output_id"
+  ],
+  "produced-unknown-output.json": [
+    "task_produced_output_unknown",
+    "task_required_output_missing"
+  ],
+  "produced-type-mismatch.json": [
+    "task_produced_output_type_mismatch"
+  ],
+  "completed-missing-required-output.json": [
+    "task_required_output_missing"
+  ]
+}

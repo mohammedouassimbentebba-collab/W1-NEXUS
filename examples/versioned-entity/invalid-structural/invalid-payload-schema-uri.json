@@ -1,0 +1,26 @@
+{
+  "entity": {
+    "entity_type": "claim",
+    "entity_id": "claim-21",
+    "entity_version": 2
+  },
+  "created_by_event_id": "evt-claim-versioned-002",
+  "legal_payload_schema": "not a uri",
+  "legal_payload": {
+    "statement": "candidate-a does not support the required startup current",
+    "verifiability": "deterministic"
+  },
+  "previous_version": {
+    "entity_type": "claim",
+    "entity_id": "claim-21",
+    "entity_version": 1
+  },
+  "change_metadata": {
+    "change_reason": "semantic",
+    "substantive_effect": "may_affect_dependents",
+    "diff_artifact": {
+      "uri": "artifact://diffs/claim-21-v1-v2",
+      "artifact_version": 1
+    }
+  }
+}

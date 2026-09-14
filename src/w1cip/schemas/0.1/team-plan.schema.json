@@ -1,0 +1,452 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:entity-payload:0.1:team-plan",
+  "title": "W1-CIP TeamPlan legal payload v0.1",
+  "description": "Complete legal payload for one version of a team formation plan. Identity and version are supplied by VersionedEntity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "goal",
+    "planning_assessment",
+    "budget",
+    "role_requirements",
+    "assignments",
+    "independence_rules",
+    "selection_basis",
+    "selection_rationale",
+    "decision_authorities",
+    "fallback",
+    "status"
+  ],
+  "properties": {
+    "goal": {
+      "$ref": "#/$defs/goalRef"
+    },
+    "planning_assessment": {
+      "$ref": "#/$defs/planningAssessment"
+    },
+    "budget": {
+      "$ref": "#/$defs/budget"
+    },
+    "role_requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/roleRequirement"
+      }
+    },
+    "assignments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/teamAssignment"
+      }
+    },
+    "independence_rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/independenceRule"
+      }
+    },
+    "selection_basis": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/selectionBasis"
+      }
+    },
+    "selection_rationale": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "decision_authorities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/decisionAuthority"
+      }
+    },
+    "fallback": {
+      "$ref": "#/$defs/fallback"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "suspended",
+        "completed",
+        "cancelled"
+      ]
+    },
+    "status_reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "active"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "status_reason"
+          ]
+        }
+      },
+      "else": {
+        "required": [
+          "status_reason"
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "entityType": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    },
+    "nonEmptyText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "roleName": {
+      "enum": [
+        "orchestrator",
+        "executor",
+        "reviewer",
+        "verifier",
+        "decision_authority",
+        "synthesizer",
+        "human_owner"
+      ]
+    },
+    "goalRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "goal_contract"
+            }
+          }
+        }
+      ]
+    },
+    "roleAssignmentRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "role_assignment"
+            }
+          }
+        }
+      ]
+    },
+    "planningAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "risk_level",
+        "error_cost",
+        "task_complexity",
+        "verifiability"
+      ],
+      "properties": {
+        "risk_level": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "error_cost": {
+          "enum": [
+            "negligible",
+            "minor",
+            "material",
+            "severe"
+          ]
+        },
+        "task_complexity": {
+          "enum": [
+            "bounded",
+            "multi_step",
+            "open_ended"
+          ]
+        },
+        "verifiability": {
+          "enum": [
+            "deterministic",
+            "empirical",
+            "source_based",
+            "human_judgment",
+            "mixed"
+          ]
+        }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_model_calls",
+        "max_review_cycles"
+      ],
+      "properties": {
+        "max_model_calls": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_review_cycles": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_tool_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_elapsed_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "roleRequirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "minimum_count"
+      ],
+      "properties": {
+        "role": {
+          "$ref": "#/$defs/roleName"
+        },
+        "minimum_count": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "selectionBasis": {
+      "enum": [
+        "domain_match",
+        "tool_access",
+        "data_policy",
+        "role_eligibility",
+        "independence",
+        "cost",
+        "latency",
+        "availability"
+      ]
+    },
+    "teamAssignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "slot_id",
+        "role",
+        "role_assignment",
+        "selection_basis",
+        "responsibilities"
+      ],
+      "properties": {
+        "slot_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "role": {
+          "$ref": "#/$defs/roleName"
+        },
+        "role_assignment": {
+          "$ref": "#/$defs/roleAssignmentRef"
+        },
+        "selection_basis": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/selectionBasis"
+          }
+        },
+        "responsibilities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/nonEmptyText"
+          }
+        }
+      }
+    },
+    "roleSeparation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "type",
+        "role_a",
+        "role_b"
+      ],
+      "properties": {
+        "rule_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "type": {
+          "const": "role_separation"
+        },
+        "role_a": {
+          "$ref": "#/$defs/roleName"
+        },
+        "role_b": {
+          "$ref": "#/$defs/roleName"
+        }
+      }
+    },
+    "authorSeparation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "type",
+        "reviewing_role",
+        "target_entity_types"
+      ],
+      "properties": {
+        "rule_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "type": {
+          "const": "author_separation"
+        },
+        "reviewing_role": {
+          "$ref": "#/$defs/roleName"
+        },
+        "target_entity_types": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/entityType"
+          }
+        },
+        "target_contribution_types": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "proposal",
+              "claim",
+              "assumption",
+              "measured_result",
+              "tool_result",
+              "question",
+              "recommendation"
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "target_entity_types": {
+                "contains": {
+                  "const": "contribution"
+                }
+              }
+            },
+            "required": [
+              "target_entity_types"
+            ]
+          },
+          "then": {
+            "required": [
+              "target_contribution_types"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "target_contribution_types"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "independenceRule": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/roleSeparation"
+        },
+        {
+          "$ref": "#/$defs/authorSeparation"
+        }
+      ]
+    },
+    "decisionAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_subject",
+        "role_assignment"
+      ],
+      "properties": {
+        "decision_subject": {
+          "$ref": "#/$defs/identifier"
+        },
+        "role_assignment": {
+          "$ref": "#/$defs/roleAssignmentRef"
+        }
+      }
+    },
+    "fallback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "missing_required_role",
+        "invalidated_assignment"
+      ],
+      "properties": {
+        "missing_required_role": {
+          "enum": [
+            "awaiting_user",
+            "blocked",
+            "cancelled"
+          ]
+        },
+        "invalidated_assignment": {
+          "enum": [
+            "replan",
+            "awaiting_user",
+            "blocked"
+          ]
+        }
+      }
+    }
+  }
+}

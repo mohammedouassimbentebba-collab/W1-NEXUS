@@ -1,0 +1,70 @@
+{
+  "entity": {
+    "entity_type": "agent_card",
+    "entity_id": "agent-electronics-01",
+    "entity_version": 1
+  },
+  "created_by_event_id": "evt-agent-card-electronics-001",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:agent-card",
+  "legal_payload": {
+    "display_name": "Electronics Agent",
+    "provider": {
+      "name": "example-provider",
+      "model": "example-model"
+    },
+    "capabilities": {
+      "domains": [
+        "electronics"
+      ],
+      "operations": [
+        "reasoning",
+        "structured_output"
+      ]
+    },
+    "tools": [
+      "calculator"
+    ],
+    "eligible_roles": [
+      "executor",
+      "reviewer"
+    ],
+    "prohibited_uses": [
+      "final_safety_approval"
+    ],
+    "permissions": {
+      "data_read": [
+        "task_input",
+        "granted_context"
+      ],
+      "data_write": [
+        "contribution"
+      ],
+      "actions": []
+    },
+    "data_policy": {
+      "accepted_classifications": [
+        "public",
+        "internal"
+      ],
+      "external_processing": true,
+      "onward_sharing": false
+    },
+    "autonomy": {
+      "level": "propose_only",
+      "human_approval_required_for": [
+        "external_action"
+      ]
+    },
+    "cost": {
+      "class": "medium",
+      "unit": "model_call"
+    },
+    "latency": {
+      "class": "normal"
+    },
+    "limitations": [
+      "no_physical_measurement"
+    ],
+    "status": "active"
+  }
+}

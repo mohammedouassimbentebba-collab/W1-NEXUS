@@ -1,0 +1,99 @@
+{
+  "muse": {
+    "model_key": "muse",
+    "model_id": "meta/muse-glimmer-30b",
+    "http_status": 200,
+    "retry_after": null,
+    "success": true,
+    "score": 1.0,
+    "expected_answer": "ZEPHYR-9981",
+    "found_in_content": true,
+    "content_preview": "The lost vault key code given in the text is **ZEPHYR-9981**.",
+    "reasoning_length": 857,
+    "chunks_received": 60,
+    "timing_breakdown_ms": {
+      "environment": 62.75,
+      "provider_connect": 737.6,
+      "first_chunk": 986.2,
+      "TTFT": 986.2,
+      "generation": 1581.0,
+      "stream_read": 1841.27,
+      "evaluation": 0.02,
+      "tool": 0.0,
+      "cleanup": 0.05,
+      "total_model_latency": 2579.57
+    },
+    "tokens": {
+      "prompt_tokens": 1689,
+      "completion_tokens": 223,
+      "total_tokens": 1912,
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "error": null
+  },
+  "kimi": {
+    "model_key": "kimi",
+    "model_id": "moonshotai/kimi-k3",
+    "http_status": 200,
+    "retry_after": null,
+    "success": true,
+    "score": 1.0,
+    "expected_answer": "ZEPHYR-9981",
+    "found_in_content": true,
+    "content_preview": "The lost vault key code is **ZEPHYR-9981**.",
+    "reasoning_length": 353,
+    "chunks_received": 101,
+    "timing_breakdown_ms": {
+      "environment": 62.59,
+      "provider_connect": 4748.14,
+      "first_chunk": 5162.6,
+      "TTFT": 5162.6,
+      "generation": 9927.89,
+      "stream_read": 10760.96,
+      "evaluation": 0.01,
+      "tool": 0.0,
+      "cleanup": 0.02,
+      "total_model_latency": 15509.47
+    },
+    "tokens": {
+      "prompt_tokens": 1718,
+      "completion_tokens": 112,
+      "total_tokens": 1830,
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "error": null
+  },
+  "deepseek": {
+    "model_key": "deepseek",
+    "model_id": "deepseek-ai/deepseek-v4-pro-0813",
+    "http_status": null,
+    "retry_after": null,
+    "success": false,
+    "score": 0.0,
+    "expected_answer": "ZEPHYR-9981",
+    "found_in_content": false,
+    "content_preview": "",
+    "reasoning_length": 0,
+    "chunks_received": 0,
+    "timing_breakdown_ms": {
+      "environment": 76.18,
+      "provider_connect": null,
+      "first_chunk": null,
+      "TTFT": null,
+      "generation": 0.0,
+      "stream_read": 0.0,
+      "evaluation": 0.06,
+      "tool": 0.0,
+      "cleanup": 0.09,
+      "total_model_latency": 181541.85
+    },
+    "tokens": {},
+    "error": "The read operation timed out"
+  }
+}

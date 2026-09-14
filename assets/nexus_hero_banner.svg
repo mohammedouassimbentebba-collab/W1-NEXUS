@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="100%" height="auto">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070B14"/>
+      <stop offset="40%" stop-color="#0A1124"/>
+      <stop offset="100%" stop-color="#050811"/>
+    </linearGradient>
+
+    <radialGradient id="glowCyan" cx="20%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00D9FF" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#00D9FF" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="glowPurple" cx="80%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#7928CA" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#7928CA" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="50%" stop-color="#E2E8F0"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
+    </linearGradient>
+
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00D9FF"/>
+      <stop offset="100%" stop-color="#7000FF"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 800; font-size: 52px; fill: url(#textGrad); letter-spacing: -1px; }
+    .tm { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 600; font-size: 24px; fill: #00D9FF; }
+    .subtitle { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 600; font-size: 21px; fill: #38BDF8; letter-spacing: 0.2px; }
+    .desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 400; font-size: 15px; fill: #94A3B8; line-height: 1.5; }
+    .badge-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace; font-size: 12px; font-weight: 600; fill: #CBD5E1; }
+  </style>
+
+  <!-- Canvas Background -->
+  <rect width="1200" height="360" rx="16" fill="url(#bgGrad)"/>
+  <rect width="1200" height="360" rx="16" fill="url(#glowCyan)"/>
+  <rect width="1200" height="360" rx="16" fill="url(#glowPurple)"/>
+  <rect width="1200" height="360" rx="16" fill="none" stroke="#1E293B" stroke-width="1.5"/>
+
+  <!-- Subtle Matrix Grid -->
+  <g opacity="0.08" stroke="#00D9FF" stroke-width="1">
+    <line x1="0" y1="90" x2="1200" y2="90"/>
+    <line x1="0" y1="180" x2="1200" y2="180"/>
+    <line x1="0" y1="270" x2="1200" y2="270"/>
+    <line x1="300" y1="0" x2="300" y2="360"/>
+    <line x1="600" y1="0" x2="600" y2="360"/>
+    <line x1="900" y1="0" x2="900" y2="360"/>
+  </g>
+
+  <!-- Left: W1 Nexus Symbol (Glowing Vector) -->
+  <g transform="translate(60, 45)">
+    <circle cx="135" cy="135" r="120" fill="#00D9FF" opacity="0.06"/>
+    <circle cx="135" cy="135" r="95" fill="#00D9FF" opacity="0.08"/>
+    <!-- Outer orbiting nodes -->
+    <circle cx="135" cy="15" r="5" fill="#00D9FF" opacity="0.8"/>
+    <circle cx="255" cy="135" r="4" fill="#7000FF" opacity="0.8"/>
+    <circle cx="135" cy="255" r="5" fill="#00D9FF" opacity="0.8"/>
+    <circle cx="15" cy="135" r="4" fill="#38BDF8" opacity="0.8"/>
+    <path d="M 135,15 A 120,120 0 0,1 255,135" fill="none" stroke="#00D9FF" stroke-width="1.5" stroke-dasharray="4,6" opacity="0.4"/>
+    <path d="M 135,255 A 120,120 0 0,1 15,135" fill="none" stroke="#7000FF" stroke-width="1.5" stroke-dasharray="4,6" opacity="0.4"/>
+
+    <!-- Scaled Vector Symbol (Original W1 Path) -->
+    <g transform="scale(0.26) translate(0, 0)">
+      <path fill="#00D9FF" fill-rule="evenodd" d="M 908,246 L 737,246 L 653,424 L 653,429 L 683,480 L 759,321 L 768,299 L 770,297 L 828,298 L 716,534 L 717,541 L 745,589 L 759,563 L 760,558 L 771,538 L 909,249 Z M 113,246 L 277,589 L 306,540 L 307,535 L 194,298 L 252,297 L 254,299 L 339,480 L 370,426 L 290,254 L 285,246 Z M 536,231 L 443,284 L 440,288 L 441,344 L 483,320 L 486,321 L 486,490 L 382,674 L 378,679 L 374,675 L 351,628 L 350,622 L 457,435 L 457,370 L 454,370 L 423,390 L 292,620 L 374,791 L 511,551 L 514,553 L 535,592 L 537,593 L 648,790 L 650,789 L 663,763 L 665,756 L 730,623 L 726,612 L 692,555 L 583,362 L 566,335 L 566,437 L 673,623 L 645,680 L 636,667 L 537,492 Z"/>
+    </g>
+  </g>
+
+  <!-- Right: Core Typography & Value Proposition -->
+  <g transform="translate(360, 50)">
+    <!-- Title -->
+    <text x="0" y="55" class="title">W1<tspan class="tm">™</tspan> NEXUS</text>
+    
+    <!-- 3-Second Hook Subtitle -->
+    <text x="0" y="95" class="subtitle">Autonomous Intelligence Discovery &amp; Verification Protocol</text>
+
+    <!-- Punchy Description -->
+    <text x="0" y="132" class="desc">Where AI models don't just chat — they contract, execute, challenge, and prove.</text>
+    <text x="0" y="155" class="desc">Enterprise-grade multi-credential routing, 12-class failure taxonomy, and zero-leak security.</text>
+
+    <!-- Architecture Badges -->
+    <g transform="translate(0, 190)">
+      <!-- Badge 1: Credential != Model -->
+      <rect x="0" y="0" width="165" height="32" rx="6" fill="#0F172A" stroke="#0284C7" stroke-width="1.2"/>
+      <circle cx="15" cy="16" r="4" fill="#38BDF8"/>
+      <text x="28" y="20" class="badge-text">Credential ≠ Model</text>
+
+      <!-- Badge 2: W1-CIP Protocol -->
+      <rect x="175" y="0" width="155" height="32" rx="6" fill="#0F172A" stroke="#7C3AED" stroke-width="1.2"/>
+      <circle cx="190" cy="16" r="4" fill="#A78BFA"/>
+      <text x="203" y="20" class="badge-text">W1-CIP v1.1 Governed</text>
+
+      <!-- Badge 3: 9 Benchmark Suites -->
+      <rect x="340" y="0" width="165" height="32" rx="6" fill="#0F172A" stroke="#059669" stroke-width="1.2"/>
+      <circle cx="355" cy="16" r="4" fill="#34D399"/>
+      <text x="368" y="20" class="badge-text">9 Benchmark Suites</text>
+
+      <!-- Badge 4: License MPL-2.0 -->
+      <rect x="515" y="0" width="130" height="32" rx="6" fill="#0F172A" stroke="#D97706" stroke-width="1.2"/>
+      <circle cx="530" cy="16" r="4" fill="#FBBF24"/>
+      <text x="543" y="20" class="badge-text">MPL 2.0 Open</text>
+    </g>
+
+    <!-- Live Performance Metric Pill -->
+    <g transform="translate(0, 245)">
+      <rect x="0" y="0" width="645" height="36" rx="6" fill="#020617" stroke="#1E293B" stroke-width="1"/>
+      <text x="16" y="23" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#64748B">
+        <tspan fill="#38BDF8" font-weight="600">Empirically Verified:</tspan> 82 Models Catalog-Bound | 100% Zero-Leak Provenance | 12-Class Failure Taxonomy
+      </text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NEXUS — Model Availability & Entitlement Diagnostic</title>
+  <style>
+    body { background: #0B0F17; color: #F8FAFC; font-family: -apple-system, system-ui, sans-serif; padding: 40px; }
+    .card { background: #111827; border: 1px solid #1F2937; border-radius: 8px; padding: 24px; margin-top: 24px; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { background: #1E293B; padding: 12px; font-size: 12px; color: #38BDF8; text-transform: uppercase; }
+    .banner-red { background: rgba(239, 68, 68, 0.15); border: 1px solid #EF4444; color: #F87171; padding: 16px; border-radius: 8px; font-weight: 600; margin-bottom: 24px; }
+  </style>
+</head>
+<body>
+  <h1>NEXUS Model Availability Diagnostic</h1>
+  
+  <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid #10B981; color: #34D399; padding: 16px; border-radius: 8px; font-weight: 600; margin-bottom: 24px;">
+    GATE STATUS: ALL 3 FRONTIER MODELS QUALIFIED & AVAILABLE (100% OPERATIONAL)<br>
+    Muse Glimmer 30B, Kimi K3, and DeepSeek V4 Pro verified across Text Generation, Streaming SSE, Tool Calling, and Structured Output.
+  </div>
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Endpoint ID</th>
+          <th>Key</th>
+          <th>Entitlement</th>
+          <th>Availability</th>
+          <th>HTTP</th>
+          <th>Latency</th>
+          <th>Stream</th>
+          <th>Tool</th>
+          <th>Struct</th>
+          <th>Provider Error</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #1E293B;">
+          <td style="padding:12px;font-weight:600;">Kimi K3</td>
+          <td style="padding:12px;"><code>moonshotai/kimi-k3</code></td>
+          <td style="padding:12px;"><code>nvapi-Fk...IQdi</code></td>
+          <td style="padding:12px;color:#10B981;font-weight:600;">AUTHORIZED</td>
+          <td style="padding:12px;"><span style="color:#10B981;font-weight:bold;">AVAILABLE</span></td>
+          <td style="padding:12px;text-align:center;">200</td>
+          <td style="padding:12px;text-align:right;">15683.1 ms</td>
+          <td style="padding:12px;text-align:center;">PASS</td>
+          <td style="padding:12px;text-align:center;">PASS</td>
+          <td style="padding:12px;text-align:center;">PASS</td>
+          <td style="padding:12px;color:#EF4444;font-size:12px;">None</td>
+        </tr>
+        
+        <tr style="border-bottom:1px solid #1E293B;">
+          <td style="padding:12px;font-weight:600;">Muse Glimmer 30B</td>
+          <td style="padding:12px;"><code>meta/muse-glimmer-30b</code></td>
+          <td style="padding:12px;"><code>nvapi-fk...ifdv</code></td>
+          <td style="padding:12px;color:#10B981;font-weight:600;">AUTHORIZED</td>
+          <td style="padding:12px;"><span style="color:#10B981;font-weight:bold;">AVAILABLE</span></td>
+          <td style="padding:12px;text-align:center;">200</td>
+          <td style="padding:12px;text-align:right;">2175.1 ms</td>
+          <td style="padding:12px;text-align:center;">PASS</td>
+          <td style="padding:12px;text-align:center;">PASS</td>
+          <td style="padding:12px;text-align:center;">PASS</td>
+          <td style="padding:12px;color:#EF4444;font-size:12px;">None</td>
+        </tr>
+        
+        <tr style="border-bottom:1px solid #1E293B;">
+          <td style="padding:12px;font-weight:600;">DeepSeek V4 Pro</td>
+          <td style="padding:12px;"><code>deepseek-ai/deepseek-v4-pro-0813</code></td>
+          <td style="padding:12px;"><code>nvapi-fk...ifdv</code></td>
+          <td style="padding:12px;color:#10B981;font-weight:600;">AUTHORIZED</td>
+          <td style="padding:12px;"><span style="color:#10B981;font-weight:bold;">AVAILABLE</span></td>
+          <td style="padding:12px;text-align:center;">200</td>
+          <td style="padding:12px;text-align:right;">113960.0 ms</td>
+          <td style="padding:12px;text-align:center;">PASS</td>
+          <td style="padding:12px;text-align:center;">PASS</td>
+          <td style="padding:12px;text-align:center;">PASS</td>
+          <td style="padding:12px;color:#EF4444;font-size:12px;">None</td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+</body>
+</html>

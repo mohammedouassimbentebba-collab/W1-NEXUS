@@ -1,0 +1,6 @@
+# W1 Nexus 0.1.0.dev50 integrity references
+a79773a2e1b17c9bd52db7dc86b718f6335fd8a628f17ee5ba20f3369e279257  w1_nexus-0.1.0.dev50-py3-none-any.whl
+bf8cb0b81079cf9f775dc3de0d46770e6e1b90cfed12ee5ccc6850e621de0dd6  brand/production/w1-nexus-symbol.svg
+8bc39ff9af1aecfc1f72f42aedb21312310ca69fc493025c31328dd5a33e26f7  brand/production/w1-nexus-symbol-1024.png
+756456f73caf26a68f05e91e6e112484113463fd1a2472eeb7f3af5bff4dc67e  brand/production/w1-nexus.ico
+0d4fccdfbde11f84a8e6f9b82ddb30c39e1732321c799705c13c7595a1065be3  brand/production/w1-nexus-splash.png

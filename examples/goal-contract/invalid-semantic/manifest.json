@@ -1,0 +1,44 @@
+{
+  "duplicate-deliverable-id.json": [
+    "duplicate_deliverable_id"
+  ],
+  "duplicate-constraint-id.json": [
+    "duplicate_constraint_id"
+  ],
+  "duplicate-criterion-id.json": [
+    "duplicate_success_criterion_id"
+  ],
+  "duplicate-prohibition-id.json": [
+    "duplicate_prohibition_id"
+  ],
+  "duplicate-decision-subject.json": [
+    "duplicate_decision_subject"
+  ],
+  "unknown-deliverable-target.json": [
+    "success_criterion_unknown_deliverable",
+    "required_deliverable_without_required_criterion"
+  ],
+  "no-required-criterion.json": [
+    "required_success_criterion_missing",
+    "required_deliverable_without_required_criterion",
+    "required_deliverable_without_required_criterion",
+    "critical_constraint_without_required_criterion"
+  ],
+  "required-output-uncovered.json": [
+    "required_deliverable_without_required_criterion"
+  ],
+  "high-risk-bounded-autonomy.json": [
+    "high_risk_requires_advisory_only",
+    "high_risk_requires_human_approval"
+  ],
+  "unknown-constraint-target.json": [
+    "success_criterion_unknown_constraint",
+    "critical_constraint_without_required_criterion"
+  ],
+  "critical-constraint-uncovered.json": [
+    "critical_constraint_without_required_criterion"
+  ],
+  "decision-deliverable-unknown-subject.json": [
+    "decision_deliverable_unknown_subject"
+  ]
+}

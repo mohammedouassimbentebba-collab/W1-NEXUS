@@ -1,0 +1,80 @@
+{
+  "application_id": "com.w1.nexus",
+  "copyright_notice": "Copyright 2026 Wassim and W1 Nexus contributors.",
+  "display_name": "W1 Nexus™",
+  "license_spdx": "Apache-2.0",
+  "master_concept": {
+    "concept": "geometric W + 1 / Nexus convergence mark",
+    "path": "brand/reference/W1-Nexus-master-concept.jpeg",
+    "sha256": "8031d4e3e37cccca1ff5c9268f0e03011f5d0fbddf9c9e57175fcce5bd8b5cd2",
+    "status": "selected-reference-not-production-vector"
+  },
+  "palette": {
+    "charcoal_black": "#0A0E14",
+    "electric_cyan": "#00D9FF",
+    "metallic_silver": "#C0C6D4"
+  },
+  "product_name": "W1 Nexus",
+  "production_assets": {
+    "favicon_svg": {
+      "bytes": 793,
+      "package_asset": "favicon.svg",
+      "path": "brand/production/favicon.svg",
+      "required_for_native_release": false,
+      "sha256": "bf8cb0b81079cf9f775dc3de0d46770e6e1b90cfed12ee5ccc6850e621de0dd6",
+      "status": "ready"
+    },
+    "macos_icns": {
+      "bytes": 174099,
+      "package_asset": "w1-nexus.icns",
+      "path": "brand/production/w1-nexus.icns",
+      "required_for_native_release": false,
+      "sha256": "11f6d6fdacfce5d096ebd58bdf08eb51b6f2f29e470eea7fc5f02ae707d7a576",
+      "status": "ready"
+    },
+    "master_svg": {
+      "bytes": 793,
+      "package_asset": "w1-nexus-symbol.svg",
+      "path": "brand/production/w1-nexus-symbol.svg",
+      "required_for_native_release": true,
+      "sha256": "bf8cb0b81079cf9f775dc3de0d46770e6e1b90cfed12ee5ccc6850e621de0dd6",
+      "status": "ready"
+    },
+    "splash_png": {
+      "bytes": 47693,
+      "package_asset": "w1-nexus-splash.png",
+      "path": "brand/production/w1-nexus-splash.png",
+      "required_for_native_release": false,
+      "sha256": "0d4fccdfbde11f84a8e6f9b82ddb30c39e1732321c799705c13c7595a1065be3",
+      "status": "ready"
+    },
+    "transparent_png_1024": {
+      "bytes": 88556,
+      "package_asset": "w1-nexus-symbol-1024.png",
+      "path": "brand/production/w1-nexus-symbol-1024.png",
+      "required_for_native_release": true,
+      "sha256": "8bc39ff9af1aecfc1f72f42aedb21312310ca69fc493025c31328dd5a33e26f7",
+      "status": "ready"
+    },
+    "windows_ico": {
+      "bytes": 28683,
+      "package_asset": "w1-nexus.ico",
+      "path": "brand/production/w1-nexus.ico",
+      "required_for_native_release": true,
+      "sha256": "756456f73caf26a68f05e91e6e112484113463fd1a2472eeb7f3af5bff4dc67e",
+      "status": "ready"
+    }
+  },
+  "production_derivation": {
+    "asset_manifest": "brand/production/ASSET-MANIFEST.json",
+    "generative_redesign": false,
+    "method": "deterministic color-mask extraction + contour vectorization",
+    "rule": "All native assets derive from the hash-pinned selected master concept."
+  },
+  "project_extension": ".w1nexus",
+  "registered_mark_claimed": false,
+  "rule": "Production derivatives must preserve the selected master-concept geometry; do not substitute a newly invented emblem.",
+  "schema": "w1-brand-identity/1.0",
+  "trademark_status": "unregistered-project-mark",
+  "url_scheme": "w1"
+}

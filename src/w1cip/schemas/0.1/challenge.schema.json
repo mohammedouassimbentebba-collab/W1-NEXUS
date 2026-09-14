@@ -1,0 +1,491 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:entity-payload:0.1:challenge",
+  "title": "W1-CIP Challenge legal payload v0.1",
+  "description": "A task-bound, versioned objection against one pinned entity version, recording severity, required resolution, lifecycle, resolver authority, closure, and reopening without modifying the challenged entity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "goal",
+    "team_plan",
+    "task",
+    "raised_by_role_assignment",
+    "raised_at",
+    "last_transition_by_role_assignment",
+    "last_transition_at",
+    "target",
+    "category",
+    "severity",
+    "status",
+    "reason",
+    "required_resolution",
+    "resolution_policy",
+    "classification",
+    "limitations"
+  ],
+  "properties": {
+    "goal": {
+      "$ref": "#/$defs/goalRef"
+    },
+    "team_plan": {
+      "$ref": "#/$defs/teamPlanRef"
+    },
+    "task": {
+      "$ref": "#/$defs/taskRef"
+    },
+    "raised_by_role_assignment": {
+      "$ref": "#/$defs/roleAssignmentRef"
+    },
+    "raised_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_transition_by_role_assignment": {
+      "$ref": "#/$defs/roleAssignmentRef"
+    },
+    "last_transition_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "target": {
+      "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+    },
+    "category": {
+      "enum": [
+        "claim_correctness",
+        "evidence_integrity",
+        "verification_method",
+        "verification_conclusion",
+        "constraint_violation",
+        "procedure",
+        "authority",
+        "context_use",
+        "completeness",
+        "other"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "informational",
+        "minor",
+        "major",
+        "critical"
+      ]
+    },
+    "status": {
+      "enum": [
+        "open",
+        "acknowledged",
+        "evidence_requested",
+        "resolved",
+        "rejected",
+        "escalated",
+        "disclosed_unresolved",
+        "reopened"
+      ]
+    },
+    "reason": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "status_reason": {
+      "$ref": "#/$defs/nonEmptyText"
+    },
+    "required_resolution": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/requiredResolution"
+      }
+    },
+    "resolution_policy": {
+      "$ref": "#/$defs/resolutionPolicy"
+    },
+    "resolution": {
+      "$ref": "#/$defs/resolution"
+    },
+    "reopening": {
+      "$ref": "#/$defs/reopening"
+    },
+    "classification": {
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/nonEmptyText"
+      }
+    },
+    "fulfills_output_id": {
+      "$ref": "#/$defs/identifier"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "open"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "status_reason"
+              ]
+            },
+            {
+              "required": [
+                "resolution"
+              ]
+            },
+            {
+              "required": [
+                "reopening"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "acknowledged",
+              "evidence_requested",
+              "escalated"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "status_reason"
+        ],
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "resolution"
+              ]
+            },
+            {
+              "required": [
+                "reopening"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "resolved",
+              "rejected",
+              "disclosed_unresolved"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "resolution"
+        ],
+        "not": {
+          "required": [
+            "reopening"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "reopened"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "reopening"
+        ],
+        "not": {
+          "required": [
+            "resolution"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "disclosed_unresolved"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "resolution": {
+            "required": [
+              "risk_acceptance_approval"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "resolved",
+              "rejected"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "resolution": {
+            "not": {
+              "required": [
+                "risk_acceptance_approval"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "nonEmptyText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000,
+      "pattern": "\\S"
+    },
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "goalRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "goal_contract"
+            }
+          }
+        }
+      ]
+    },
+    "teamPlanRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "team_plan"
+            }
+          }
+        }
+      ]
+    },
+    "taskRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "task"
+            }
+          }
+        }
+      ]
+    },
+    "roleAssignmentRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "role_assignment"
+            }
+          }
+        }
+      ]
+    },
+    "approvalRef": {
+      "allOf": [
+        {
+          "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+        },
+        {
+          "properties": {
+            "entity_type": {
+              "const": "approval"
+            }
+          }
+        }
+      ]
+    },
+    "requiredResolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action_code",
+        "description"
+      ],
+      "properties": {
+        "action_code": {
+          "$ref": "#/$defs/identifier"
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyText"
+        }
+      }
+    },
+    "resolutionPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed_roles",
+        "challenger_may_accept_correction",
+        "target_author_may_resolve_alone"
+      ],
+      "properties": {
+        "allowed_roles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "reviewer",
+              "verifier",
+              "decision_authority",
+              "human_owner"
+            ]
+          }
+        },
+        "challenger_may_accept_correction": {
+          "type": "boolean"
+        },
+        "target_author_may_resolve_alone": {
+          "const": false
+        }
+      }
+    },
+    "resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resolved_by_role_assignment",
+        "resolved_at",
+        "rationale",
+        "basis_refs"
+      ],
+      "properties": {
+        "resolved_by_role_assignment": {
+          "$ref": "#/$defs/roleAssignmentRef"
+        },
+        "resolved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rationale": {
+          "$ref": "#/$defs/nonEmptyText"
+        },
+        "basis_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+          }
+        },
+        "risk_acceptance_approval": {
+          "$ref": "#/$defs/approvalRef"
+        }
+      }
+    },
+    "reopening": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason",
+        "reopened_by_role_assignment",
+        "reopened_at",
+        "basis_refs"
+      ],
+      "properties": {
+        "reason": {
+          "enum": [
+            "new_evidence",
+            "procedural_defect",
+            "authority_invalidated",
+            "material_target_change"
+          ]
+        },
+        "reopened_by_role_assignment": {
+          "$ref": "#/$defs/roleAssignmentRef"
+        },
+        "reopened_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "basis_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "urn:w1-cip:schema:0.1:entity-ref"
+          }
+        }
+      }
+    }
+  }
+}

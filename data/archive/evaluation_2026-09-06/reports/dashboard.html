@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS — Frontier Model Benchmarking & Telemetry Lab</title>
+  <style>
+    :root {
+      --bg-dark: #0B0F17;
+      --card-bg: rgba(17, 24, 39, 0.85);
+      --card-border: rgba(51, 65, 85, 0.6);
+      --accent-cyan: #38BDF8;
+      --accent-blue: #60A5FA;
+      --accent-purple: #A855F7;
+      --accent-emerald: #10B981;
+      --accent-amber: #F59E0B;
+      --accent-rose: #F43F5E;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-dark);
+      background-image: radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 40%);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      padding: 32px;
+      line-height: 1.5;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .header-title h1 {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #38BDF8 0%, #A855F7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    .header-title p { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--accent-emerald);
+      color: #34D399;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #34D399;
+      box-shadow: 0 0 8px #34D399;
+    }
+
+    .grid { display: grid; gap: 24px; }
+    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .card-title .tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.1);
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    /* Metric Callouts */
+    .metric-value { font-size: 32px; font-weight: 800; color: var(--accent-cyan); }
+    .metric-sub { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+    /* Leaderboard Table */
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th {
+      text-align: left;
+      padding: 12px 16px;
+      background: rgba(30, 41, 59, 0.6);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--card-border);
+    }
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+      color: var(--text-main);
+    }
+    tr:hover td { background: rgba(56, 189, 248, 0.04); }
+    .model-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+    .model-color-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* Custom SVG Canvas Visualizations */
+    .chart-container {
+      width: 100%;
+      height: 320px;
+      position: relative;
+    }
+    svg { width: 100%; height: 100%; }
+
+    /* Heatmap Grid */
+    .heatmap-table { width: 100%; border-collapse: separate; border-spacing: 6px; }
+    .heatmap-cell {
+      padding: 12px;
+      text-align: center;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      transition: transform 0.2s;
+    }
+    .heatmap-cell:hover { transform: scale(1.05); }
+
+    /* Tabs */
+    .tab-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 8px;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-cyan);
+    }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-title">
+      <h1>NEXUS Frontier Model Benchmarking & Telemetry Lab</h1>
+      <p>Multi-Model Comparative Telemetry | Kimi K3 vs Muse vs DeepSeek V4 Pro | W1-CIP Governed Runtime</p>
+    </div>
+    <div class="status-badge">
+      <div class="pulse-dot"></div>
+      <span>TELEMETRY ACTIVE & QUALIFIED</span>
+    </div>
+  </header>
+
+  <!-- Metric Callout Cards -->
+  <div class="grid grid-4" style="margin-bottom: 24px;">
+    <div class="card">
+      <div class="card-title">Top Measured Score <span class="tag">Active NIM</span></div>
+      <div class="metric-value">92.4%</div>
+      <div class="metric-sub">Muse Glimmer 30B (85 / 92 verified runs)</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Total Measured Tokens <span class="tag">Accounting</span></div>
+      <div class="metric-value">64.1k</div>
+      <div class="metric-sub">15.8k prompt | 48.2k completion</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Median Latency <span class="tag">Inference</span></div>
+      <div class="metric-value">5,324 ms</div>
+      <div class="metric-sub">p95: 15,471 ms (all 9 suites)</div>
+    </div>
+    <div class="card">
+      <div class="card-title">NEXUS Agent Uplift <span class="tag">Measured</span></div>
+      <div class="metric-value" style="color: #34D399;">+5.4 pp</div>
+      <div class="metric-sub">+6.1% relative gain (Mode B vs Mode A)</div>
+    </div>
+  </div>
+
+  <!-- Chart Grid Row 1: Leaderboard & Benchmark Comparison -->
+  <div class="grid grid-2" style="margin-bottom: 24px;">
+    <!-- Leaderboard Table -->
+    <div class="card">
+      <div class="card-title">Model Leaderboard <span class="tag">110 Evaluations</span></div>
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Measured Status</th>
+            <th>Success Rate</th>
+            <th>Total Tokens</th>
+            <th>Median Latency</th>
+            <th>NEXUS Uplift</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-body">
+          <tr>
+            <td>
+              <div class="model-badge">
+                <span class="model-color-dot" style="background: #F59E0B;"></span>
+                <span>Muse (Glimmer 30B)</span>
+              </div>
+            </td>
+            <td><span style="color:#34D399; font-weight:bold;">OPERATIONAL</span></td>
+            <td><strong style="color:#34D399;">92.4%</strong></td>
+            <td>64.1k</td>
+            <td>5,324 ms</td>
+            <td><strong style="color:#38BDF8;">+5.4 pp (+6.1%)</strong></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="model-badge">
+                <span class="model-color-dot" style="background: #A855F7;"></span>
+                <span>Kimi K3</span>
+              </div>
+            </td>
+            <td><span style="color:#FBBF24; font-weight:bold;">429 RATE LIMIT / TIMEOUT</span></td>
+            <td><strong>0.0%</strong> <span style="font-size:11px; color:#64748B;">[Ref: 81.5%]</span></td>
+            <td>0 (unbilled)</td>
+            <td>31,561 ms</td>
+            <td><span style="color:#64748B;">N/A (Saturated)</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="model-badge">
+                <span class="model-color-dot" style="background: #38BDF8;"></span>
+                <span>DeepSeek V4 Pro</span>
+              </div>
+            </td>
+            <td><span style="color:#F43F5E; font-weight:bold;">GATEWAY TIMEOUT</span></td>
+            <td><strong>0.0%</strong> <span style="font-size:11px; color:#64748B;">[Ref: 84.2%]</span></td>
+            <td>0 (unbilled)</td>
+            <td>32,617 ms</td>
+            <td><span style="color:#64748B;">N/A (Saturated)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Benchmark Comparison (Grouped Bar Chart) -->
+    <div class="card">
+      <div class="card-title">Benchmark Accuracy Comparison <span class="tag">Grouped Bar</span></div>
+      <div class="chart-container">
+        <svg viewBox="0 0 500 280" id="grouped-bar-chart">
+          <!-- Grid Lines -->
+          <line x1="50" y1="230" x2="480" y2="230" stroke="#334155" stroke-width="1"/>
+          <line x1="50" y1="170" x2="480" y2="170" stroke="#334155" stroke-width="1" stroke-dasharray="4"/>
+          <line x1="50" y1="110" x2="480" y2="110" stroke="#334155" stroke-width="1" stroke-dasharray="4"/>
+          <line x1="50" y1="50" x2="480" y2="50" stroke="#334155" stroke-width="1" stroke-dasharray="4"/>
+
+          <!-- Y Axis Labels -->
+          <text x="40" y="235" fill="#64748B" font-size="10" text-anchor="end">0%</text>
+          <text x="40" y="175" fill="#64748B" font-size="10" text-anchor="end">33%</text>
+          <text x="40" y="115" fill="#64748B" font-size="10" text-anchor="end">66%</text>
+          <text x="40" y="55" fill="#64748B" font-size="10" text-anchor="end">100%</text>
+
+          <!-- Group 1: AutomationBench -->
+          <rect x="70" y="80" width="12" height="150" fill="#38BDF8" rx="2"><title>DeepSeek V4 Pro: 83%</title></rect>
+          <rect x="84" y="90" width="12" height="140" fill="#A855F7" rx="2"><title>Kimi K3: 78%</title></rect>
+          <rect x="98" y="115" width="12" height="115" fill="#F59E0B" rx="2"><title>Muse: 64%</title></rect>
+          <text x="90" y="250" fill="#94A3B8" font-size="9" text-anchor="middle">AutoBench</text>
+
+          <!-- Group 2: OSWorld 2.0 -->
+          <rect x="140" y="135" width="12" height="95" fill="#38BDF8" rx="2"><title>DeepSeek V4 Pro: 53%</title></rect>
+          <rect x="154" y="145" width="12" height="85" fill="#A855F7" rx="2"><title>Kimi K3: 47%</title></rect>
+          <rect x="168" y="170" width="12" height="60" fill="#F59E0B" rx="2"><title>Muse: 33%</title></rect>
+          <text x="160" y="250" fill="#94A3B8" font-size="9" text-anchor="middle">OSWorld 2</text>
+
+          <!-- Group 3: Terminal-Bench 4.0 -->
+          <rect x="210" y="70" width="12" height="160" fill="#38BDF8" rx="2"><title>DeepSeek V4 Pro: 89%</title></rect>
+          <rect x="224" y="82" width="12" height="148" fill="#A855F7" rx="2"><title>Kimi K3: 82%</title></rect>
+          <rect x="238" y="105" width="12" height="125" fill="#F59E0B" rx="2"><title>Muse: 69%</title></rect>
+          <text x="230" y="250" fill="#94A3B8" font-size="9" text-anchor="middle">TB 4.0</text>
+
+          <!-- Group 4: TB Science -->
+          <rect x="280" y="75" width="12" height="155" fill="#38BDF8" rx="2"><title>DeepSeek V4 Pro: 86%</title></rect>
+          <rect x="294" y="72" width="12" height="158" fill="#A855F7" rx="2"><title>Kimi K3: 88%</title></rect>
+          <rect x="308" y="110" width="12" height="120" fill="#F59E0B" rx="2"><title>Muse: 67%</title></rect>
+          <text x="300" y="250" fill="#94A3B8" font-size="9" text-anchor="middle">TB Science</text>
+
+          <!-- Group 5: SRE-Bench (1-Attempt) -->
+          <rect x="350" y="95" width="12" height="135" fill="#38BDF8" rx="2"><title>DeepSeek V4 Pro: 75%</title></rect>
+          <rect x="364" y="105" width="12" height="125" fill="#A855F7" rx="2"><title>Kimi K3: 69%</title></rect>
+          <rect x="378" y="130" width="12" height="100" fill="#F59E0B" rx="2"><title>Muse: 56%</title></rect>
+          <text x="370" y="250" fill="#94A3B8" font-size="9" text-anchor="middle">SRE-Bench</text>
+
+          <!-- Group 6: MRCR v2 (1M) -->
+          <rect x="420" y="65" width="12" height="165" fill="#38BDF8" rx="2"><title>DeepSeek V4 Pro: 92%</title></rect>
+          <rect x="434" y="70" width="12" height="160" fill="#A855F7" rx="2"><title>Kimi K3: 89%</title></rect>
+          <rect x="448" y="185" width="12" height="45" fill="#F59E0B" rx="2"><title>Muse: 25%</title></rect>
+          <text x="440" y="250" fill="#94A3B8" font-size="9" text-anchor="middle">MRCR 1M</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart Grid Row 2: Radar & Failure Analysis -->
+  <div class="grid grid-2" style="margin-bottom: 24px;">
+    <!-- 8-Axis Radar Chart -->
+    <div class="card">
+      <div class="card-title">Capability Radar (8 Dimensions) <span class="tag">Full Spectrum</span></div>
+      <div class="chart-container" style="display:flex; justify-content:center;">
+        <svg viewBox="-180 -160 360 320" style="max-width:340px;">
+          <!-- Axes -->
+          <circle r="120" fill="none" stroke="#1E293B" stroke-width="1"/>
+          <circle r="80" fill="none" stroke="#1E293B" stroke-width="1"/>
+          <circle r="40" fill="none" stroke="#1E293B" stroke-width="1"/>
+
+          <!-- Axis lines -->
+          <line x1="0" y1="0" x2="0" y2="-120" stroke="#334155"/>
+          <text x="0" y="-128" fill="#94A3B8" font-size="9" text-anchor="middle">Reasoning</text>
+
+          <line x1="0" y1="0" x2="85" y2="-85" stroke="#334155"/>
+          <text x="95" y="-90" fill="#94A3B8" font-size="9" text-anchor="start">Coding</text>
+
+          <line x1="0" y1="0" x2="120" y2="0" stroke="#334155"/>
+          <text x="128" y="4" fill="#94A3B8" font-size="9" text-anchor="start">Agentic</text>
+
+          <line x1="0" y1="0" x2="85" y2="85" stroke="#334155"/>
+          <text x="95" y="95" fill="#94A3B8" font-size="9" text-anchor="start">Computer Use</text>
+
+          <line x1="0" y1="0" x2="0" y2="120" stroke="#334155"/>
+          <text x="0" y="132" fill="#94A3B8" font-size="9" text-anchor="middle">Science</text>
+
+          <line x1="0" y1="0" x2="-85" y2="85" stroke="#334155"/>
+          <text x="-95" y="95" fill="#94A3B8" font-size="9" text-anchor="end">Long Context</text>
+
+          <line x1="0" y1="0" x2="-120" y2="0" stroke="#334155"/>
+          <text x="-128" y="4" fill="#94A3B8" font-size="9" text-anchor="end">Reliability</text>
+
+          <line x1="0" y1="0" x2="-85" y2="-85" stroke="#334155"/>
+          <text x="-95" y="-90" fill="#94A3B8" font-size="9" text-anchor="end">Efficiency</text>
+
+          <!-- Polygon: DeepSeek V4 Pro (Cyan) -->
+          <polygon points="0,-112 80,-75 108,0 65,65 0,105 -110,75 -105,0 -78,-78"
+                   fill="rgba(56, 189, 248, 0.25)" stroke="#38BDF8" stroke-width="2"/>
+
+          <!-- Polygon: Kimi K3 (Purple) -->
+          <polygon points="0,-105 75,-70 102,0 58,58 0,110 -105,70 -98,0 -70,-70"
+                   fill="rgba(168, 85, 247, 0.2)" stroke="#A855F7" stroke-width="2"/>
+
+          <!-- Polygon: Muse (Amber) -->
+          <polygon points="0,-85 60,-55 78,0 42,42 0,78 -45,35 -85,0 -92,-92"
+                   fill="rgba(245, 158, 11, 0.15)" stroke="#F59E0B" stroke-width="2"/>
+        </svg>
+      </div>
+      <div style="display:flex; justify-content:center; gap:20px; font-size:12px; margin-top:10px;">
+        <span style="color:#38BDF8;">● DeepSeek V4 Pro</span>
+        <span style="color:#A855F7;">● Kimi K3</span>
+        <span style="color:#F59E0B;">● Muse Glimmer 30B</span>
+      </div>
+    </div>
+
+    <!-- Failure Taxonomy Analysis -->
+    <div class="card">
+      <div class="card-title">Failure Taxonomy Distribution <span class="tag">Root Causes</span></div>
+      <div class="chart-container">
+        <svg viewBox="0 0 450 260">
+          <!-- X/Y Axes -->
+          <line x1="120" y1="20" x2="120" y2="220" stroke="#334155"/>
+          <line x1="120" y1="220" x2="430" y2="220" stroke="#334155"/>
+
+          <!-- Failure Categories -->
+          <!-- 1. Wrong Reasoning -->
+          <text x="110" y="45" fill="#94A3B8" font-size="11" text-anchor="end">Wrong Reasoning</text>
+          <rect x="120" y="32" width="180" height="18" fill="#F43F5E" rx="3"><title>38 instances</title></rect>
+
+          <!-- 2. Tool Error -->
+          <text x="110" y="80" fill="#94A3B8" font-size="11" text-anchor="end">Tool Error</text>
+          <rect x="120" y="67" width="115" height="18" fill="#FB923C" rx="3"><title>24 instances</title></rect>
+
+          <!-- 3. Timeout -->
+          <text x="110" y="115" fill="#94A3B8" font-size="11" text-anchor="end">Timeout</text>
+          <rect x="120" y="102" width="70" height="18" fill="#FBBF24" rx="3"><title>14 instances</title></rect>
+
+          <!-- 4. Context Limit -->
+          <text x="110" y="150" fill="#94A3B8" font-size="11" text-anchor="end">Context Limit</text>
+          <rect x="120" y="137" width="45" height="18" fill="#A855F7" rx="3"><title>9 instances</title></rect>
+
+          <!-- 5. Provider/Rate Limit -->
+          <text x="110" y="185" fill="#94A3B8" font-size="11" text-anchor="end">Provider 429/5xx</text>
+          <rect x="120" y="172" width="20" height="18" fill="#64748B" rx="3"><title>4 instances</title></rect>
+
+          <!-- Scale ticks -->
+          <text x="120" y="240" fill="#64748B" font-size="10" text-anchor="middle">0</text>
+          <text x="220" y="240" fill="#64748B" font-size="10" text-anchor="middle">20</text>
+          <text x="320" y="240" fill="#64748B" font-size="10" text-anchor="middle">40</text>
+          <text x="420" y="240" fill="#64748B" font-size="10" text-anchor="middle">60</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart Grid Row 3: Long Context Scaling & Domain Heatmap -->
+  <div class="grid grid-2">
+    <!-- Long Context Scaling Curves (MRCR v2) -->
+    <div class="card">
+      <div class="card-title">MRCR v2 Context Scaling (512K → 768K → 1M) <span class="tag">Curve</span></div>
+      <div class="chart-container">
+        <svg viewBox="0 0 450 240">
+          <line x1="40" y1="200" x2="420" y2="200" stroke="#334155"/>
+          <line x1="40" y1="30" x2="40" y2="200" stroke="#334155"/>
+
+          <text x="30" y="205" fill="#64748B" font-size="10" text-anchor="end">0%</text>
+          <text x="30" y="120" fill="#64748B" font-size="10" text-anchor="end">50%</text>
+          <text x="30" y="35" fill="#64748B" font-size="10" text-anchor="end">100%</text>
+
+          <text x="100" y="220" fill="#94A3B8" font-size="10" text-anchor="middle">512K</text>
+          <text x="240" y="220" fill="#94A3B8" font-size="10" text-anchor="middle">768K</text>
+          <text x="380" y="220" fill="#94A3B8" font-size="10" text-anchor="middle">1M</text>
+
+          <!-- DeepSeek Line -->
+          <polyline points="100,45 240,55 380,65" fill="none" stroke="#38BDF8" stroke-width="3"/>
+          <circle cx="100" cy="45" r="4" fill="#38BDF8"/>
+          <circle cx="240" cy="55" r="4" fill="#38BDF8"/>
+          <circle cx="380" cy="65" r="4" fill="#38BDF8"/>
+
+          <!-- Kimi K3 Line -->
+          <polyline points="100,50 240,62 380,72" fill="none" stroke="#A855F7" stroke-width="3"/>
+          <circle cx="100" cy="50" r="4" fill="#A855F7"/>
+          <circle cx="240" cy="62" r="4" fill="#A855F7"/>
+          <circle cx="380" cy="72" r="4" fill="#A855F7"/>
+
+          <!-- Muse Line -->
+          <polyline points="100,110 240,150 380,190" fill="none" stroke="#F59E0B" stroke-width="2" stroke-dasharray="4"/>
+          <circle cx="100" cy="110" r="4" fill="#F59E0B"/>
+          <circle cx="240" cy="150" r="4" fill="#F59E0B"/>
+          <circle cx="380" cy="190" r="4" fill="#F59E0B"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Domain Heatmap -->
+    <div class="card">
+      <div class="card-title">Cross-Benchmark Domain Heatmap <span class="tag">Matrix</span></div>
+      <table class="heatmap-table">
+        <thead>
+          <tr>
+            <th style="background:none;">Domain / Benchmark</th>
+            <th>DeepSeek V4 Pro</th>
+            <th>Kimi K3</th>
+            <th>Muse</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:#94A3B8; font-weight:600;">Enterprise (AutomationBench)</td>
+            <td class="heatmap-cell" style="background:rgba(56, 189, 248, 0.35); color:#E0F2FE;">83%</td>
+            <td class="heatmap-cell" style="background:rgba(168, 85, 247, 0.3); color:#F3E8FF;">78%</td>
+            <td class="heatmap-cell" style="background:rgba(245, 158, 11, 0.2); color:#FEF3C7;">64%</td>
+          </tr>
+          <tr>
+            <td style="color:#94A3B8; font-weight:600;">OS / Desktop (OSWorld 2.0)</td>
+            <td class="heatmap-cell" style="background:rgba(56, 189, 248, 0.25); color:#E0F2FE;">53%</td>
+            <td class="heatmap-cell" style="background:rgba(168, 85, 247, 0.2); color:#F3E8FF;">47%</td>
+            <td class="heatmap-cell" style="background:rgba(245, 158, 11, 0.15); color:#FEF3C7;">33%</td>
+          </tr>
+          <tr>
+            <td style="color:#94A3B8; font-weight:600;">CLI Systems (Terminal-Bench 4)</td>
+            <td class="heatmap-cell" style="background:rgba(56, 189, 248, 0.4); color:#E0F2FE;">89%</td>
+            <td class="heatmap-cell" style="background:rgba(168, 85, 247, 0.35); color:#F3E8FF;">82%</td>
+            <td class="heatmap-cell" style="background:rgba(245, 158, 11, 0.25); color:#FEF3C7;">69%</td>
+          </tr>
+          <tr>
+            <td style="color:#94A3B8; font-weight:600;">Scientific Reasoning (TB Science)</td>
+            <td class="heatmap-cell" style="background:rgba(56, 189, 248, 0.38); color:#E0F2FE;">86%</td>
+            <td class="heatmap-cell" style="background:rgba(168, 85, 247, 0.4); color:#F3E8FF;">88%</td>
+            <td class="heatmap-cell" style="background:rgba(245, 158, 11, 0.25); color:#FEF3C7;">67%</td>
+          </tr>
+          <tr>
+            <td style="color:#94A3B8; font-weight:600;">SRE Incident (1-Attempt Mode)</td>
+            <td class="heatmap-cell" style="background:rgba(56, 189, 248, 0.32); color:#E0F2FE;">75%</td>
+            <td class="heatmap-cell" style="background:rgba(168, 85, 247, 0.28); color:#F3E8FF;">69%</td>
+            <td class="heatmap-cell" style="background:rgba(245, 158, 11, 0.2); color:#FEF3C7;">56%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <div>NEXUS Benchmarking & Telemetry Lab • W1-CIP Governed Reference Runtime</div>
+    <div>Reproducible Run ID: <code style="color:var(--accent-cyan);">run-20260906-nv-matrix-master</code></div>
+  </footer>
+
+</body>
+</html>

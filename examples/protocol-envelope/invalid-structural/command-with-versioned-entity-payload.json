@@ -1,0 +1,42 @@
+{
+  "protocol": "w1-cip",
+  "protocol_version": "0.1",
+  "message_id": "msg-claim-create-001",
+  "session_id": "session-demo-001",
+  "kind": "command",
+  "type": "claim.create",
+  "actor": {
+    "principal_type": "agent",
+    "principal_id": "agent-electronics-01"
+  },
+  "authorized_by": {
+    "entity_type": "role_assignment",
+    "entity_id": "role-assignment-17",
+    "entity_version": 2
+  },
+  "occurred_at": "2026-08-02T18:19:57Z",
+  "correlation_id": "run-demo-001",
+  "related_events": [],
+  "precondition": {
+    "mode": "create",
+    "expected_absent": true,
+    "target_identity": {
+      "entity_type": "claim",
+      "entity_id": "claim-21"
+    }
+  },
+  "payload_schema": "urn:w1-cip:schema:0.1:versioned-entity",
+  "payload": {
+    "entity": {
+      "entity_type": "claim",
+      "entity_id": "claim-21",
+      "entity_version": 1
+    },
+    "created_by_event_id": "evt-claim-created-001",
+    "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:claim",
+    "legal_payload": {
+      "statement": "candidate-a does not support the required startup current",
+      "verifiability": "deterministic"
+    }
+  }
+}

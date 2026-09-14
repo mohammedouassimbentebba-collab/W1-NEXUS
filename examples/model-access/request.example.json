@@ -1,0 +1,22 @@
+{
+  "run_id": "example-run",
+  "session_id": "example-session",
+  "task": {
+    "task_id": "implement-feature",
+    "title": "Implement and verify a feature",
+    "phase": "execution",
+    "role": "executor",
+    "expected_output_type": "contribution",
+    "depends_on": [],
+    "required_context_fields": ["requirements"],
+    "estimated_units": 1,
+    "domains": ["coding"]
+  },
+  "resource_id": "portfolio-preferred-coding-team",
+  "idempotency_key": "example-run:implement-feature:1",
+  "context": {
+    "requirements": "Implement the requested feature with tests."
+  },
+  "prior_outputs": {},
+  "attempt": 1
+}

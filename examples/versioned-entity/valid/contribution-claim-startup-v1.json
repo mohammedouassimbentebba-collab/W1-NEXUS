@@ -1,0 +1,45 @@
+{
+  "entity": {
+    "entity_type": "contribution",
+    "entity_id": "claim-candidate-a-startup-001",
+    "entity_version": 1
+  },
+  "created_by_event_id": "evt-contribution-claim-002",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:contribution",
+  "legal_payload": {
+    "goal": {
+      "entity_type": "goal_contract",
+      "entity_id": "goal-pump-driver-001",
+      "entity_version": 1
+    },
+    "team_plan": {
+      "entity_type": "team_plan",
+      "entity_id": "team-plan-pump-001",
+      "entity_version": 1
+    },
+    "task": {
+      "entity_type": "task",
+      "entity_id": "task-driver-selection-001",
+      "entity_version": 4
+    },
+    "authored_by_role_assignment": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-executor-001",
+      "entity_version": 1
+    },
+    "contribution_type": "claim",
+    "status": "active",
+    "classification": "internal",
+    "content": {
+      "statement": "candidate-a supports the required startup current",
+      "verifiability": "deterministic",
+      "submission_verification_status": "unverified",
+      "verification_requirements": [
+        "compare the measured startup peak with the declared one-second peak limit"
+      ]
+    },
+    "limitations": [
+      "synthetic fixture only"
+    ]
+  }
+}

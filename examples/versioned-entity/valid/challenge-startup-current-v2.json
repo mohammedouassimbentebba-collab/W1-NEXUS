@@ -1,0 +1,80 @@
+{
+  "entity": {
+    "entity_type": "challenge",
+    "entity_id": "challenge-startup-current-001",
+    "entity_version": 2
+  },
+  "created_by_event_id": "evt-challenge-startup-current-002",
+  "legal_payload_schema": "urn:w1-cip:entity-payload:0.1:challenge",
+  "legal_payload": {
+    "goal": {
+      "entity_type": "goal_contract",
+      "entity_id": "goal-pump-driver-001",
+      "entity_version": 1
+    },
+    "team_plan": {
+      "entity_type": "team_plan",
+      "entity_id": "team-plan-pump-001",
+      "entity_version": 1
+    },
+    "task": {
+      "entity_type": "task",
+      "entity_id": "task-review-startup-001",
+      "entity_version": 4
+    },
+    "raised_by_role_assignment": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-reviewer-001",
+      "entity_version": 1
+    },
+    "raised_at": "2026-08-04T15:21:00Z",
+    "last_transition_by_role_assignment": {
+      "entity_type": "role_assignment",
+      "entity_id": "role-assignment-reviewer-001",
+      "entity_version": 1
+    },
+    "last_transition_at": "2026-08-04T15:22:00Z",
+    "target": {
+      "entity_type": "contribution",
+      "entity_id": "claim-candidate-a-startup-001",
+      "entity_version": 1
+    },
+    "category": "constraint_violation",
+    "severity": "critical",
+    "status": "acknowledged",
+    "reason": "The claimed candidate peak limit is below the measured 18 A startup-current requirement.",
+    "required_resolution": [
+      {
+        "action_code": "replace_candidate",
+        "description": "Replace candidate-a with a candidate that meets the startup-current constraint."
+      },
+      {
+        "action_code": "provide_counter_evidence",
+        "description": "Provide valid counter-evidence that changes the evaluated peak-current basis."
+      }
+    ],
+    "resolution_policy": {
+      "allowed_roles": [
+        "reviewer",
+        "human_owner"
+      ],
+      "challenger_may_accept_correction": true,
+      "target_author_may_resolve_alone": false
+    },
+    "classification": "internal",
+    "limitations": [
+      "synthetic fixture only"
+    ],
+    "status_reason": "The challenge was received and the constraint mismatch is under review.",
+    "fulfills_output_id": "startup-current-challenge"
+  },
+  "previous_version": {
+    "entity_type": "challenge",
+    "entity_id": "challenge-startup-current-001",
+    "entity_version": 1
+  },
+  "change_metadata": {
+    "change_reason": "semantic",
+    "substantive_effect": "may_affect_dependents"
+  }
+}

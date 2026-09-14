@@ -1,0 +1,31 @@
+{
+  "application": {
+    "app_id": "com.w1.nexus",
+    "executable_name": "W1 Nexus.exe",
+    "product_name": "W1 Nexus",
+    "project_extension": ".w1nexus",
+    "publisher": "W1 Nexus Project",
+    "url_scheme": "w1"
+  },
+  "architecture": "x64",
+  "constraints": {
+    "automatic_updates_require_hash_and_native_signature_verification": true,
+    "credentials_embedded": false,
+    "deep_links_execute_shell": false,
+    "installer_admin_required": false,
+    "native_signing_required_before_publication": true,
+    "per_user_registry": true,
+    "production_brand_icon_required": true,
+    "windows_version_resource_required": true
+  },
+  "files": {
+    "build.ps1": "90179f34b1623e1c4ec1961686059c42c45d726051e8aa7e8d41c6c50398a5e9",
+    "installer.iss": "9daeb776224fc4412f6947bbba5f1562a9c71a568b9a9e9db96971f2a6b64039",
+    "register-user.ps1": "e8721459109df8e99d580612894c56638777bf1628554db3e3b92e1d9962a045",
+    "unregister-user.ps1": "e1aa8122fa1362cbe2b5a89c7fb7197b4ebb769ff1fe8a10f965fa03b92cd3bf",
+    "version-info.txt": "b2ebbaaf80df279a9f0577b06e6c38024e65ae5a193d6e8274c0ec6d83b6a3a8",
+    "w1-nexus.spec": "549dc6c95ba4e97600e9677682555c9d9dce0bda83aecfb5cd8747e101057925"
+  },
+  "packaging_version": "0.1.0-dev50",
+  "target": "windows"
+}

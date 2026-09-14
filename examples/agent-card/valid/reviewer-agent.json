@@ -1,0 +1,57 @@
+{
+  "display_name": "Independent Reviewer Agent",
+  "provider": {
+    "name": "example-provider",
+    "model": "review-model"
+  },
+  "capabilities": {
+    "domains": [
+      "general_review"
+    ],
+    "operations": [
+      "reasoning",
+      "structured_output"
+    ]
+  },
+  "tools": [],
+  "eligible_roles": [
+    "reviewer"
+  ],
+  "prohibited_uses": [
+    "final_safety_approval"
+  ],
+  "permissions": {
+    "data_read": [
+      "task_input",
+      "granted_context"
+    ],
+    "data_write": [
+      "review",
+      "challenge"
+    ],
+    "actions": []
+  },
+  "data_policy": {
+    "accepted_classifications": [
+      "public",
+      "internal"
+    ],
+    "external_processing": true,
+    "onward_sharing": false
+  },
+  "autonomy": {
+    "level": "propose_only",
+    "human_approval_required_for": [
+      "external_action"
+    ]
+  },
+  "cost": {
+    "class": "medium",
+    "unit": "model_call"
+  },
+  "latency": {
+    "class": "normal"
+  },
+  "limitations": [],
+  "status": "active"
+}

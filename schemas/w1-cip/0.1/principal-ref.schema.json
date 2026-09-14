@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:w1-cip:schema:0.1:principal-ref",
+  "title": "W1-CIP PrincipalRef v0.1",
+  "description": "Session-scoped typed identity reference for an acting, represented, or recording principal. It conveys identity only, not authority, capability, or trust.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "principal_type",
+    "principal_id"
+  ],
+  "properties": {
+    "principal_type": {
+      "enum": [
+        "agent",
+        "human",
+        "runtime",
+        "service",
+        "tool"
+      ]
+    },
+    "principal_id": {
+      "$ref": "#/$defs/identifier"
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    }
+  }
+}

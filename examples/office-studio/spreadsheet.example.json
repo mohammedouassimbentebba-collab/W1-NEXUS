@@ -1,0 +1,60 @@
+{
+  "schema_version": "w1-artifact-0.1",
+  "artifact_id": "reference-spreadsheet",
+  "kind": "spreadsheet",
+  "title": "W1 Nexus Capability Matrix",
+  "locale": "en",
+  "metadata": {
+    "purpose": "reference-demo"
+  },
+  "content": {
+    "sheets": [
+      {
+        "name": "Capabilities",
+        "header_rows": 1,
+        "rows": [
+          [
+            "Component",
+            "Implemented",
+            "Weight",
+            "Total"
+          ],
+          [
+            "Governance",
+            true,
+            10,
+            null
+          ],
+          [
+            "Artifacts",
+            true,
+            8,
+            null
+          ],
+          [
+            "Cloud",
+            false,
+            4,
+            null
+          ]
+        ],
+        "formulas": [
+          {
+            "cell": "D2",
+            "formula": "=SUM(C2:C4)",
+            "number_format": "0"
+          }
+        ],
+        "charts": [
+          {
+            "type": "bar",
+            "source_range": "A1:C4",
+            "title": "Capability weights",
+            "start_cell": "F2",
+            "end_cell": "M18"
+          }
+        ]
+      }
+    ]
+  }
+}

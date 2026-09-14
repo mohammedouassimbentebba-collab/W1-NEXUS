@@ -174,17 +174,17 @@ nexus benchmark --models kimi,deepseek,muse --mode C
 ### Option 2: Node.js / NPM (CLI & W1-CIP Protocol SDK)
 
 ```bash
-# Global installation via npm
-npm install -g w1-nexus
+# Direct installation via npm from GitHub (no registry login or 2FA required):
+npm install -g github:mohammedouassimbentebba-collab/W1-NEXUS
 
-# Or run instantly via npx without installation
-npx w1-nexus status
+# Or run instantly via npx directly from the repository:
+npx github:mohammedouassimbentebba-collab/W1-NEXUS status
 
-# List all registered W1-CIP protocol schemas
-npx w1-nexus schemas
+# List all registered W1-CIP protocol schemas:
+npx github:mohammedouassimbentebba-collab/W1-NEXUS schemas
 
-# Launch the NEXUS Workspace Console Web UI (default: http://localhost:8080)
-npx w1-nexus console --port 8080
+# Launch the NEXUS Workspace Console Web UI (default: http://localhost:8080):
+npx github:mohammedouassimbentebba-collab/W1-NEXUS console --port 8080
 ```
 
 #### Node.js / TypeScript SDK Usage:

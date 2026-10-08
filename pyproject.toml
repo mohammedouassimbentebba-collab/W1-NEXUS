@@ -33,7 +33,7 @@ office = [
   "python-pptx>=1.0,<2",
   "reportlab>=4.4,<6",
 ]
-desktop = ["pywebview>=5,<6"]
+desktop = ["pywebview>=5,<7"]
 
 [project.scripts]
 w1 = "w1cip.cli:main"

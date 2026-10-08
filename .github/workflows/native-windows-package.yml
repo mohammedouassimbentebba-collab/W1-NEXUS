@@ -55,7 +55,7 @@ jobs:
           Get-AuthenticodeSignature $installer | Format-List Status,StatusMessage,SignerCertificate | Out-File -Append native-windows-build.txt
           Add-Content native-windows-build.txt "CI_ARTIFACT_IS_UNSIGNED_AND_NOT_A_TRUSTED_PUBLIC_RELEASE=true"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: W1-Nexus-Windows-UNSIGNED-NOT-FOR-PUBLICATION
           if-no-files-found: error

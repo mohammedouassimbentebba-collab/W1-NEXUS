@@ -10,18 +10,57 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    name: Unit Tests (${{ matrix.os }} - Python ${{ matrix.python-version }})
+  rust-core:
+    name: Rust Core (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Cargo Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            crates/w1-cip-core/target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('crates/w1-cip-core/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
+
+      - name: Build & Test Rust Core
+        working-directory: crates/w1-cip-core
+        run: |
+          cargo test --verbose
+          cargo build --release --verbose
+
+  python-orchestrator:
+    name: Python Orchestrator (${{ matrix.os }} - Python ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.11", "3.12"]
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Set up Rust for Native Bridge
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build Rust Core for Python Bridge
+        working-directory: crates/w1-cip-core
+        run: cargo build --release
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -29,11 +68,43 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
 
-      - name: Install Dependencies
+      - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -e .
 
-      - name: Run Core Multi-Credential & Benchmark Tests
+      - name: Copy Compiled Rust Core to Python Package
+        shell: pwsh
         run: |
-          python -m unittest -v tests.test_multi_credential tests.test_benchmark_core
+          if (Test-Path "crates/w1-cip-core/target/release/w1_cip_core.dll") {
+            Copy-Item "crates/w1-cip-core/target/release/w1_cip_core.dll" "src/w1cip/" -Force
+          } elseif (Test-Path "crates/w1-cip-core/target/release/libw1_cip_core.so") {
+            Copy-Item "crates/w1-cip-core/target/release/libw1_cip_core.so" "src/w1cip/" -Force
+          }
+
+      - name: Run Core Orchestrator & Native Accelerator Tests
+        run: |
+          python -m unittest tests.test_orchestrator_core tests.test_native_accelerator tests.stress_test_dag_and_state
+
+  node-cli:
+    name: Node.js CLI & Studio Runtime (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node-version: [18, 20, 22]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Verify CLI Entrypoint
+        run: |
+          node bin/w1-nexus.js status
+          node bin/w1-nexus.js --help

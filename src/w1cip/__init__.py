@@ -23,6 +23,13 @@ from .orchestrator import (
     UnsafeResumeError,
     WorkflowCompilationError,
 )
+from .native_accelerator import (
+    TransactionalState,
+    compute_state_hash,
+    create_merkle_receipt,
+    diagnose_native_status,
+    verify_dag_acyclic,
+)
 from .provider_connectors import (
     AnthropicMessagesConnector,
     ConnectorConfig,
@@ -738,4 +745,9 @@ __all__ = [
     "ingest_discovered_models",
     "run_gateway_benchmark",
     "verify_route_live",
+    "TransactionalState",
+    "compute_state_hash",
+    "create_merkle_receipt",
+    "diagnose_native_status",
+    "verify_dag_acyclic",
 ]

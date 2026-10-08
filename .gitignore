@@ -57,3 +57,10 @@ run_stability_gate.py
 data/raw/*.jsonl
 data/artifacts/*
 data/availability/live_credential_matrix.json
+
+# Rust build artifacts
+target/
+**/target/
+*.pdb
+w1_cip_core.dll
+

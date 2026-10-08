@@ -28,6 +28,7 @@ from typing import Any, Callable, Iterable, Mapping, Protocol, Sequence
 from .session_store import SessionStore, canonical_json
 from .action_runtime import ActionApprovalRequired, ActionRequest, ActionRuntime
 from .validation import ResourceRoutingResult, route_execution_resource
+from .native_accelerator import compute_state_hash, verify_dag_acyclic
 
 CANONICAL_ID = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 TERMINAL_RUN_STATUSES = {
@@ -1826,6 +1827,10 @@ def _validate_workflow(workflow: CompiledWorkflow) -> None:
             raise WorkflowCompilationError("task_self_dependency")
         if not set(task.depends_on).issubset(known):
             raise WorkflowCompilationError("unknown_task_dependency")
+    edges = [(dependency, task.task_id) for task in workflow.tasks for dependency in task.depends_on]
+    if not verify_dag_acyclic(edges):
+        raise WorkflowCompilationError("task_dependency_cycle")
+
     visiting: set[str] = set()
     visited: set[str] = set()
     by_id = workflow.task_by_id()
@@ -1927,7 +1932,7 @@ def _response_from_dict(value: Mapping[str, Any]) -> ProviderResponse:
 
 def _idempotency_key(run_id: str, task_id: str, resource_id: str, attempt: int) -> str:
     raw = f"w1-cip|{run_id}|{task_id}|{resource_id}|{attempt}"
-    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+    return compute_state_hash(raw)
 
 
 def _routing_metadata_for_resource(

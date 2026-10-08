@@ -46,6 +46,7 @@ function showStatus() {
   console.log('  Model Matrix:      Credential != Model (Dynamic Discovery)');
   console.log('  Zero-Leak Guard:   Active (Cryptographic secret scrubbing)');
   console.log('  Benchmark Suites:  9 Suites (AutomationBench, OSWorld 2, FrontierMath, etc.)');
+  console.log('  Systems Core:      🦀 Rust Core (crates/w1-cip-core) [Deterministic Merkle-DAG]');
   console.log('\x1b[32m✔ Local NEXUS runtime ready.\x1b[0m');
 }
 

@@ -1,0 +1,237 @@
+{
+  "metadata": {
+    "timestamp": 1791489392.7581182,
+    "native_status": {
+      "rust_core_available": true,
+      "active_hash_backend": "rust_blake3",
+      "active_dag_backend": "rust_petgraph",
+      "load_error": null
+    },
+    "availability_matrix": {
+      "deepseek-v4-flash": {
+        "display_name": "DeepSeek V4 Flash",
+        "status_code": 200,
+        "success": true,
+        "latency_ms": 23865.4,
+        "error": null
+      },
+      "claude-opus-5": {
+        "display_name": "Claude Opus 5",
+        "status_code": 402,
+        "success": false,
+        "latency_ms": 2101.6,
+        "error": "{\"error\":{\"message\":\"Budget pool quota has been exhausted. Please ask an administrator to increase the limit or select another budget pool.\",\"type\":\"bad_response_status_code\",\"param\":\"\",\"code\":\"bad_response_status_code\"}}"
+      },
+      "gpt-6-astra": {
+        "display_name": "GPT-6 Astra",
+        "status_code": 402,
+        "success": false,
+        "latency_ms": 3554.3,
+        "error": "{\"error\":{\"message\":\"Budget pool quota has been exhausted. Please ask an administrator to increase the limit or select another budget pool.\",\"type\":\"bad_response_status_code\",\"param\":\"\",\"code\":\"bad_response_status_code\"}}"
+      },
+      "claude-opus-4-8": {
+        "display_name": "Claude Opus 4.8",
+        "status_code": 402,
+        "success": false,
+        "latency_ms": 1699.0,
+        "error": "{\"error\":{\"message\":\"Budget pool quota has been exhausted. Please ask an administrator to increase the limit or select another budget pool.\",\"type\":\"bad_response_status_code\",\"param\":\"\",\"code\":\"bad_response_status_code\"}}"
+      }
+    }
+  },
+  "mode_a_standalone": [
+    {
+      "task_id": "NEXUS-DIST-01",
+      "mode": "Mode A (Standalone Raw)",
+      "model": "deepseek-v4-flash",
+      "score": 100.0,
+      "matched_criteria": [
+        "quorum",
+        "alpha_no_leader",
+        "beta_majority",
+        "term_supersede",
+        "appendentries_reconciliation",
+        "linearizability"
+      ],
+      "latency_ms": 12058.5,
+      "prompt_tokens": 174,
+      "completion_tokens": 2000,
+      "total_tokens": 2174,
+      "merkle_blake3": "02df8e50b4b682f6444ba9dfe4c0373829d69544780ed6aa2d3f0bc4acd967dd",
+      "output_preview": "We need answer. Need analyze Raft cluster 5 nodes partitions Alpha {N1,N2}, Beta {N3,N4,N5}. Need answer questions.\n\nNeed be careful Raft quorum majority = floor(N/2)+1 = 3 for N=5. Alpha has 2 cannot elect leader? Need nuance: If Alpha already had a leader before partition? In Raft, leader needs ma"
+    },
+    {
+      "task_id": "NEXUS-CONC-02",
+      "mode": "Mode A (Standalone Raw)",
+      "model": "deepseek-v4-flash",
+      "score": 100.0,
+      "matched_criteria": [
+        "aba_mechanism",
+        "use_after_free",
+        "epoch_pinning",
+        "deferred_destruction",
+        "memory_ordering_distinction",
+        "hardware_barriers"
+      ],
+      "latency_ms": 13987.0,
+      "prompt_tokens": 139,
+      "completion_tokens": 2000,
+      "total_tokens": 2139,
+      "merkle_blake3": "2204e3bff82be5f59cdb0535f8cec1c5f92e8d56fe18d4bc9b57be6fc8ef36ed",
+      "output_preview": "We need answer user. Need craft explanation. We need address three parts. Need maybe caveat: EBR prevents use-after-free/ABA in Treiber stack? Let's reason.\n\nWe need provide answer to user: concurrent lock-free systems:\n1. Explain classic ABA problem in lock-free Treiber stack using CAS, describing "
+    },
+    {
+      "task_id": "NEXUS-DAG-03",
+      "mode": "Mode A (Standalone Raw)",
+      "model": "deepseek-v4-flash",
+      "score": 100.0,
+      "matched_criteria": [
+        "three_color_proof",
+        "complexity_proof",
+        "cow_snapshot",
+        "acyclic_invariance",
+        "blake3_tree_hashing"
+      ],
+      "latency_ms": 12904.1,
+      "prompt_tokens": 154,
+      "completion_tokens": 2000,
+      "total_tokens": 2154,
+      "merkle_blake3": "6e0add43ecc6525ee33648d69b6698f86dddaedfac801bfb4122d060dac389f9",
+      "output_preview": "We need answer. Need produce final. Need answer to user. Need solve multi-part. Need likely technical. Need prove DFS 3-color O(V+E), necessary/sufficient detect cycles/back edges. Design CoW Merkle-DAG state store O(1) rollback snapshot T-1 if edge insertion violates acyclicity. Show BLAKE3 tree-ha"
+    }
+  ],
+  "mode_b_governed": [
+    {
+      "task_id": "NEXUS-DIST-01",
+      "mode": "Mode B (NEXUS Governed)",
+      "model": "deepseek-v4-flash",
+      "score": 100.0,
+      "matched_criteria": [
+        "quorum",
+        "alpha_no_leader",
+        "beta_majority",
+        "term_supersede",
+        "appendentries_reconciliation",
+        "linearizability"
+      ],
+      "latency_ms": 15200.5,
+      "prompt_tokens": 233,
+      "completion_tokens": 2500,
+      "total_tokens": 2733,
+      "goal_hash_blake3": "9ca958c88fdb4544042bf0b97a76b84dfe62d104d3712bf8c9b52094de21c40e",
+      "evidence_hash_blake3": "b2f12b6ea1b777b87d0379865c8d7a837618ea6fcded0f5f361667a4ea494fa6",
+      "combined_root_blake3": "dfe3caceee3afd14988e4526926540bd4bf0f423a2d57866264dbc2683f3088e",
+      "output_preview": "We need answer. Need analyze Raft 5 nodes partition Alpha {N1,N2}, Beta {N3,N4,N5}. Need answer subquestions. Need exact quorum formula, why Alpha cannot elect leader. Beta can elect and commit writes? 3 of 5 yes majority quorum. If Beta commits 5 entries, heal, specify exact step-by-step AppendEntr"
+    },
+    {
+      "task_id": "NEXUS-CONC-02",
+      "mode": "Mode B (NEXUS Governed)",
+      "model": "deepseek-v4-flash",
+      "score": 100.0,
+      "matched_criteria": [
+        "aba_mechanism",
+        "use_after_free",
+        "epoch_pinning",
+        "deferred_destruction",
+        "memory_ordering_distinction",
+        "hardware_barriers"
+      ],
+      "latency_ms": 17202.4,
+      "prompt_tokens": 198,
+      "completion_tokens": 2500,
+      "total_tokens": 2698,
+      "goal_hash_blake3": "d8aed8f1a6810cd30a5975ce002c226604e987c8a774a0dc0b1a81ea7571cc6f",
+      "evidence_hash_blake3": "0be4f72f86e5e2f9d2202070d2e269dcac455fe125f30cceecb249b682b3e412",
+      "combined_root_blake3": "4c85798d62c41817039d8b8a53fb88768eeb968842ba2de11b1f0f6046689fd8",
+      "output_preview": "We need answer user. Need address three subquestions fully. Need be precise. Need likely no analysis. We can reason here. Need craft final answer. We need answer in concurrent lock-free systems.\n\nNeed explain ABA in Treiber stack with CAS, preemption causes corruption/use-after-free. Then Rust snipp"
+    },
+    {
+      "task_id": "NEXUS-DAG-03",
+      "mode": "Mode B (NEXUS Governed)",
+      "model": "deepseek-v4-flash",
+      "score": 100.0,
+      "matched_criteria": [
+        "three_color_proof",
+        "complexity_proof",
+        "cow_snapshot",
+        "acyclic_invariance",
+        "blake3_tree_hashing"
+      ],
+      "latency_ms": 15788.9,
+      "prompt_tokens": 213,
+      "completion_tokens": 2500,
+      "total_tokens": 2713,
+      "goal_hash_blake3": "4921baad4b97fd126091c0f026072c55e48bcdd7af928d08e0ba4a58fc72d71a",
+      "evidence_hash_blake3": "e38e0634e01e567a8b7675e5d8237687207aa1120f4716e5cc9594c043eea24c",
+      "combined_root_blake3": "e7c5a0b9002c06ee7947f9dc7540e4412610614d35a2e93e337f1b388f422941",
+      "output_preview": "We need answer. Need comply. User asks three parts. Need rigorous proofs, design, BLAKE3. Need address all subquestions. Need likely final answer. Need think deeply.\n\nWe need produce final answer. But we can reason here.\n\nWe need answer:\n1. Prove DFS with 3-color marking runs O(V+E) and necessary/su"
+    }
+  ],
+  "mode_c_collaborative": [
+    {
+      "task_id": "NEXUS-DIST-01",
+      "mode": "Mode C (NEXUS Collaborative Swarm)",
+      "model": "deepseek-v4-flash",
+      "score": 100.0,
+      "matched_criteria": [
+        "quorum",
+        "alpha_no_leader",
+        "beta_majority",
+        "term_supersede",
+        "appendentries_reconciliation",
+        "linearizability"
+      ],
+      "latency_ms": 69112.3,
+      "total_tokens": 9152,
+      "tokens_breakdown": {
+        "planner": 1735,
+        "executor": 2447,
+        "auditor": 2008,
+        "synthesizer": 2962
+      },
+      "dag_verified_acyclic": true,
+      "consensus_merkle_root_blake3": "f467c9deb7718522c1cc41aed42dc7aa59da7143cf0a4fc68a31806ea1f119cd",
+      "output_preview": "We need answer as Chief Attestation Agent. Need synthesize final verified artifact resolving critiques. We have original implementation (partial) and auditor critique (partial). Need deliver unified flawless verified final production answer. Need infer task: Raft scenario. Need probably answer origi"
+    },
+    {
+      "task_id": "NEXUS-CONC-02",
+      "mode": "Mode C (NEXUS Collaborative Swarm)",
+      "model": "deepseek-v4-flash",
+      "score": 66.7,
+      "matched_criteria": [
+        "aba_mechanism",
+        "use_after_free",
+        "epoch_pinning",
+        "deferred_destruction"
+      ],
+      "latency_ms": 48560.3,
+      "total_tokens": 9017,
+      "tokens_breakdown": {
+        "planner": 1700,
+        "executor": 2390,
+        "auditor": 1969,
+        "synthesizer": 2958
+      },
+      "dag_verified_acyclic": true,
+      "consensus_merkle_root_blake3": "b4e268a6e738cfcb20204a41284248ed8092c7f0eb4269a6d49194e8f14370b1",
+      "output_preview": "We need answer to user. We need infer task. User says: \"You are the Chief Attestation Agent in W1-CIP. Synthesize the Final Verified Artifact resolving all adversarial critiques: Original Implementation: [some partial text] Auditor Critique: [some partial text] Deliver the unified, flawless, verifie"
+    },
+    {
+      "task_id": "NEXUS-DAG-03",
+      "mode": "Mode C (NEXUS Collaborative Swarm)",
+      "model": "deepseek-v4-flash",
+      "score": 0.0,
+      "matched_criteria": [],
+      "latency_ms": 76085.6,
+      "total_tokens": 6103,
+      "tokens_breakdown": {
+        "planner": 1715,
+        "executor": 2406,
+        "auditor": 1982,
+        "synthesizer": 0
+      },
+      "dag_verified_acyclic": true,
+      "consensus_merkle_root_blake3": "e24d6cb4c9e0bb30831156a3f3b34c273173246c94e3929e1fa31e2c8533677e",
+      "output_preview": ""
+    }
+  ]
+}

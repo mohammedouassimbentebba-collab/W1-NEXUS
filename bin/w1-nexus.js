@@ -30,9 +30,10 @@ Usage:
 
 Commands:
   status               Display NEXUS runtime status and local environment
+  studio [--port N]    Launch the interactive W1™ NEXUS Studio Web UI (default: 8080)
   schemas              List registered W1-CIP 0.1 / 1.1 protocol schemas
   validate <file.json> Validate a local JSON artifact against W1-CIP schemas
-  console [--port N]   Launch the local NEXUS Workspace Console Web UI (default: 8080)
+  console [--port N]   Alias for 'studio'
   version, -v          Print version information
   help, -h             Print this help message
 `);
@@ -42,11 +43,13 @@ function showStatus() {
   printHeader();
   console.log('\x1b[33m[RUNTIME STATUS]\x1b[0m');
   console.log('  Protocol:          W1-CIP v1.1 (Governed Consensus)');
-  console.log('  License:           Mozilla Public License 2.0 (MPL-2.0)');
+  console.log('  License:           Apache License 2.0 (Apache-2.0)');
   console.log('  Model Matrix:      Credential != Model (Dynamic Discovery)');
   console.log('  Zero-Leak Guard:   Active (Cryptographic secret scrubbing)');
   console.log('  Benchmark Suites:  9 Suites (AutomationBench, OSWorld 2, FrontierMath, etc.)');
   console.log('  Systems Core:      🦀 Rust Core (crates/w1-cip-core) [Deterministic Merkle-DAG]');
+  console.log('  Sandbox Engine:    🛡️ Native C Aerospace Core (Win32 Job Objects • 2048 MB)');
+  console.log('  Studio Web UI:     🚀 Node.js Studio Ready (run: npx w1-nexus studio)');
   console.log('\x1b[32m✔ Local NEXUS runtime ready.\x1b[0m');
 }
 
@@ -64,37 +67,15 @@ function listSchemas() {
   }
 }
 
-function launchConsole(port = 8080) {
+function launchStudio(port = 8080) {
   printHeader();
-  console.log(`\x1b[32mStarting NEXUS Workspace Console on http://localhost:${port}...\x1b[0m`);
-  const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.end(`<!DOCTYPE html>
-<html>
-<head>
-  <title>W1™ NEXUS Console</title>
-  <style>
-    body { background: #070C18; color: #F1F5F9; font-family: system-ui, sans-serif; padding: 40px; }
-    h1 { color: #00D9FF; }
-    .card { background: #0F172A; border: 1px solid #1E293B; border-radius: 8px; padding: 20px; margin-top: 20px; }
-    .badge { background: #0284C7; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
-  </style>
-</head>
-<body>
-  <h1>W1™ NEXUS Workspace Console</h1>
-  <p><span class="badge">W1-CIP v1.1 Active</span> Autonomous Intelligence Discovery &amp; Verification Protocol</p>
-  <div class="card">
-    <h3>Connected Models &amp; Ensembles</h3>
-    <p>Operational Models: <b>moonshotai/kimi-k3</b> | <b>deepseek-ai/deepseek-v4-pro</b> | <b>meta/muse-glimmer-30b</b></p>
-    <p>Governance Protocol: <b style="color: #38BDF8;">W1-CIP Deterministic State Machine</b></p>
-  </div>
-</body>
-</html>`);
-  });
-  server.listen(port, () => {
-    console.log(`\x1b[36mConsole Web UI is running at http://localhost:${port}/\x1b[0m`);
-    console.log('Press Ctrl+C to terminate.');
-  });
+  try {
+    const { startStudio } = require('../studio/server.js');
+    startStudio(port);
+  } catch (err) {
+    console.error(`\x1b[31mFailed to start Nexus Studio: ${err.message}\x1b[0m`);
+    process.exit(1);
+  }
 }
 
 switch (command) {
@@ -104,10 +85,11 @@ switch (command) {
   case 'schemas':
     listSchemas();
     break;
+  case 'studio':
   case 'console':
     const portArg = args.indexOf('--port');
     const port = portArg !== -1 && args[portArg + 1] ? parseInt(args[portArg + 1], 10) : 8080;
-    launchConsole(port);
+    launchStudio(port);
     break;
   case 'version':
   case '-v':

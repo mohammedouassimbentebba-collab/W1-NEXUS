@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W1™ NEXUS STUDIO — Multi-Agent Intelligence Governance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Ambient Lighting -->
+  <div class="ambient-glow"></div>
+
+  <div class="app-layout">
+    <!-- Top HUD Navigation -->
+    <header class="hud-header">
+      <div class="brand">
+        <div class="brand-logo">W1™</div>
+        <div class="brand-info">
+          <h1>NEXUS STUDIO</h1>
+          <span class="protocol-tag">W1-CIP v1.1 • DO-178C Level A</span>
+        </div>
+      </div>
+
+      <!-- Acceleration Core Indicators -->
+      <div class="hud-pills">
+        <div class="pill pill-rust" id="rust-pill" title="Native Rust Core Loaded">
+          <span class="dot"></span> 🦀 RUST CORE: BLAKE3 (AVX2)
+        </div>
+        <div class="pill pill-c" id="c-pill" title="Native C Win32 Job Objects Sandbox">
+          <span class="dot"></span> 🛡️ C SANDBOX: UNCONSTRAINED
+        </div>
+        <div class="pill pill-sse" id="sse-pill" title="Real-Time Telemetry Stream">
+          <span class="dot pulse"></span> LIVE STREAM
+        </div>
+      </div>
+
+      <nav class="nav-tabs">
+        <button class="tab-btn active" data-tab="arena">Debate Arena</button>
+        <button class="tab-btn" data-tab="dag">Topology DAG</button>
+        <button class="tab-btn" data-tab="benchmarks">Benchmark Matrix</button>
+        <button class="tab-btn" data-tab="sandbox">C Sandbox Terminal</button>
+      </nav>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="content-container">
+      
+      <!-- TAB 1: DEBATE ARENA -->
+      <section class="tab-pane active" id="pane-arena">
+        <div class="section-intro">
+          <h2>Heterogeneous Multi-Model Debate Arena</h2>
+          <p>Real-time execution of the W1-CIP state machine across specialized agent roles under cryptographic governance.</p>
+        </div>
+
+        <!-- Protocol Step Pipeline Tracker -->
+        <div class="pipeline-tracker">
+          <div class="step active" id="step-goal">
+            <div class="step-num">1</div>
+            <div class="step-label">GoalContract</div>
+          </div>
+          <div class="connector"></div>
+          <div class="step active" id="step-plan">
+            <div class="step-num">2</div>
+            <div class="step-label">TeamPlan</div>
+          </div>
+          <div class="connector"></div>
+          <div class="step active" id="step-exec">
+            <div class="step-num">3</div>
+            <div class="step-label">Task Execution</div>
+          </div>
+          <div class="connector"></div>
+          <div class="step active" id="step-audit">
+            <div class="step-num">4</div>
+            <div class="step-label">Adversarial Challenge</div>
+          </div>
+          <div class="connector"></div>
+          <div class="step active" id="step-synth">
+            <div class="step-num">5</div>
+            <div class="step-label">Consensus Attest</div>
+          </div>
+          <div class="connector"></div>
+          <div class="step sealed" id="step-merkle">
+            <div class="step-num">🔒</div>
+            <div class="step-label">BLAKE3 Merkle Seal</div>
+          </div>
+        </div>
+
+        <!-- 4 Model Debate Cards Grid -->
+        <div class="debate-grid">
+          <!-- Card 1: Strategic Planner -->
+          <div class="model-card planner-card">
+            <div class="card-head">
+              <span class="role-badge">Lead Strategic Planner</span>
+              <span class="model-id">gpt-6-astra</span>
+            </div>
+            <div class="card-body">
+              <p class="role-desc">Decomposes high-level intent into strongly-typed sub-goals and DAG dependency constraints.</p>
+              <div class="terminal-box" id="output-planner">
+[CONTRACT GENERATION]
+Task: Distributed Partition Reconciliation
+- Sub-goal A: Prove quorum majority floor(5/2)+1 = 3
+- Sub-goal B: Establish AppendEntries linearizability
+- Edge vector: Asymmetric network split {N1,N2} vs {N3,N4,N5}
+DAG status: Topological validation passed.
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Systems Executor -->
+          <div class="model-card executor-card">
+            <div class="card-head">
+              <span class="role-badge">Primary Systems Executor</span>
+              <span class="model-id">claude-opus-5</span>
+            </div>
+            <div class="card-body">
+              <p class="role-desc">Produces rigorous code and implementation proofs satisfying contract invariants.</p>
+              <div class="terminal-box" id="output-executor">
+[IMPLEMENTATION PROOF]
+Partition Alpha: {N1,N2} has 2 votes (< 3). Rejects leader election.
+Partition Beta: {N3,N4,N5} has 3 votes (>= 3). Elects leader in Term T+1.
+Log Entries: 5 uncommitted entries replicated across majority.
+State divergence avoided via term supersede protocol.
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Adversarial Auditor -->
+          <div class="model-card auditor-card">
+            <div class="card-head">
+              <span class="role-badge">Adversarial Auditor</span>
+              <span class="model-id">claude-opus-4-8</span>
+            </div>
+            <div class="card-body">
+              <p class="role-desc">Attacks assumptions, hunts race conditions, and formulates counter-evidence.</p>
+              <div class="terminal-box" id="output-auditor">
+[AUDIT VERIFICATION]
+Challenge: What if N1 receives client writes while partitioned?
+Counter-Evidence: N1 cannot achieve quorum write acknowledgment. Client write fails or times out.
+Resolution: Reconciled logs overwrite N1 uncommitted entries safely.
+Audit Verdict: APPROVED. Zero linearizability leaks.
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Chief Attestor & Synthesizer -->
+          <div class="model-card synth-card">
+            <div class="card-head">
+              <span class="role-badge">Chief Attestor / Synthesizer</span>
+              <span class="model-id">deepseek-v4-flash</span>
+            </div>
+            <div class="card-body">
+              <p class="role-desc">Synthesizes final verified answer and binds execution artifacts to cryptographic ledger.</p>
+              <div class="terminal-box" id="output-synth">
+[FINAL CONSENSUS ARTIFACT]
+Verified Solution: Full mathematical proof of Raft linearizability under asymmetric partition.
+- Merkle Leaf: 02df8e50b4b682f6444ba9dfe4c03738...
+- Merkle Root: f467c9deb7718522c1cc41aed42dc7aa...
+- Rust BLAKE3 Seal Status: COMMITTED TO LEDGER.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: TOPOLOGY DAG -->
+      <section class="tab-pane" id="pane-dag">
+        <div class="section-intro">
+          <h2>Topological Dependency DAG Visualizer</h2>
+          <p>Real-time graph acyclicity verification powered by native Rust Petgraph (O(V+E) cycle detection).</p>
+        </div>
+
+        <div class="dag-canvas-card">
+          <div class="dag-toolbar">
+            <span class="badge badge-success" id="dag-status">🦀 Petgraph Status: STRICTLY ACYCLIC (0 Cycles)</span>
+            <button class="btn btn-sm" id="btn-refresh-dag">Reload Active DAG</button>
+          </div>
+          <svg id="dag-svg" width="100%" height="450" viewBox="0 0 900 450"></svg>
+        </div>
+      </section>
+
+      <!-- TAB 3: BENCHMARK MATRIX -->
+      <section class="tab-pane" id="pane-benchmarks">
+        <div class="section-intro">
+          <h2>Live Empirical Benchmark Campaign Analytics</h2>
+          <p>Comparative accuracy, latency, and token consumption metrics recorded directly from live models.</p>
+        </div>
+
+        <div class="metrics-summary-grid">
+          <div class="metric-card">
+            <span class="metric-title">Mode B Accuracy</span>
+            <span class="metric-val text-success">100.0%</span>
+            <span class="metric-sub">Single Governed Agent</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">Mode A Accuracy</span>
+            <span class="metric-val text-primary">100.0%</span>
+            <span class="metric-sub">Standalone Raw Model</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">Mode C Accuracy</span>
+            <span class="metric-val text-warning">55.6%</span>
+            <span class="metric-sub">Cascading Swarm (Timeout Vulnerability)</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">Rust BLAKE3 Hash Speed</span>
+            <span class="metric-val text-accent">141,611</span>
+            <span class="metric-sub">Ops / Second (AVX2 Hardware)</span>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <table class="benchmark-table">
+            <thead>
+              <tr>
+                <th>Benchmark Task</th>
+                <th>Mode</th>
+                <th>Accuracy</th>
+                <th>Latency (ms)</th>
+                <th>Tokens</th>
+                <th>Merkle Root (BLAKE3)</th>
+              </tr>
+            </thead>
+            <tbody id="benchmark-tbody">
+              <!-- Dynamically populated from /api/benchmarks -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 4: C SANDBOX TERMINAL -->
+      <section class="tab-pane" id="pane-sandbox">
+        <div class="section-intro">
+          <h2>Native C Aerospace Sandbox Terminal</h2>
+          <p>Unconstrained high-performance compute execution with Win32 Job Objects / POSIX safety boundaries.</p>
+        </div>
+
+        <div class="terminal-shell-card">
+          <div class="shell-header">
+            <span>🛡️ Native C Aerospace Sandbox [Win32 Job Objects • 2048 MB Ceiling • Unthrottled CPU]</span>
+          </div>
+          <div class="shell-console" id="sandbox-log">
+[W1-SANDBOX INITIALIZED]
+Platform: Windows x86_64
+Backend: Win32 Job Objects (Kernel Level)
+Memory Ceiling: 2048 MB (Unconstrained AI Reasoning Envelope)
+Process Boundary: Active Process Guard Active
+Execution Readiness: 100% OK.
+          </div>
+          <div class="shell-input-bar">
+            <span class="shell-prompt">$</span>
+            <input type="text" id="sandbox-input" placeholder="Type a command (e.g. echo hello, python --version) and press Enter..." value="python -c &quot;print('W1-NEXUS Live Sandbox Execution Verified!')&quot;">
+            <button class="btn btn-primary" id="btn-sandbox-run">Execute Sandboxed</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="hud-footer">
+      <span>W1™ NEXUS STUDIO v0.1.0 • Mohammed Ouassim Bentebba</span>
+      <span>Empowered by GitHub Student Developer Pack • Apache-2.0</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

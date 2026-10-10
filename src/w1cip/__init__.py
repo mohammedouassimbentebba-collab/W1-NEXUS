@@ -30,6 +30,11 @@ from .native_accelerator import (
     diagnose_native_status,
     verify_dag_acyclic,
 )
+from .native_sandbox import (
+    SandboxExecutionResult,
+    diagnose_sandbox_status,
+    execute_sandboxed,
+)
 from .provider_connectors import (
     AnthropicMessagesConnector,
     ConnectorConfig,
@@ -750,4 +755,7 @@ __all__ = [
     "create_merkle_receipt",
     "diagnose_native_status",
     "verify_dag_acyclic",
+    "SandboxExecutionResult",
+    "diagnose_sandbox_status",
+    "execute_sandboxed",
 ]

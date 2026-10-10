@@ -58,9 +58,12 @@ data/raw/*.jsonl
 data/artifacts/*
 data/availability/live_credential_matrix.json
 
-# Rust build artifacts
+# Native build artifacts
 target/
 **/target/
 *.pdb
+*.dll
 w1_cip_core.dll
+w1_sandbox.dll
+
 

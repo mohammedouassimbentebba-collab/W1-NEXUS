@@ -10,6 +10,8 @@
   },
   "files": [
     "bin",
+    "studio",
+    "c_sandbox",
     "index.js",
     "index.d.ts",
     "schemas",
@@ -18,7 +20,8 @@
     "NOTICE"
   ],
   "scripts": {
-    "test": "node bin/w1-nexus.js status"
+    "test": "node bin/w1-nexus.js status",
+    "studio": "node bin/w1-nexus.js studio"
   },
   "repository": {
     "type": "git",

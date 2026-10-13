@@ -17,6 +17,27 @@
 #include <windows.h>
 #include <psapi.h>
 
+static void drain_pipe(HANDLE hPipe, char** pBuffer, size_t* pTotalLen) {
+    if (!hPipe || !pBuffer || !pTotalLen) return;
+    DWORD bytesAvail = 0;
+    while (PeekNamedPipe(hPipe, NULL, 0, NULL, &bytesAvail, NULL) && bytesAvail > 0) {
+        char chunk[8192];
+        DWORD toRead = (bytesAvail < sizeof(chunk)) ? bytesAvail : sizeof(chunk);
+        DWORD bytesRead = 0;
+        if (ReadFile(hPipe, chunk, toRead, &bytesRead, NULL) && bytesRead > 0) {
+            char* new_buf = (char*)realloc(*pBuffer, *pTotalLen + bytesRead + 1);
+            if (new_buf) {
+                *pBuffer = new_buf;
+                memcpy(*pBuffer + *pTotalLen, chunk, bytesRead);
+                *pTotalLen += bytesRead;
+                (*pBuffer)[*pTotalLen] = '\0';
+            }
+        } else {
+            break;
+        }
+    }
+}
+
 W1_EXPORT W1SandboxResult* w1_sandbox_execute(const char* command, const W1SandboxConfig* config) {
     if (!command) return NULL;
 
@@ -137,12 +158,46 @@ W1_EXPORT W1SandboxResult* w1_sandbox_execute(const char* command, const W1Sandb
     ResumeThread(pi.hThread);
     CloseHandle(pi.hThread);
 
-    // Wait with timeout
+    // Non-blocking concurrent pipe draining loop to prevent Windows pipe buffer deadlock
     DWORD timeout = (config && config->timeout_ms > 0) ? config->timeout_ms : INFINITE;
-    DWORD wait_res = WaitForSingleObject(pi.hProcess, timeout);
+    DWORD wait_res = WAIT_TIMEOUT;
+    size_t total_stdout = 0;
+    size_t total_stderr = 0;
+
+    while (1) {
+        drain_pipe(hStdOutRead, &res->stdout_buffer, &total_stdout);
+        drain_pipe(hStdErrRead, &res->stderr_buffer, &total_stderr);
+
+        ULONGLONG current_time = GetTickCount64();
+        if (timeout != INFINITE && (current_time - t_start) >= timeout) {
+            wait_res = WAIT_TIMEOUT;
+            break;
+        }
+
+        DWORD chunk_wait = 15; // 15ms time slice
+        if (timeout != INFINITE) {
+            DWORD remaining = (DWORD)(timeout - (current_time - t_start));
+            if (chunk_wait > remaining) chunk_wait = remaining;
+        }
+
+        DWORD r = WaitForSingleObject(pi.hProcess, chunk_wait);
+        if (r == WAIT_OBJECT_0) {
+            wait_res = WAIT_OBJECT_0;
+            break;
+        } else if (r != WAIT_TIMEOUT) {
+            wait_res = r;
+            break;
+        }
+    }
+
+    // Final post-execution drain of all remaining bytes
+    drain_pipe(hStdOutRead, &res->stdout_buffer, &total_stdout);
+    drain_pipe(hStdErrRead, &res->stderr_buffer, &total_stderr);
 
     ULONGLONG t_end = GetTickCount64();
     res->elapsed_ms = (uint64_t)(t_end - t_start);
+    res->stdout_len = (uint64_t)total_stdout;
+    res->stderr_len = (uint64_t)total_stderr;
 
     if (wait_res == WAIT_TIMEOUT) {
         res->timed_out = 1;
@@ -172,35 +227,7 @@ W1_EXPORT W1SandboxResult* w1_sandbox_execute(const char* command, const W1Sandb
     }
 
     CloseHandle(pi.hProcess);
-
-    // Read stdout stream
-    DWORD bytesRead = 0;
-    char buffer[4096];
-    size_t total_stdout = 0;
-    while (ReadFile(hStdOutRead, buffer, sizeof(buffer), &bytesRead, NULL) && bytesRead > 0) {
-        char* new_buf = (char*)realloc(res->stdout_buffer, total_stdout + bytesRead + 1);
-        if (new_buf) {
-            res->stdout_buffer = new_buf;
-            memcpy(res->stdout_buffer + total_stdout, buffer, bytesRead);
-            total_stdout += bytesRead;
-            res->stdout_buffer[total_stdout] = '\0';
-        }
-    }
-    res->stdout_len = (uint64_t)total_stdout;
     CloseHandle(hStdOutRead);
-
-    // Read stderr stream
-    size_t total_stderr = 0;
-    while (ReadFile(hStdErrRead, buffer, sizeof(buffer), &bytesRead, NULL) && bytesRead > 0) {
-        char* new_buf = (char*)realloc(res->stderr_buffer, total_stderr + bytesRead + 1);
-        if (new_buf) {
-            res->stderr_buffer = new_buf;
-            memcpy(res->stderr_buffer + total_stderr, buffer, bytesRead);
-            total_stderr += bytesRead;
-            res->stderr_buffer[total_stderr] = '\0';
-        }
-    }
-    res->stderr_len = (uint64_t)total_stderr;
     CloseHandle(hStdErrRead);
 
     return res;

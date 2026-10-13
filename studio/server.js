@@ -11,12 +11,14 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
+const crypto = require('crypto');
 const { spawn } = require('child_process');
 
 const PORT = parseInt(process.env.PORT || '8080', 10);
-const HOST = process.env.HOST || '0.0.0.0';
+const HOST = process.env.HOST || '127.0.0.1';
 const ROOT_DIR = path.resolve(__dirname, '..');
 const PUBLIC_DIR = path.join(__dirname, 'public');
+const RUNTIME_TOKEN = process.env.NEXUS_STUDIO_TOKEN || crypto.randomBytes(32).toString('hex');
 
 // Active SSE client connections
 const sseClients = new Set();
@@ -44,18 +46,41 @@ const MIME_TYPES = {
 };
 
 function serveStatic(req, res, pathname) {
-  let filePath = path.join(PUBLIC_DIR, pathname === '/' ? 'index.html' : pathname);
-  
-  // Security check: prevent directory traversal
+  const normalized = path.posix.normalize(pathname).replace(/^(\.\.[\/\\])+/, '');
+  const isRoot = normalized === '/' || normalized === '/index.html';
+  const targetFile = isRoot ? 'index.html' : normalized.replace(/^\/+/, '');
+  const filePath = path.resolve(PUBLIC_DIR, targetFile);
+
+  // Strict directory traversal prevention
   if (!filePath.startsWith(PUBLIC_DIR)) {
     res.writeHead(403, { 'Content-Type': 'text/plain' });
-    return res.end('Access Denied');
+    return res.end('Access Denied: Path Traversal Detected');
   }
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       return res.end('404 Not Found');
+    }
+
+    if (isRoot) {
+      // Injects ephemeral authentication token for secure UI execution
+      fs.readFile(filePath, 'utf8', (readErr, content) => {
+        if (readErr) {
+          res.writeHead(500, { 'Content-Type': 'text/plain' });
+          return res.end('Internal Server Error');
+        }
+        const injected = content.replace(
+          '</head>',
+          `  <meta name="nexus-auth-token" content="${RUNTIME_TOKEN}">\n</head>`
+        );
+        res.writeHead(200, {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+        });
+        res.end(injected);
+      });
+      return;
     }
 
     const ext = path.extname(filePath).toLowerCase();
@@ -73,14 +98,31 @@ const server = http.createServer((req, res) => {
   const reqUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = reqUrl.pathname;
 
-  // CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  // Hardened CORS: allow only loopback / localhost origins
+  const origin = req.headers.origin || '';
+  if (origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', `http://127.0.0.1:${PORT}`);
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Nexus-Auth-Token');
 
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
     return res.end();
+  }
+
+  // 0. API: /api/auth/token (Local loopback handshake only)
+  if (pathname === '/api/auth/token' && req.method === 'GET') {
+    const remoteIp = req.socket.remoteAddress || '';
+    const isLocal = remoteIp === '127.0.0.1' || remoteIp === '::1' || remoteIp === '::ffff:127.0.0.1';
+    if (!isLocal) {
+      res.writeHead(403, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'Access Denied: Loopback required' }));
+    }
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({ token: RUNTIME_TOKEN }));
   }
 
   // 1. API: /api/status
@@ -175,21 +217,43 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // 5. API: /api/execute (Trigger execution test)
+  // 5. API: /api/execute (Trigger execution test - Authenticated)
   if (pathname === '/api/execute' && req.method === 'POST') {
+    // Session token authorization check
+    const authHeader = req.headers['x-nexus-auth-token'] || '';
+    const authQuery = reqUrl.searchParams.get('token') || '';
+    if (authHeader !== RUNTIME_TOKEN && authQuery !== RUNTIME_TOKEN) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'Unauthorized: Missing or invalid X-Nexus-Auth-Token' }));
+    }
+
     let body = '';
-    req.on('data', chunk => { body += chunk; });
+    req.on('data', chunk => { 
+      body += chunk; 
+      if (body.length > 65536) {
+        req.destroy(); // Protect against payload size DoS
+      }
+    });
     req.on('end', () => {
       try {
         const payload = JSON.parse(body || '{}');
-        const command = payload.command || 'echo W1-NEXUS_STUDIO_DISPATCH';
+        const command = (payload.command || 'echo W1-NEXUS_STUDIO_DISPATCH').trim();
+
+        if (command.length > 4096) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          return res.end(JSON.stringify({ error: 'Command exceeds max length (4096 characters)' }));
+        }
 
         broadcastEvent('dispatch', { command, timestamp: Date.now() });
 
-        // Execute via python native sandbox bridge
+        // Auto-detect virtual environment python binary or fallback to system python
+        const venvPyWin = path.join(ROOT_DIR, '.venv_benchmark', 'Scripts', 'python.exe');
+        const venvPyPosix = path.join(ROOT_DIR, '.venv_benchmark', 'bin', 'python');
+        const PYTHON_BIN = process.env.PYTHON_EXEC || (fs.existsSync(venvPyWin) ? venvPyWin : (fs.existsSync(venvPyPosix) ? venvPyPosix : 'python'));
+
         const pyScript = `import sys; from pathlib import Path; sys.path.insert(0, 'src'); from w1cip.native_sandbox import execute_sandboxed; import json; res = execute_sandboxed(${JSON.stringify(command)}, timeout_s=10.0); print(json.dumps({'exit_code': res.exit_code, 'stdout': res.stdout, 'elapsed_ms': res.elapsed_ms, 'backend': res.backend}))`;
-        
-        const pyProc = spawn('python', ['-c', pyScript], { cwd: ROOT_DIR });
+
+        const pyProc = spawn(PYTHON_BIN, ['-c', pyScript], { cwd: ROOT_DIR });
         let out = '';
         let errOut = '';
 

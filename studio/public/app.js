@@ -257,12 +257,23 @@ function initSandboxRunner() {
     btn.textContent = 'Executing...';
 
     try {
+      const metaToken = document.querySelector('meta[name="nexus-auth-token"]');
+      const token = metaToken ? metaToken.getAttribute('content') : '';
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) {
+        headers['X-Nexus-Auth-Token'] = token;
+      }
+
       const res = await fetch('/api/execute', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ command: cmd }),
       });
       const data = await res.json();
+      if (!res.ok) {
+        appendSandboxLog(`[SECURITY/HTTP ${res.status}]: ${data.error || 'Execution rejected'}`);
+        return;
+      }
       appendSandboxLog(`[Exit Code: ${data.exit_code} | Duration: ${data.elapsed_ms}ms | Backend: ${data.backend}]\n${data.stdout || ''}${data.stderr || ''}`);
     } catch (err) {
       appendSandboxLog(`[ERROR]: ${err.message}`);

@@ -19,6 +19,31 @@ const HOST = process.env.HOST || '127.0.0.1';
 const ROOT_DIR = path.resolve(__dirname, '..');
 const PUBLIC_DIR = path.join(__dirname, 'public');
 const RUNTIME_TOKEN = process.env.NEXUS_STUDIO_TOKEN || crypto.randomBytes(32).toString('hex');
+const MAX_SSE_CLIENTS = 16;
+const MAX_CONCURRENT_EXEC = 2;
+let activeExecutions = 0;
+
+// DNS-rebinding defense: only accept requests addressed to loopback host names
+function isAllowedHost(hostHeader, port) {
+  if (!hostHeader) return false;
+  const allowed = [`127.0.0.1:${port}`, `localhost:${port}`, `[::1]:${port}`];
+  return allowed.includes(hostHeader.toLowerCase());
+}
+
+// Constant-time token comparison (prevents timing side-channel)
+function tokenMatches(candidate) {
+  if (typeof candidate !== 'string' || candidate.length === 0) return false;
+  const a = Buffer.from(candidate);
+  const b = Buffer.from(RUNTIME_TOKEN);
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
+
+function applySecurityHeaders(res) {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Referrer-Policy', 'no-referrer');
+  res.setHeader('Content-Security-Policy', "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'");
+}
 
 // Active SSE client connections
 const sseClients = new Set();
@@ -52,7 +77,7 @@ function serveStatic(req, res, pathname) {
   const filePath = path.resolve(PUBLIC_DIR, targetFile);
 
   // Strict directory traversal prevention
-  if (!filePath.startsWith(PUBLIC_DIR)) {
+  if (filePath !== PUBLIC_DIR && !filePath.startsWith(PUBLIC_DIR + path.sep)) {
     res.writeHead(403, { 'Content-Type': 'text/plain' });
     return res.end('Access Denied: Path Traversal Detected');
   }
@@ -98,31 +123,26 @@ const server = http.createServer((req, res) => {
   const reqUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = reqUrl.pathname;
 
+  applySecurityHeaders(res);
+
+  // Reject DNS-rebinding / foreign Host headers before anything else
+  if (!isAllowedHost(req.headers.host, server.address() ? server.address().port : PORT)) {
+    res.writeHead(421, { 'Content-Type': 'text/plain' });
+    return res.end('Misdirected Request: Host not allowed');
+  }
+
   // Hardened CORS: allow only loopback / localhost origins
   const origin = req.headers.origin || '';
   if (origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
     res.setHeader('Access-Control-Allow-Origin', origin);
-  } else {
-    res.setHeader('Access-Control-Allow-Origin', `http://127.0.0.1:${PORT}`);
+    res.setHeader('Vary', 'Origin');
   }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Nexus-Auth-Token');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Nexus-Auth-Token');
 
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
     return res.end();
-  }
-
-  // 0. API: /api/auth/token (Local loopback handshake only)
-  if (pathname === '/api/auth/token' && req.method === 'GET') {
-    const remoteIp = req.socket.remoteAddress || '';
-    const isLocal = remoteIp === '127.0.0.1' || remoteIp === '::1' || remoteIp === '::ffff:127.0.0.1';
-    if (!isLocal) {
-      res.writeHead(403, { 'Content-Type': 'application/json' });
-      return res.end(JSON.stringify({ error: 'Access Denied: Loopback required' }));
-    }
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    return res.end(JSON.stringify({ token: RUNTIME_TOKEN }));
   }
 
   // 1. API: /api/status
@@ -198,8 +218,16 @@ const server = http.createServer((req, res) => {
     return res.end(JSON.stringify(dagData, null, 2));
   }
 
-  // 4. API: /api/events (Server-Sent Events)
+  // 4. API: /api/events (Server-Sent Events) — token required (EventSource cannot send headers)
   if (pathname === '/api/events' && req.method === 'GET') {
+    if (!tokenMatches(reqUrl.searchParams.get('token') || '')) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'Unauthorized' }));
+    }
+    if (sseClients.size >= MAX_SSE_CLIENTS) {
+      res.writeHead(503, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'Too many telemetry clients' }));
+    }
     res.writeHead(200, {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
@@ -219,12 +247,14 @@ const server = http.createServer((req, res) => {
 
   // 5. API: /api/execute (Trigger execution test - Authenticated)
   if (pathname === '/api/execute' && req.method === 'POST') {
-    // Session token authorization check
-    const authHeader = req.headers['x-nexus-auth-token'] || '';
-    const authQuery = reqUrl.searchParams.get('token') || '';
-    if (authHeader !== RUNTIME_TOKEN && authQuery !== RUNTIME_TOKEN) {
+    // Header-only, constant-time token check (query tokens would leak into logs/history)
+    if (!tokenMatches(req.headers['x-nexus-auth-token'] || '')) {
       res.writeHead(401, { 'Content-Type': 'application/json' });
       return res.end(JSON.stringify({ error: 'Unauthorized: Missing or invalid X-Nexus-Auth-Token' }));
+    }
+    if (activeExecutions >= MAX_CONCURRENT_EXEC) {
+      res.writeHead(429, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'Too many concurrent executions' }));
     }
 
     let body = '';
@@ -237,7 +267,7 @@ const server = http.createServer((req, res) => {
     req.on('end', () => {
       try {
         const payload = JSON.parse(body || '{}');
-        const command = (payload.command || 'echo W1-NEXUS_STUDIO_DISPATCH').trim();
+        const command = String(payload.command || 'echo W1-NEXUS_STUDIO_DISPATCH').trim();
 
         if (command.length > 4096) {
           res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -251,9 +281,12 @@ const server = http.createServer((req, res) => {
         const venvPyPosix = path.join(ROOT_DIR, '.venv_benchmark', 'bin', 'python');
         const PYTHON_BIN = process.env.PYTHON_EXEC || (fs.existsSync(venvPyWin) ? venvPyWin : (fs.existsSync(venvPyPosix) ? venvPyPosix : 'python'));
 
-        const pyScript = `import sys; from pathlib import Path; sys.path.insert(0, 'src'); from w1cip.native_sandbox import execute_sandboxed; import json; res = execute_sandboxed(${JSON.stringify(command)}, timeout_s=10.0); print(json.dumps({'exit_code': res.exit_code, 'stdout': res.stdout, 'elapsed_ms': res.elapsed_ms, 'backend': res.backend}))`;
+        // Command is passed as argv[1] — never interpolated into Python source code
+        const pyScript = "import sys, json; sys.path.insert(0, 'src'); from w1cip.native_sandbox import execute_sandboxed; res = execute_sandboxed(sys.argv[1], timeout_s=10.0); print(json.dumps({'exit_code': res.exit_code, 'stdout': res.stdout, 'stderr': res.stderr, 'elapsed_ms': res.elapsed_ms, 'backend': res.backend}))";
 
-        const pyProc = spawn(PYTHON_BIN, ['-c', pyScript], { cwd: ROOT_DIR });
+        activeExecutions++;
+        const pyProc = spawn(PYTHON_BIN, ['-c', pyScript, command], { cwd: ROOT_DIR });
+        pyProc.on('close', () => { activeExecutions--; });
         let out = '';
         let errOut = '';
 

@@ -144,6 +144,57 @@ class TestSecurityAudit(unittest.TestCase):
             body = resp.read().decode("utf-8")
             self.assertNotIn("sk-", body)
             self.assertNotIn("nvapi-", body)
+    def _raw(self, method, path, host=None, headers=None, body=None):
+        import http.client
+        conn = http.client.HTTPConnection("127.0.0.1", self.test_port, timeout=8)
+        h = dict(headers or {})
+        h["Host"] = host or f"127.0.0.1:{self.test_port}"
+        conn.request(method, path, body=body, headers=h)
+        resp = conn.getresponse()
+        data = resp.read().decode("utf-8", errors="replace")
+        hdrs = dict(resp.getheaders())
+        conn.close()
+        return resp.status, data, hdrs
+
+    def test_08_dns_rebinding_host_rejected(self):
+        """A foreign Host header (DNS rebinding) must not receive the page or the token."""
+        status, body, _ = self._raw("GET", "/", host="evil.example.com")
+        self.assertEqual(status, 421)
+        self.assertNotIn(self.test_token, body)
+
+    def test_09_query_token_rejected_on_execute(self):
+        """Tokens in the query string must not authorize execution."""
+        status, _, _ = self._raw(
+            "POST", f"/api/execute?token={self.test_token}",
+            headers={"Content-Type": "application/json"},
+            body=json.dumps({"command": "echo X"}),
+        )
+        self.assertEqual(status, 401)
+
+    def test_10_sse_requires_token(self):
+        status, _, _ = self._raw("GET", "/api/events")
+        self.assertEqual(status, 401)
+
+    def test_11_security_headers_present(self):
+        status, _, hdrs = self._raw("GET", "/api/status")
+        self.assertEqual(status, 200)
+        self.assertEqual(hdrs.get("X-Content-Type-Options"), "nosniff")
+        self.assertEqual(hdrs.get("X-Frame-Options"), "DENY")
+        self.assertIn("frame-ancestors 'none'", hdrs.get("Content-Security-Policy", ""))
+        self.assertNotEqual(hdrs.get("Access-Control-Allow-Origin"), "*")
+
+    def test_12_python_source_injection_neutralized(self):
+        """Quotes/newlines in the command must not break out into the Python bridge."""
+        payload = "echo SAFE\"); import os; print(\"PWNED"
+        status, body, _ = self._raw(
+            "POST", "/api/execute",
+            headers={"Content-Type": "application/json", "X-Nexus-Auth-Token": self.test_token},
+            body=json.dumps({"command": payload}),
+        )
+        self.assertEqual(status, 200)
+        data = json.loads(body)
+        self.assertEqual(data.get("backend"), "native_c_win32_job")
+        self.assertNotIn("\nPWNED", data.get("stdout", ""))
 
 
 if __name__ == "__main__":

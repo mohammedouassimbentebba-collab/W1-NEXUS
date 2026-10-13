@@ -45,7 +45,9 @@ function initSSE() {
   const ssePill = document.getElementById('sse-pill');
 
   try {
-    const evtSource = new EventSource('/api/events');
+    const meta = document.querySelector('meta[name="nexus-auth-token"]');
+    const sseToken = meta ? meta.getAttribute('content') : '';
+    const evtSource = new EventSource(`/api/events?token=${encodeURIComponent(sseToken)}`);
 
     evtSource.addEventListener('connected', (e) => {
       console.log('[SSE Connected]:', e.data);

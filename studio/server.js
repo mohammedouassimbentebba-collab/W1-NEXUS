@@ -21,6 +21,7 @@ const PUBLIC_DIR = path.join(__dirname, 'public');
 const RUNTIME_TOKEN = process.env.NEXUS_STUDIO_TOKEN || crypto.randomBytes(32).toString('hex');
 const MAX_SSE_CLIENTS = 16;
 const MAX_CONCURRENT_EXEC = 2;
+const MAX_PAYLOAD_BYTES = parseInt(process.env.NEXUS_MAX_PAYLOAD_BYTES || '33554432', 10); // 32MB default (4M to 8M tokens envelope)
 let activeExecutions = 0;
 
 // DNS-rebinding defense: only accept requests addressed to loopback host names
@@ -165,6 +166,12 @@ const server = http.createServer((req, res) => {
         memory_envelope_mb: 2048,
         forkbomb_guard: true,
       },
+      ingestion_pipeline: {
+        max_payload_bytes: MAX_PAYLOAD_BYTES,
+        max_payload_mb: Math.round(MAX_PAYLOAD_BYTES / (1024 * 1024)),
+        token_capacity_envelope: '4M-8M_TOKENS',
+        streaming_supported: true,
+      },
       models: [
         { id: 'deepseek-v4-flash', name: 'DeepSeek V4 Flash', role: 'Chief Attestor / Synthesizer', status: 'ONLINE' },
         { id: 'claude-opus-5', name: 'Claude Opus 5', role: 'Lead Architect & Executor', status: 'UPSTREAM_POOLED' },
@@ -260,8 +267,8 @@ const server = http.createServer((req, res) => {
     let body = '';
     req.on('data', chunk => { 
       body += chunk; 
-      if (body.length > 65536) {
-        req.destroy(); // Protect against payload size DoS
+      if (body.length > MAX_PAYLOAD_BYTES) {
+        req.destroy(); // Protect against payload size DoS beyond 32MB envelope
       }
     });
     req.on('end', () => {
@@ -308,6 +315,53 @@ const server = http.createServer((req, res) => {
         res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: err.message }));
       }
+    });
+    return;
+  }
+
+  // 6. API: /api/ingest (High-Throughput Massive Token Ingestion & Cryptographic Verification)
+  if (pathname === '/api/ingest' && req.method === 'POST') {
+    if (!tokenMatches(req.headers['x-nexus-auth-token'] || '')) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'Unauthorized: Missing or invalid X-Nexus-Auth-Token' }));
+    }
+
+    const tStart = Date.now();
+    const hash = crypto.createHash('sha256');
+    let totalBytes = 0;
+
+    req.on('data', chunk => {
+      totalBytes += chunk.length;
+      if (totalBytes > MAX_PAYLOAD_BYTES) {
+        res.writeHead(413, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ error: `Payload too large. Exceeds limit of ${MAX_PAYLOAD_BYTES} bytes.` }));
+      }
+      hash.update(chunk);
+    });
+
+    req.on('end', () => {
+      const elapsedMs = Math.max(1, Date.now() - tStart);
+      const digest = hash.digest('hex');
+      const estimatedTokens = Math.round(totalBytes / 4);
+      const elapsedSec = elapsedMs / 1000;
+      const throughputMBs = ((totalBytes / (1024 * 1024)) / elapsedSec).toFixed(2);
+      const tokensPerSec = Math.round(estimatedTokens / elapsedSec);
+
+      const telemetry = {
+        status: 'INGESTED',
+        bytes_received: totalBytes,
+        estimated_tokens: estimatedTokens,
+        digest_sha256: digest,
+        elapsed_ms: elapsedMs,
+        throughput_mb_sec: parseFloat(throughputMBs),
+        tokens_per_sec: tokensPerSec,
+        capacity_envelope: '4M_TOKEN_READY',
+      };
+
+      broadcastEvent('ingest_telemetry', telemetry);
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(telemetry));
     });
     return;
   }
